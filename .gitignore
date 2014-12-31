@@ -1,0 +1,30 @@
+# Private
+.vlad
+.ssh
+.keys
+.gem
+.dockercfg
+.gitconfig.private
+
+# Ignore any file with '.local' in the name
+*.local*
+
+# Folder view configuration files
+.DS_Store
+Desktop.ini
+
+# Thumbnail cache files
+._*
+Thumbs.db
+
+# Files that might appear on external disks
+.Spotlight-V100
+.Trashes
+
+# Vim
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~

@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+###############################################################################
+# This script installs the dotfiles
+# @author Vlad Ghinea
+###############################################################################
+
+# Exit immediately if a command exits with a non-zero status
+set -e
+
+# Read dotfiles directory
+DOTFILES="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Load system functions
+if [[ -s $DOTFILES/.functions ]]; then
+  source $DOTFILES/.functions && \
+    e_header 'Set-up System' && \
+    e_ok 'Loaded system functions'
+else
+  echo " [FATAL] '.functions' file was not found"; exit 1
+fi
+
+# Link dotfiles (excluding unnecessary files and including some nondot)
+link_dotfiles $(find $DOTFILES -maxdepth 1 -name '.*' \
+  ! -path '*/.git' \
+  ! -path '*/.gitignore' \
+  ! -path '*/.gitmodules' \
+  ! -path '*/.DS_Store' \
+  -o -name 'bin')
+
+e_header 'Permissions'
+find ~/bin/ -type f -exec chmod 755 {} \; && \
+  e_ok '~/bin/* is set to 755'
+find ~/.ssh/ -type f -name 'id_*' -exec chmod 600 {} \; && \
+  e_ok '~/.ssh/id* is set to 600'
+
+e_footer 'Done' && exit 0

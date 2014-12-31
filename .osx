@@ -1,0 +1,19 @@
+# MAC SPECIFIC
+is_osx || return 1
+
+# Load Boot2Docker variables
+b2d() {
+  $(boot2docker shellinit 2>/dev/null) || boot2docker start && \
+                                          $(boot2docker shellinit 2>/dev/null)
+}
+
+# ALIASES
+
+# Suspend
+alias away='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
+
+# Show/hide hidden files in Finder
+alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+# vim: ft=sh

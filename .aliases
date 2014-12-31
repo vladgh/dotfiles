@@ -1,0 +1,55 @@
+# Aliases ######################################################################
+
+# List
+alias ll='ls -lahpF' # Ubuntu & Mac compatible
+
+# Reload the shell (i.e. invoke as a login shell)
+alias reload="exec $SHELL -l"
+
+# Network
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias flush="dscacheutil -flushcache" # Flush Directory Service cache
+
+# Git
+alias cola='(~/git-cola/bin/git-cola &)'
+alias dag='(~/git-cola/bin/git-dag &)'
+
+# Vim
+alias gvim="gvim 2>/dev/null"
+
+# Temp Dir
+alias tmp="cd `mktemp -d 2>/dev/null || mktemp -d -t 'mytmpdir'`"
+alias tmpf="vim `mktemp 2>/dev/null || mktemp -t 'mytmpfile'`"
+
+# Tmux
+alias ta="tmux attach-session -t"
+alias tc="tmux new-session -s"
+alias tl="tmux list-sessions"
+
+# Screen
+alias sc="screen -S" # Create
+alias sl="screen -ls" # List
+alias sr="screen -r" # Resume
+
+# DOCKER #######################################################################
+
+# Aliases
+alias dl='docker ps -lq'
+alias dlc='docker ps -a'
+alias dli='docker images -a'
+
+# Kill all running containers.
+alias docker_killall='docker kill $(docker ps -q)'
+
+# Delete all stopped containers.
+alias docker_cleanc='printf "\n>>> Deleting stopped containers\n\n" && docker rm $(docker ps --no-trunc -aq)'
+
+# Delete all untagged images.
+alias docker_cleani='printf "\n>>> Deleting untagged images\n\n" && docker images -q --filter "dangling=true" | xargs docker rmi'
+
+# Delete all stopped containers and untagged images.
+alias docker_clean='docker_cleanc || true && docker_cleani'
+
+################################################################################
+
+# vim: ft=sh

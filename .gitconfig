@@ -1,0 +1,35 @@
+[alias]
+  st = !git fetch && git status
+  co = checkout
+  ci = commit
+  br = branch
+  mg = merge --no-ff
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all --decorate
+  smup = !"git fetch && git pull origin master && git submodule foreach --recursive git fetch && git submodule foreach --recursive git pull origin master && git commit -a -m 'Submodule updates' && git push"
+  cm = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f; git commit -v"
+  cmm = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f; git commit -m"
+  wip = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f; git commit -m \"WIP\""
+  unwip = !"git log -n 1 | grep -q -c WIP && git reset HEAD~1"
+
+[core]
+  autocrlf = false
+  excludesfile = ~/.gitignore.global
+
+[color]
+  ui = auto
+  diff = auto
+  status = auto
+  branch = auto
+  interactive = auto
+  grep = auto
+
+[push]
+  default = tracking
+
+[include]
+  path = ~/.gitconfig.private
+
+[filter "media"]
+  required = true
+  clean = git media clean %f
+  smudge = git media smudge %f
