@@ -9,6 +9,9 @@ b2d() {
 
 # ALIASES
 
+# Reload DNS on OSX
+alias flushdns="dscacheutil -flushcache"
+
 # Suspend
 alias away='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
 

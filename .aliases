@@ -31,6 +31,9 @@ alias sc="screen -S" # Create
 alias sl="screen -ls" # List
 alias sr="screen -r" # Resume
 
+# Generate Salt
+alias genSalt='openssl rand -base64 32'
+
 # DOCKER #######################################################################
 
 # Aliases

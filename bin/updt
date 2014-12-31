@@ -24,9 +24,9 @@ updt_ubuntu() {
 
 updt_brew() {
   is_osx || return
-  brew doctor
   brew update
   brew upgrade
+  brew doctor
   brew cleanup
 }
 

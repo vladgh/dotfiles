@@ -48,7 +48,7 @@ extract () {
 }
 
 # Make a directory and jump directly into it
-mkd() { mkdir -p "$1" && cd "$1" ;}
+mcd() { mkdir -p "$1" && cd "$1" ;}
 
 ## VMware
 vmware_install() {

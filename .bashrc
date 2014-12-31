@@ -21,8 +21,12 @@ HISTFILESIZE=2000
 HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help";
 
 # Prefer US English and use UTF-8
-export LANG="en_US.UTF-8";
-export LC_ALL="en_US.UTF-8";
+# enable en_US locale w/ utf-8 encodings if not already configured
+: ${LANG:="en_US.UTF-8"}
+: ${LANGUAGE:="en"}
+: ${LC_CTYPE:="en_US.UTF-8"}
+: ${LC_ALL:="en_US.UTF-8"}
+export LANG LANGUAGE LC_CTYPE LC_ALL
 
 # Don’t clear the screen after quitting a manual page
 export MANPAGER="less -X";
