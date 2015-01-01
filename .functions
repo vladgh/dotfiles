@@ -95,4 +95,12 @@ link_dotfiles(){
   )
 }
 
+dotfiles_permissions(){
+  e_header 'Permissions'
+  find ~/bin/ -type f -exec chmod 755 {} \; && \
+    e_ok '~/bin/* is set to 755'
+  find ~/.ssh/ -type f -name 'id_*' -exec chmod 600 {} \; && \
+    e_ok '~/.ssh/id* is set to 600'
+}
+
 # vim: ft=sh

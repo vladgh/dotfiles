@@ -12,13 +12,8 @@ set -e
 DOTFILES="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Load system functions
-if [[ -s $DOTFILES/.functions ]]; then
-  source $DOTFILES/.functions && \
-    e_header 'Set-up System' && \
-    e_ok 'Loaded system functions'
-else
-  echo " [FATAL] '.functions' file was not found"; exit 1
-fi
+[[ -s $DOTFILES/.functions ]] && source $DOTFILES/.functions || \
+  ( echo '.functions file was not found'; exit 1 )
 
 # Link dotfiles (excluding unnecessary files and including some nondot)
 link_dotfiles $(find $DOTFILES -maxdepth 1 -name '.*' \
@@ -28,10 +23,7 @@ link_dotfiles $(find $DOTFILES -maxdepth 1 -name '.*' \
   ! -path '*/.DS_Store' \
   -o -name 'bin')
 
-e_header 'Permissions'
-find ~/bin/ -type f -exec chmod 755 {} \; && \
-  e_ok '~/bin/* is set to 755'
-find ~/.ssh/ -type f -name 'id_*' -exec chmod 600 {} \; && \
-  e_ok '~/.ssh/id* is set to 600'
+# Fix permissions
+dotfiles_permissions
 
 e_footer 'Done' && exit 0

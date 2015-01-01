@@ -4,7 +4,7 @@
 alias ll='ls -lahpF' # Ubuntu & Mac compatible
 
 # Reload the shell (i.e. invoke as a login shell)
-alias reload="exec $SHELL -l"
+alias reload="echo 'Reloading BASH' && . ~/.bash_profile"
 
 # Network
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
