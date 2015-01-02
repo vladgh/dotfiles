@@ -8,6 +8,9 @@ b2d() {
 }
 
 # ALIASES
+# MVim
+alias vi='mvim'
+alias vim='mvim'
 
 # Reload DNS on OSX
 alias flushdns="dscacheutil -flushcache"
