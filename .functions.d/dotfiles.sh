@@ -20,7 +20,7 @@ link_dotfiles(){
           ln -sfn $dotfile $old && \
           e_ok "Replaced link for $old to $dotfile"
       else # Backup old file if it's not a symlink
-        mv $old $bakdir && \
+        mv $old $bakdir/ && \
           e_ok "$old saved at $bakdir"
         ln -s $dotfile $old && \
           e_ok "Linked $old to $dotfile"
@@ -45,6 +45,6 @@ dotfiles_permissions(){
 # Clean up broken symlinks
 dotfiles_delete_broken_symlinks(){
   e_header 'Clean-up'
-  find -L ~/ -type l -maxdepth 1 -exec rm {} +
+  find -L ~/ -maxdepth 1 -type l -exec rm {} +
   e_ok 'Broken symlinks deleted'
 }
