@@ -9,7 +9,7 @@
 set -e
 
 # Read dotfiles directory
-DOTFILES="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DOTFILES="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd -P )"
 
 # Load system functions
 [[ -s $DOTFILES/.functions ]] && source $DOTFILES/.functions || \
@@ -23,7 +23,8 @@ link_dotfiles $(find $DOTFILES -maxdepth 1 -name '.*' \
   ! -path '*/.DS_Store' \
   -o -name 'bin')
 
-# Fix permissions
+# Fix permissions && clean broken symlinks
 dotfiles_permissions
+dotfiles_delete_broken_symlinks
 
 e_footer 'Done' && exit 0

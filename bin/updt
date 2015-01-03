@@ -5,10 +5,10 @@
 COMMAND=$1
 AVAILABLE='
   all
+  aws
   ubuntu
   brew
   vim
-  aws
   ruby
   cola
   docker_images
@@ -62,13 +62,15 @@ updt_cola() {
 }
 
 updt_docker_images() {
-  which docker > /dev/null || return
+  hash docker >/dev/null 2>&1 || return
   for img in $(docker images 2>/dev/null | awk '$0 !~ /<none>/ {print $1":"$2}' | tail -n +2 | sort -u); do
     docker pull $img
   done
 }
 
 updt_aws() {
+  hash aws >/dev/null 2>&1 || return
+  echo 'Upgrading AWS CLI'
   sudo pip install --upgrade awscli
 }
 
