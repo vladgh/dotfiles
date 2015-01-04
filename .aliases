@@ -40,6 +40,7 @@ alias genSalt='openssl rand -base64 32'
 alias dl='docker ps -lq'
 alias dlc='docker ps -a'
 alias dli='docker images -a'
+alias dru='docker run -it ubuntu bash'
 
 # Kill all running containers.
 alias docker_killall='docker kill $(docker ps -q)'
