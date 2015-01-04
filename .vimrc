@@ -204,17 +204,16 @@ command Spaces autocmd BufWritePre * :%s/\s\+$//e " Delete all trailing whitespa
 " END COMMANDS ----------------------------------------------------------------
 
 " OS SPECIFIC ----------------------------------------------------------------
-
-if has('mac')
-  set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
-elseif has('win32') || has('win64')
-  set guifont=Consolas:h9
-  set lines=35 columns=150 " Window height & width
-  set dir=$TEMP
-else
-  set guifont=Monospace\ 9
-  set lines=45 columns=150 " Window height & width
-end
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
+  elseif has("gui_macvim")
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h11
+  elseif has("gui_win32")
+    set guifont=Consolas:h9
+    set dir=$TEMP
+  endif
+endif
 
 " Tab Navigation
 nmap <C-S-tab> :tabprevious<cr>
