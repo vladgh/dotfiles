@@ -1,4 +1,10 @@
 ### Functions #################################################################
+#
+# Can be sourced directly with:
+# $ source <(curl -sSL https://raw.githubusercontent.com/vladgh/dotfiles/master/.functions)
+#
+###############################################################################
+
 ## Logging stuff.
 is_color()  { [[ $TERM =~ xterm ]] ;}
 is_silent() { [[ $silent == true ]] ;}
