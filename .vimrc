@@ -159,7 +159,13 @@ let g:rubycomplete_classes_in_global = 1
 let g:rubycomplete_rails = 1
 
 " NERDTree {
-"map <leader>l :NERDTreeFind<CR><C-w>w
+" Autostart
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Close if it's the only window
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+noremap <leader>l :NERDTreeFind<CR><C-w>w
 noremap <C-E><C-E> :NERDTree<CR>
 noremap <C-E><C-C> :NERDTreeClose<CR>
 let g:NERDTreeShowBookmarks = 1
