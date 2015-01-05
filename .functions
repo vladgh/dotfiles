@@ -1,7 +1,9 @@
 ### Functions #################################################################
 #
 # Can be sourced directly with:
-# $ source <(curl -sSL https://raw.githubusercontent.com/vladgh/dotfiles/master/.functions)
+# $ source <(curl -sSL https://raw.githubusercontent.com/vladgh/dotfiles/master/.functions) || true
+# Note: if script has 'set -e' in order to exit on errors, then '|| true'
+# should be appended
 #
 ###############################################################################
 
