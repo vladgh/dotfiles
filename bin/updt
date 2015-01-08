@@ -71,6 +71,8 @@ updt_aws() {
   hash aws >/dev/null 2>&1 || return
   echo 'Upgrading AWS CLI'
   sudo pip install --upgrade awscli
+  echo 'Upgrading AWS Elastic Beanstalk'
+  sudo pip install --upgrade awsebcli
 }
 
 updt_all() {
