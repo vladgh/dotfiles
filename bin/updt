@@ -42,7 +42,7 @@ updt_vim() {
 }
 
 updt_ruby() {
-  env | grep -q ^rvm_version= || return
+  is_cmd rvm || return
   rvm get stable
   gem update --system
   gem update
@@ -61,7 +61,7 @@ updt_cola() {
 }
 
 updt_docker_images() {
-  hash docker >/dev/null 2>&1 || return
+  is_cmd docker || return
   for img in $(docker images 2>/dev/null | awk '$0 !~ /<none>/ {print $1":"$2}' | tail -n +2 | sort -u); do
     docker pull $img
   done
