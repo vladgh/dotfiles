@@ -3,4 +3,12 @@
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
 
+# AWS CLI
+complete -C aws_completer aws
+
+# AWS Elastic Beanstalk CLI
+[ ! -s /etc/bash_completion.d/eb_completion.extra ] && \
+  [ -s /usr/local/bin/eb_completion.bash ] && \
+  . /usr/local/bin/eb_completion.bash
+
 # vim: ft=sh
