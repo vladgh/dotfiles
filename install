@@ -15,6 +15,57 @@ DOTFILES="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd -P )"
 [[ -s $DOTFILES/.functions ]] && source $DOTFILES/.functions || \
   ( echo '.functions file was not found'; exit 1 )
 
+# Create links for dotfiles
+link_dotfiles(){
+  [[ -n $@ ]] || return 1
+
+  e_header 'Symlinks'
+  bakdir="${HOME}/backups/dotfiles.$(date "+%Y_%m_%d-%H_%M_%S").bak"
+  mkdir -p $bakdir
+
+  (
+  cd $HOME
+  for dotfile in $@; do
+    dot=$(basename $dotfile)
+    old=${HOME}/${dot}
+
+    if [ -s $old ]; then # IF old file exists
+      if [ -L $old ]; then # Old file is a symlink
+        if [ "$(readlink $old)" != "$dotfile" ]; then # Symlink is not the same
+          rm $old && \
+            ln -sfn $dotfile $old && \
+            e_ok "Replaced link for $old to $dotfile"
+        fi
+      else # Backup old file if it's not a symlink
+        mv $old $bakdir/ && \
+          e_ok "$old saved at $bakdir"
+        ln -s $dotfile $old && \
+          e_ok "Linked $old to $dotfile"
+      fi
+    else # Create symlink if the oldfile doesn't exist
+      ln -sfn $dotfile $old && \
+        e_ok "Linked $old to $dotfile"
+    fi
+  done
+  )
+}
+
+# Set-up permissions for dotfiles
+dotfiles_permissions(){
+  e_header 'Permissions'
+  find ${HOME}/bin/ -type f -exec chmod 755 {} \; && \
+    e_ok '~/bin/* is set to 755'
+  find ${HOME}/.ssh/ -type f -name 'id_*' -exec chmod 600 {} \; && \
+    e_ok '~/.ssh/id* is set to 600'
+}
+
+# Clean up broken symlinks
+dotfiles_delete_broken_symlinks(){
+  e_header 'Clean-up'
+  find -L ${HOME}/ -maxdepth 1 -type l -exec rm {} +
+  e_ok 'Broken symlinks deleted'
+}
+
 # Link dotfiles (excluding unnecessary files and including some nondot)
 link_dotfiles $(find $DOTFILES -maxdepth 1 -name '.*' \
   ! -path '*/.git' \
