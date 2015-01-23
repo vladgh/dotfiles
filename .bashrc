@@ -104,6 +104,6 @@ if which brew > /dev/null && [ -d "$(brew --prefix coreutils)/libexec/gnubin" ];
 fi
 
 # RVM
-[[ -s "${HOME}/.rvm/scripts/rvm" ]] && source "${HOME}/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-[[ -r $rvm_path/scripts/completion ]] && . $rvm_path/scripts/completion
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting (needs to be last)
+[ -s ${HOME}/.rvm/scripts/rvm ] && source ${HOME}/.rvm/scripts/rvm
+[ -r $rvm_path/scripts/completion ] && . $rvm_path/scripts/completion
+[ -d ${HOME}/.rvm ] && export PATH="$PATH:$HOME/.rvm/bin"
