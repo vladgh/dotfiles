@@ -53,7 +53,6 @@ alias docker_cleani='printf "\n>>> Deleting untagged images\n\n" && docker image
 
 # Delete all stopped containers and untagged images.
 alias docker_clean='docker_cleanc || true && docker_cleani'
-
 ################################################################################
 
 # vim: ft=sh
