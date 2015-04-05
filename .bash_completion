@@ -47,3 +47,4 @@ function _rakecomplete() {
 complete -o default -o nospace -F _rakecomplete rake
 
 # vim: ft=sh
+
