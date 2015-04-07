@@ -8,7 +8,6 @@ alias reload="echo 'Reloading BASH' && . ~/.bash_profile"
 
 # Network
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias flush="dscacheutil -flushcache" # Flush Directory Service cache
 
 # Git
 alias cola='(~/git-cola/bin/git-cola &)'
