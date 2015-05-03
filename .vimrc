@@ -198,7 +198,7 @@ let g:miniBufExplModSelTarget = 1
 
 " COMMANDS --------------------------------------------------------------------
 
-command Todo noautocmd vimgrep /TODO\|FIXME/j ** | cw "Look for notes
+command Todo noautocmd vimgrep /TODO\|FIXME/j `ack -f --ignore-dir=tmp` | cw "Look for notes
 command Spaces autocmd BufWritePre * :%s/\s\+$//e " Delete all trailing whitespace
 
 " END COMMANDS ----------------------------------------------------------------
