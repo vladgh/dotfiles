@@ -37,9 +37,8 @@ alias genSalt='openssl rand -base64 32'
 
 # Aliases
 alias dl='docker ps -lq'
-alias dlc='docker ps -a'
-alias dli='docker images -a'
-alias dru='docker run --rm -it ubuntu'
+alias dlc='docker ps'
+alias dli='docker images'
 
 # Kill all running containers.
 alias docker_killall='docker kill $(docker ps -q)'
@@ -52,6 +51,7 @@ alias docker_clean_images='printf "\n>>> Deleting untagged images\n\n" && docker
 
 # Delete all stopped containers and untagged images.
 alias docker_clean='docker_clean_containers; docker_clean_images'
+
 ################################################################################
 
 # vim: ft=sh

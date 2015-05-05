@@ -1,5 +1,5 @@
 # Load environment variables
-[[ -s $HOME/.vlad ]] && source $HOME/.vlad
+[[ -s $HOME/.ENV ]] && source $HOME/.ENV
 
 # Load bash
 [[ -s $HOME/.profile ]] && source $HOME/.profile

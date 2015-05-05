@@ -1,5 +1,5 @@
 # Private
-.vlad
+.ENV
 .ssh
 .keys
 .gem
