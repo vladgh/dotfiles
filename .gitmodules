@@ -64,3 +64,9 @@
 [submodule ".vim/bundle/ctrlp"]
 	path = .vim/bundle/ctrlp
 	url = https://github.com/kien/ctrlp.vim.git
+[submodule ".vim/bundle/vim-rubocop"]
+	path = .vim/bundle/vim-rubocop
+	url = https://github.com/ngmy/vim-rubocop.git
+[submodule ".vim/bundle/vim-reek"]
+	path = .vim/bundle/vim-reek
+	url = https://github.com/rainerborene/vim-reek.git
