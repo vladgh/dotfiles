@@ -97,9 +97,9 @@ endif
 
 " MAPPINGS --------------------------------------------------------------------
 
-" Remove highlighted search
-"nnoremap <esc><esc> :noh<return><esc>
-"nnoremap <esc>[ <esc>[
+" Remove highlighted search (and fix)
+nnoremap <esc><esc> :noh<return><esc>
+nnoremap <esc>[ <esc>[
 
 " Will allow you to use :w!! to write to a file using sudo if you forgot to sudo
 " vim file (it will prompt for sudo password when writing)
@@ -197,8 +197,7 @@ let g:miniBufExplModSelTarget = 1
 " END PLUGINS -----------------------------------------------------------------
 
 " COMMANDS --------------------------------------------------------------------
-
-command Todo noautocmd vimgrep /TODO\|FIXME/j `ack -f --ignore-dir=tmp` | cw "Look for notes
+command Todo noautocmd vimgrep /TODO\|FIXME/j ** | cw "Look for notes
 command Spaces autocmd BufWritePre * :%s/\s\+$//e " Delete all trailing whitespace
 
 " END COMMANDS ----------------------------------------------------------------
