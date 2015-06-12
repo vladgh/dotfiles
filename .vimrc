@@ -123,7 +123,7 @@ nmap <silent> <C-k> :-m.<CR>k
 " Search for the word under cursor in current dir
 map <F4> :execute "vimgrep /" . expand("<cword>") . "/gj **" <Bar> cw<CR>
 
-" Mappings to access buffers
+" Buffer mappings
 " ,. : list buffers
 " ,b ,n ,g: go back/forward/last used buffer
 " ,1 ,2: go to buffer 1/2 etc
@@ -168,6 +168,8 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 noremap <leader>l :NERDTreeFind<CR><C-w>w
 noremap <C-E><C-E> :NERDTree<CR>
 noremap <C-E><C-C> :NERDTreeClose<CR>
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 let g:NERDTreeShowBookmarks = 1
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeMouseMode = 2
@@ -186,7 +188,6 @@ let g:tlWindowPosition = 1 " Open window at the bottom (use 0 for top)
 
 " ACK
 "let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-
 " Minibuffer Explorer Settings
 let g:miniBufExplMapWindowNavVim = 0
 let g:miniBufExplMapWindowNavArrows = 0
