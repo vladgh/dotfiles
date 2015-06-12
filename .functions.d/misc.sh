@@ -21,7 +21,7 @@ server() {
   python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nSimpleHTTPServer.test();' "$port";
 }
 
-#Extract most know archives with one command
+# Extract most know archives with one command
 extract () {
   if [ -f $1 ] ; then
     case $1 in
@@ -41,4 +41,34 @@ extract () {
    else
        echo "'$1' is not a valid file"
    fi
+}
+
+# CHROME
+open_chrome(){
+  local tmpdir="$(mktemp -d -t 'chrome-unsafe_data_dir')"
+  local chrome='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+  $chrome \
+    --disable-sync \
+    --disable-first-run-ui \
+    --no-default-browser-check \
+    --no-first-run \
+    --proxy-server="${1}" \
+    --user-data-dir="${tmpdir}" \
+    'https://www.whatismyip.com' >/dev/null 2>&1 &!
+}
+ssh_tunnel(){
+  ssh -vXNCD $1 $2
+}
+chrome_virgin(){
+  local remote=$1
+  local port='8523'
+
+  if [ -n "${remote}" ]; then
+    echo "Opening Chrome in background with ssh tunnel to ${remote}"
+    open_chrome "socks5://localhost:${port}"
+    ssh_tunnel $port $remote
+  else
+    echo 'Opening Chrome in background without ssh tunnel'
+    open_chrome
+  fi
 }

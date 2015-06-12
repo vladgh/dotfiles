@@ -54,7 +54,6 @@ update() {
     brew
     vim
     ruby
-    docker_images
   '
 
   if [[ "${available}" =~ "${command}" ]]; then

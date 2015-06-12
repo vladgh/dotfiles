@@ -7,15 +7,15 @@ s3sync(){
   [[ -n $CLOUDFORMATION_S3 ]] || \
     ( echo 'No CLOUDFORMATION_S3 variable found!' && return )
 
-  # Upload scripts to AWS S3
+  # sh.ghn.me
   aws s3 sync $SCRIPTS/ $SCRIPTS_S3/ \
-    --quiet --delete --acl public-read \
-    --exclude "*" --include "*.sh"
+    --delete --acl public-read \
+    --exclude "*.tmp.*"
   e_ok "Synced $SCRIPTS to $SCRIPTS_S3"
 
-  # Upload scripts to AWS S3
+  # Upload CloudFormation templates to AWS S3
   aws s3 sync $CLOUDFORMATION/ $CLOUDFORMATION_S3/ \
-    --quiet --delete --acl public-read \
+    --delete --acl public-read \
     --exclude "*" --include "*.json"
   e_ok "Synced $CLOUDFORMATION to $CLOUDFORMATION_S3"
 }
