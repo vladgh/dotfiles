@@ -168,8 +168,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 noremap <leader>l :NERDTreeFind<CR><C-w>w
 noremap <C-E><C-E> :NERDTree<CR>
 noremap <C-E><C-C> :NERDTreeClose<CR>
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
 let g:NERDTreeShowBookmarks = 1
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeMouseMode = 2
