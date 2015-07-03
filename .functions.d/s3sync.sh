@@ -10,7 +10,7 @@ s3sync(){
   # sh.ghn.me
   aws s3 sync $SCRIPTS/ $SCRIPTS_S3/ \
     --delete --acl public-read \
-    --exclude "*.tmp.*"
+    --exclude "*" --include "*.sh"
   e_ok "Synced $SCRIPTS to $SCRIPTS_S3"
 
   # Upload CloudFormation templates to AWS S3
