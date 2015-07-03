@@ -88,7 +88,7 @@ fi
 
 # Editor
 export VISUAL=vim
-export EDITOR="$VISUAL"
+export EDITOR=$VISUAL
 
 # Add tab completion for many Bash commands
 if which brew > /dev/null && [ -f "$(brew --prefix)/etc/bash_completion" ]; then
