@@ -107,3 +107,6 @@ fi
 [ -s ${HOME}/.rvm/scripts/rvm ] && source ${HOME}/.rvm/scripts/rvm
 [ -r $rvm_path/scripts/completion ] && . $rvm_path/scripts/completion
 [ -d ${HOME}/.rvm ] && export PATH="$PATH:$HOME/.rvm/bin"
+
+# Github
+command -v hub > /dev/null 2>&1 && eval "$(hub alias -s)"

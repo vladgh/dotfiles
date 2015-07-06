@@ -9,10 +9,6 @@ alias reload="echo 'Reloading BASH' && . ~/.bash_profile"
 # Network
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 
-# Git
-alias cola='(~/git-cola/bin/git-cola &)'
-alias dag='(~/git-cola/bin/git-dag &)'
-
 # Vim
 alias gvim="gvim 2>/dev/null"
 
@@ -52,6 +48,9 @@ alias docker_clean_images='printf "\n>>> Deleting untagged images\n\n" && docker
 
 # Delete all stopped containers and untagged images.
 alias docker_clean='docker_clean_containers; docker_clean_images'
+
+# TODO Temporary fix for docker until version 1.7.1 is out
+alias temp_fix_docker='boot2docker ssh "sudo /etc/init.d/docker restart"'
 
 ################################################################################
 

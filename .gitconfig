@@ -1,8 +1,8 @@
 [alias]
   st = !git fetch && git status
   co = checkout
-  cm = commit
-  cs = commit -s
+  cm = commit --verbose
+  cs = commit -s --verbose
   br = branch
   nb = checkout -b
   mg = merge --no-ff
@@ -14,6 +14,7 @@
 [core]
   autocrlf = false
   excludesfile = /Users/vlad/.gitignore.global
+  pager = less
 
 [color]
   ui = auto

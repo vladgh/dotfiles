@@ -2,11 +2,9 @@
 is_osx || return 1
 
 # Boot2Docker
-$(boot2docker shellinit 2>/dev/null)
+eval "$(boot2docker shellinit 2>/dev/null)"
 b2d() {
-  $(boot2docker shellinit 2>/dev/null) || \
-    boot2docker start && \
-    $(boot2docker shellinit 2>/dev/null)
+  boot2docker up && eval "$(boot2docker shellinit 2>/dev/null)"
 }
 
 # ALIASES
