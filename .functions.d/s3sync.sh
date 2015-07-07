@@ -12,10 +12,3 @@ s3sync(){
     --exclude "*" --include "*.sh"
   e_ok "Synced $SCRIPTS to $SCRIPTS_S3"
 }
-
-s3sync_when_change(){
-  is_osx || return
-  fswatch -r $SCRIPTS | while read file; do
-    echo "File changed: $file" && s3sync
-  done
-}

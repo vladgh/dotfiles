@@ -72,3 +72,14 @@ chrome_virgin(){
     open_chrome
   fi
 }
+
+# SSH
+add_public_key(){
+  cat ~/.ssh/id_rsa.pub | ssh $@ "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys"
+}
+
+when_changed(){
+  fswatch -0 -o -r -m kqueue_monitor . | while read -d "" nr; do
+    $@
+  done
+}

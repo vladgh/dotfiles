@@ -1,7 +1,5 @@
 # Private
-.ENV
 .ssh
-.keys
 .gem
 .dockercfg
 .gitconfig.private

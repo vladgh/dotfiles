@@ -1,14 +1,14 @@
 # Load environment variables
-[[ -s $HOME/.ENV ]] && source $HOME/.ENV
+[[ -s $HOME/.env ]] && . $HOME/.env
 
-# Load bash
-[[ -s $HOME/.profile ]] && source $HOME/.profile
-[[ -s $HOME/.bashrc ]] && source $HOME/.bashrc
+# Load .bashrc
+[[ -s $HOME/.bashrc ]] && . $HOME/.bashrc
 
-# System functions and aliases
-[[ -s $HOME/.functions ]] && source $HOME/.functions
-[[ -s $HOME/.aliases ]] && source $HOME/.aliases
-[[ -s $HOME/.osx ]] && source $HOME/.osx
+# Load all functions from .functions.d
+function_files="$(ls $( cd "$( dirname "${BASH_SOURCE[0]}" )/.functions.d" \
+  2>/dev/null && pwd -P )/*.sh 2>/dev/null)"
+for file in $function_files; do
+  [[ -s $file ]] && . $file
+done
 
 # vim: ft=sh
-

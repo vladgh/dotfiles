@@ -43,9 +43,3 @@ e_footer() {
 
 # $1 => error message, $2 => exit code
 e_abort() { e_error $1; exit $2; }
-
-# Look for '.functions.d' in the current directory and source all files from it
-functions="$(ls $( cd "$( dirname "${BASH_SOURCE[0]}" )/.functions.d" 2>/dev/null && pwd -P )/*.sh 2>/dev/null)"
-for func in $functions; do [ -s $func ] && . $func; done
-
-# vim: ft=sh
