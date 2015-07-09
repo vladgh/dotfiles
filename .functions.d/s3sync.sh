@@ -3,7 +3,7 @@
 s3sync(){
   # Checks
   is_cmd aws || ( echo 'AWS CLI is not installed!' && return )
-  [[ -n $SCRIPTS ]] || ( echo 'No SCRIPTS_S3 variable found!' && return )
+  [[ -n $SCRIPTS ]] || ( echo 'No SCRIPTS variable found!' && return )
   [[ -n $SCRIPTS_S3 ]] || ( echo 'No SCRIPTS_S3 variable found!' && return )
 
   # sh.ghn.me
