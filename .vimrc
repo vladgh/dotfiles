@@ -29,7 +29,9 @@ set linebreak "wrap lines at convenient points
 set wildmode=list:longest,full "make cmdline tab completion similar to bash
 set wildmenu "enable ctrl-n and ctrl-p to scroll thru matches
 set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
-set t_Co=256 " Tell the term has 256 colors
+if &term =~ '256color'
+  set t_ut=
+endif
 set hidden " Hide buffers when not displayed
 set noeb vb t_vb= "disable beep
 set visualbell "flash screen on beep
@@ -96,10 +98,6 @@ endif
 " END SETTINGS ----------------------------------------------------------------
 
 " MAPPINGS --------------------------------------------------------------------
-
-" Remove highlighted search (and fix)
-nnoremap <esc><esc> :noh<return><esc>
-nnoremap <esc>[ <esc>[
 
 " Will allow you to use :w!! to write to a file using sudo if you forgot to sudo
 " vim file (it will prompt for sudo password when writing)
