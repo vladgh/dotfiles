@@ -1,12 +1,18 @@
 #!/usr/bin/env bash
+#
+# OSX Specific Functions
+# . <(wget -qO- https://vladgh.s3.amazonaws.com/functions/osx.sh) || true
 
-# MAC SPECIFIC
-is_osx || return 1
+# Load Common Functions
+. "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)/common.sh" 2>/dev/null || \
+  . <(wget -qO- 'https://vladgh.s3.amazonaws.com/functions/common.sh') || true
 
 # Boot2Docker
-eval "$(boot2docker shellinit 2>/dev/null)"
 b2d() {
-  boot2docker up && eval "$(boot2docker shellinit 2>/dev/null)"
+  is_osx || return 1
+  [[ "$(boot2docker status)" == 'poweroff' ]] && boot2docker up
+  eval "$(boot2docker shellinit 2>/dev/null)"
+
   local ip; ip=$(boot2docker ip)
   if grep -qF 'boot2docker' /etc/hosts; then
     echo "Modifying boot2docker ip (${ip}) in hosts"
@@ -17,16 +23,3 @@ b2d() {
   fi
 }
 
-# ALIASES
-# Reload DNS on OSX
-alias flushdns="dscacheutil -flushcache"
-
-# Suspend
-alias away='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
-
-# Show/hide hidden files in Finder
-alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
-
-# Boot2Docker
-alias d2c='open http://$(boot2docker ip)'

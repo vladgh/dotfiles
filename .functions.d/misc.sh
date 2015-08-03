@@ -1,3 +1,12 @@
+#!/usr/bin/env bash
+#
+# Miscellaneous Functions
+# . <(wget -qO- https://vladgh.s3.amazonaws.com/functions/misc.sh) || true
+
+# Load Common Functions
+. "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)/common.sh" 2>/dev/null || \
+  . <(wget -qO- 'https://vladgh.s3.amazonaws.com/functions/common.sh') || true
+
 # Create a directory and jump directly into it
 mcd() { mkdir -p "$1" && cd "$1" ;}
 
