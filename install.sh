@@ -5,9 +5,6 @@
 # @author Vlad Ghinea
 ###############################################################################
 
-# Exit immediately if a command exits with a non-zero status
-set -e
-
 # Read dotfiles directory
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
