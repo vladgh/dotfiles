@@ -3,9 +3,6 @@
 # Vlad's Common Functions
 # . <(wget -qO- https://vladgh.s3.amazonaws.com/functions/common.sh) || true
 
-# Do not load more than once
-[ "$VGH_COMMON_FUNCTIONS" = true ] && return
-
 # OS detection
 is_root()   { [[ $EUID == 0 ]] ;}
 is_cmd()    { command -v "$@" >/dev/null 2>&1 ;}
@@ -94,15 +91,15 @@ wait_for() {
   echo ' Done.'
 }
 
-# NAME: load_remote_scripts
+# NAME: load_remote_vgh_functions
 # DESCRIPTION: Loads the scripts in this repository by name
 # USAGE:
-#   load_remote_scripts {Script Name}
+#   load_remote_vgh_functions {Script Name}
 # PARAMETERS:
 #   1) One or more script names, without the '.sh' (required)
 # Load remote scripts
-load_remote_scripts(){
-  local url='https://vladgh.s3.amazonaws.com/scripts'
+load_remote_vgh_functions(){
+  local url='https://vladgh.s3.amazonaws.com/functions'
   for script in "$@"; do
     . <(wget -qO- "${url}/${script}.sh") || true
   done
@@ -153,7 +150,4 @@ install_jq(){
     sudo wget -qO $path $url && sudo chmod +x $path
   fi
 }
-
-# Let other scripts know this file is loaded
-export VGH_COMMON_FUNCTIONS=true
 
