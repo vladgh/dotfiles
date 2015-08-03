@@ -1,9 +1,10 @@
-### Functions #################################################################
+#!/usr/bin/env bash
 #
 # Vlad's Common Functions
-#
-# Can be sourced directly with:
-# . <(wget -qO- https://raw.githubusercontent.com/vladgh/dotfiles/master/.functions.d/common.sh) || true
+# . <(wget -qO- https://vladgh.s3.amazonaws.com/functions/common.sh) || true
+
+# Do not load more than once
+[ "$VGH_COMMON_FUNCTIONS" = true ] && return
 
 # OS detection
 is_root()   { [[ $EUID == 0 ]] ;}
@@ -15,29 +16,29 @@ get_dist()  { lsb_release -cs ;}
 
 # Logging stuff.
 is_color()  { [[ $TERM =~ xterm ]] ;}
-is_silent() { [[ $silent == true ]] ;}
+is_silent() { [[ $SILENT == true ]] ;}
 e_header() {
-  is_silent || { is_color && echo -e "\n\033[1m$@\033[0m" || echo -e "\n$@" ;}
+  is_silent || { is_color && echo -e "\n\033[1m$*\033[0m" || echo -e "\n$*" ;}
 }
 e_ok() {
   is_silent || \
-    { is_color && echo -e "  \033[1;32m✔\033[0m  $@" || echo "  ✔  $@" ;}
+    { is_color && echo -e "  \033[1;32m✔\033[0m  $*" || echo "  ✔  $*" ;}
 }
 e_error() {
   is_silent || \
-    { is_color && echo -e "  \033[1;31m✖\033[0m  $@" || echo "  ✖  $@" ;}
+    { is_color && echo -e "  \033[1;31m✖\033[0m  $*" || echo "  ✖  $*" ;}
 }
 e_warn() {
   is_silent || \
-    { is_color && echo -e "  \033[1;33m  $@\033[0m" || echo "    $@" ;}
+    { is_color && echo -e "  \033[1;33m  $*\033[0m" || echo "    $*" ;}
 }
 e_arrow() {
   is_silent || \
-    { is_color && echo -e "  \033[0;34m➜\033[0m  $@" || echo "  ➜  $@" ;}
+    { is_color && echo -e "  \033[0;34m➜\033[0m  $*" || echo "  ➜  $*" ;}
 }
 e_footer() {
   is_silent || \
-    { is_color && echo -e "\n\033[1m$@\033[0m\n" || echo -e "\n$@\n" ;}
+    { is_color && echo -e "\n\033[1m$*\033[0m\n" || echo -e "\n$*\n" ;}
 }
 e_abort() {
   is_silent || \
@@ -46,7 +47,7 @@ e_abort() {
 }
 e_ok() {
   is_silent || \
-    { is_color && echo -e "  \033[1;32m✔\033[0m  $@" || echo "  ✔  $@" ;}
+    { is_color && echo -e "  \033[1;32m✔\033[0m  $*" || echo "  ✔  $*" ;}
 }
 e_finish() { e_ok "Finished $(basename "$0") at $(/bin/date "+%F %T")"; }
 
@@ -153,4 +154,6 @@ install_jq(){
   fi
 }
 
+# Let other scripts know this file is loaded
+export VGH_COMMON_FUNCTIONS=true
 
