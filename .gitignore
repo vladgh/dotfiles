@@ -1,7 +1,5 @@
 # Private
 .ssh
-.gem
-.dockercfg
 .gitconfig.private
 
 # Ignore any file with '.local' in the name
