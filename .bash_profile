@@ -10,7 +10,7 @@
 for func in ${HOME}/.functions.d/*.sh; do . "$func"; done
 
 # Load .alias
-[ -s "${HOME}/.alias" ] && . "${HOME}/.alias"
+[ -s "${HOME}/.alias" ] && . "${HOME}/.aliases"
 
 # Start directly in the PROJECTS directory if it exists
 [ -d "$PROJECTS" ] && cd "$PROJECTS"
