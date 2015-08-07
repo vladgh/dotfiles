@@ -73,7 +73,7 @@ dotfiles_permissions(){
 # DESCRIPTION: Cleans broken symlinks in the $HOME directory
 dotfiles_delete_broken_symlinks(){
   if find -L "${HOME}/" -maxdepth 1 -type l -exec rm {} +; then
-    e_ok 'Broken symlinks deleted'
+    e_ok 'Deleted broken symlinks'
   fi
 }
 
