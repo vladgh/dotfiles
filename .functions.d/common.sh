@@ -46,7 +46,7 @@ e_ok() {
   is_silent || \
     { is_color && echo -e "  \033[1;32m✔\033[0m  $*" || echo "  ✔  $*" ;}
 }
-e_finish() { e_ok "Finished $(basename "$0") at $(/bin/date "+%F %T")"; }
+e_finish() { e_ok "Finished ${BASH_SOURCE[0]} at $(/bin/date "+%F %T")"; }
 
 # APT NOTE:
 # On some versions apt breaks a bash script by reading from standard input
