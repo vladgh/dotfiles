@@ -1,5 +1,8 @@
 # Private
+.env
+.projects.yaml
 .ssh
+.aws
 .gitconfig.private
 
 # Ignore any file with '.local' in the name
