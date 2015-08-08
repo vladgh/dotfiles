@@ -458,3 +458,50 @@ aws_cf_events() {
   fi
 }
 
+# NAME: aws_get_elb_name
+# DESCRIPTION: Returns the ELB to which the instance is registered.
+aws_get_elb_name() {
+  local instance_id; instance_id=$(aws_get_instance_id)
+  if output=$(aws_cmd elb describe-load-balancers --query "LoadBalancerDescriptions[?contains(Instances[].InstanceId, \`${instance_id}\`)].LoadBalancerName" --output text); then
+    echo "$output"
+  else
+    return $?
+  fi
+}
+
+# NAME: aws_elb_get_health_check
+# DESCRIPTION: Returns the Elastic Load Balancer health check configuration
+aws_elb_get_health_check() {
+  local elb; elb=$(aws_get_elb_name)
+  if output=$(aws_cmd elb describe-load-balancers --load-balancer-names "$elb" --query 'LoadBalancerDescriptions[].HealthCheck | [0]'); then
+    echo "$output"
+  else
+    return $?
+  fi
+}
+
+# NAME: aws_elb_configure_health_check
+# DESCRIPTION: Modifies the Elastic Load Balancer' health check configuration
+# USAGE: aws_elb_configure_health_check {Config}
+# PARAMETERS:
+#   1) Configuration (required)
+#      Ex: Target=HTTP:80/,Interval=10,UnhealthyThreshold=5,HealthyThreshold=2,Timeout=5
+aws_elb_configure_health_check() {
+  local elb; elb=$(aws_get_elb_name)
+  if output=$(aws_cmd elb configure-health-check --load-balancer-name "$elb" --health-check "$1"); then
+    echo "$output"
+  else
+    return $?
+  fi
+}
+
+# NAME: aws_ecs_list_clusters
+# DESCRIPTION: Returns a list of EC2 Container Service Clusters
+aws_ecs_list_clusters(){
+  if output=$(aws_cmd ecs list-clusters --query 'clusterArns[]' --output text); then
+    echo "$output"
+  else
+    return $?
+  fi
+}
+
