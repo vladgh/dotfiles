@@ -2,7 +2,8 @@
 #
 # Vlad's Aliases
 
-# List
+# Misc
+alias prj='cd $PROJECTS'
 alias ll='ls -lahpF' # Ubuntu & Mac compatible
 
 # Reload the shell (i.e. invoke as a login shell)
