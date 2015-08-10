@@ -42,7 +42,7 @@ update_docker() {
 
 update_pip() {
   if is_osx; then
-    pip install --upgrade pip setuptools awscli awsebcli docker-compose
+    pip install --upgrade pip setuptools awscli awsebcli
   else
     sudo -H pip install --upgrade pip setuptools awscli awsebcli docker-compose
   fi

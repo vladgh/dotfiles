@@ -13,6 +13,7 @@ docker_install(){
   if is_cmd docker && [ -e /var/run/docker.sock ]; then
     echo 'Docker is already installed; Version:' && docker version
   else
+    echo 'Installing Docker'
     wget -qO- https://get.docker.com/ | sh
   fi
 }

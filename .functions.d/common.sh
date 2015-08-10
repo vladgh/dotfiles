@@ -64,6 +64,7 @@ apt_install(){ echo "Installing '$*'" && sudo apt-get -qy install "$@" < /dev/nu
 install_ppa_repo(){
   local repo="$1"
   is_cmd add-apt-repository || apt_install python-software-properties software-properties-common
+  echo "Installing Launchpad Repo '${repo}'"
   sudo add-apt-repository -y "ppa:${repo}"
 }
 
