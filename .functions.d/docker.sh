@@ -19,18 +19,21 @@ docker_install(){
 }
 
 # NAME: docker_install_compose
-# DESCRIPTION: Installs Docker and Docker Compose unless already installed
+# DESCRIPTION: Installs Docker and Docker Compose
 docker_install_compose(){
-  if ! is_ubuntu; then echo 'Currently only ubuntu is supported' && return; fi
-  if ! is_cmd pip; then echo 'Installing Python PIP' && apt_install python-pip; fi
+  local version=1.4.0
+  local url='https://github.com/docker/compose/releases/download'
+  local compose='/usr/local/bin/docker-compose'
+  local release; release="docker-compose-$(uname -s)-$(uname -m)"
+
   docker_install
-  if is_cmd docker-compose; then
-    echo 'Docker Compose is already installed; Version:'
-    docker-compose --version
-  else
-    echo 'Installing Docker Compose'
-    sudo -H pip install --upgrade docker-compose
-  fi
+
+  echo 'Installing Docker Compose'
+  wget -qO $compose "$url/${version}/${release}"
+  chmod +x $compose
+
+  echo 'Docker Compose installed:'
+  $compose version
 }
 
 # NAME: docker_install_machine
@@ -41,21 +44,20 @@ docker_install_compose(){
 # PARAMETERS:
 #   1) The version number (optional; defaults to the latest GitHub release)
 docker_install_machine(){
-  is_cmd jq || install_jq
-  local url='https://github.com/docker/machine/releases/download'
-  local api='https://api.github.com/repos/docker/machine/releases/latest'
-  local latest; latest=$(curl -s $api | jq ".name" | tr -d '"')
-  local version=${1:-$latest}
-  local script; script="docker-machine_$(uname -s  | tr '[:upper:]' '[:lower:]')-amd64"
-  local cmd='/usr/local/bin/docker-machine'
+  local version=0.4.0
+  local url=https://github.com/docker/machine/releases/download
+  local machine=/usr/local/bin/docker-machine
+  [[ "$(getconf LONG_BIT)" == "64" ]] && arch=amd64 || arch='386'
+  local release; release="docker-machine_$(uname -s  | tr '[:upper:]' '[:lower:]')-${arch}"
+
   docker_install
-  if [ -s $cmd ] && [ -x $cmd ]; then
-    echo "'${cmd}' is present."
-  else
-    echo "Installing Docker Machine v${version}"
-    sudo wget -qO $cmd "${url}/v${version}/${script}"
-    sudo chmod +x $cmd
-  fi
+
+  echo 'Installing Docker Machine'
+  wget -qO $machine "$url/v${version}/${release}"
+  chmod +x $machine
+
+  echo 'Docker Machine installed:'
+  $machine --version
 }
 
 # NAME: docker_container_is_running
