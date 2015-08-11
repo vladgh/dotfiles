@@ -7,7 +7,7 @@
 [ -s "${HOME}/.bashrc" ] && . "${HOME}/.bashrc"
 
 # Load all functions from .functions.d
-for func in ${HOME}/.functions.d/*.sh; do . "$func"; done
+for function in ${HOME}/.functions.d/*.sh; do . "$function"; done
 
 # Load .alias
 [ -s "${HOME}/.aliases" ] && . "${HOME}/.aliases"

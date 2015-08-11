@@ -35,6 +35,33 @@ aws_install_cfn(){
   fi
 }
 
+# NAME: aws_codedeploy_is_running
+# DESCRIPTION: Returns true if the CodeDeploy Agent is running
+aws_codedeploy_is_running(){
+  sudo service codedeploy-agent status >/dev/null 2>&1
+  return $?
+}
+
+# NAME: aws_codedeploy_dependencies
+# DESCRIPTION: Install CodeDeploy Agent dependencies
+aws_codedeploy_dependencies(){
+  if ! is_ubuntu; then echo 'Currently only Ubuntu is supported!' && return; fi
+  echo 'Installing AWS Code Deploy dependencies'
+  is_cmd ruby2.0 || apt_install ruby2.0
+  is_cmd gdebi || apt_install gdebi-core
+}
+
+# NAME: aws_codedeploy_dependencies
+# DESCRIPTION: Installs the CodeDeploy Agent
+aws_codedeploy_install_agent(){
+  local url='https://aws-codedeploy-us-east-1.s3.amazonaws.com/latest/codedeploy-agent_all.deb'
+  local deb; deb=$(mktemp)
+  aws_codedeploy_is_running && return
+  aws_codedeploy_dependencies
+  echo 'Installing AWS Code Deploy package'
+  wget -qO "$deb" "$url" && sudo dpkg -i "$deb"
+}
+
 # NAME: aws_install_cw_logs
 # DESCRIPTION: Installs AWS CloudWatch Logs Agent
 # USAGE: aws_install_cw_logs {Config File}
@@ -322,33 +349,6 @@ aws_deploy_create_deployment(){
   else
     echo "The '${group}' group does not exist in the '${app}' application"
   fi
-}
-
-# NAME: aws_codedeploy_is_running
-# DESCRIPTION: Returns true if the CodeDeploy Agent is running
-aws_codedeploy_is_running(){
-  sudo service codedeploy-agent status >/dev/null 2>&1
-  return $?
-}
-
-# NAME: aws_codedeploy_dependencies
-# DESCRIPTION: Install CodeDeploy Agent dependencies
-aws_codedeploy_dependencies(){
-  if ! is_ubuntu; then echo 'Currently only Ubuntu is supported!' && return; fi
-  echo 'Installing AWS Code Deploy dependencies'
-  is_cmd ruby2.0 || apt_install ruby2.0
-  is_cmd gdebi || apt_install gdebi-core
-}
-
-# NAME: aws_codedeploy_dependencies
-# DESCRIPTION: Installs the CodeDeploy Agent
-aws_codedeploy_install_agent(){
-  local url='https://aws-codedeploy-us-east-1.s3.amazonaws.com/latest/codedeploy-agent_all.deb'
-  local deb; deb=$(mktemp)
-  aws_codedeploy_is_running && return
-  aws_codedeploy_dependencies
-  echo 'Installing AWS Code Deploy package'
-  wget -qO "$deb" "$url" && sudo dpkg -i "$deb"
 }
 
 # NAME: aws_get_private_env
