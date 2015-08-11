@@ -11,7 +11,7 @@
 # DESCRIPTION: Checks the system
 aws_system_checks(){
   if ! is_ubuntu; then echo 'Currently only ubuntu is supported' && return; fi
-  if ! is_cmd pip; then echo 'Installing Python PIP' && apt_install python-pip; fi
+  if ! is_cmd pip; then echo 'Installing Python PIP' && install_pip; fi
 }
 
 # NAME: aws_install_cli

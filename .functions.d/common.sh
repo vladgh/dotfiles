@@ -147,8 +147,25 @@ install_jq(){
   if is_cmd jq; then
     echo 'JQ JSON Processor is already installed'
   else
-    echo 'Installing JQ JSON Processor' && \
+    echo 'Installing JQ JSON Processor'
     sudo wget -qO $path $url && sudo chmod +x $path
   fi
+}
+
+# NAME: install_pip
+# DESCRIPTION: Installs Python PIP
+install_pip(){
+if is_cmd pip; then
+  echo 'Pip is already installed'
+else
+  echo 'Installing Pip and dependencies'
+  if [[ $(get_dist) == 'trusty' ]]; then
+    apt_install python-dev python-pip libssl-dev libffi-dev
+    sudo -H pip install --upgrade pip setuptools pyopenssl ndg-httpsclient pyasn1
+  else
+    apt_install python-pip
+    sudo -H pip install --upgrade pip setuptools
+  fi
+fi
 }
 
