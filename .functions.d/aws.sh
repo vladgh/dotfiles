@@ -51,9 +51,10 @@ aws_codedeploy_dependencies(){
   is_cmd gdebi || apt_install gdebi-core
 }
 
-# NAME: aws_codedeploy_dependencies
+# NAME: aws_codedeploy_install_agent
 # DESCRIPTION: Installs the CodeDeploy Agent
-aws_codedeploy_install_agent(){
+#   aws s3 ls --recursive s3://aws-codedeploy-us-west-2
+aws_install_codedeploy_agent(){
   local url='https://aws-codedeploy-us-east-1.s3.amazonaws.com/latest/codedeploy-agent_all.deb'
   local deb; deb=$(mktemp)
   aws_codedeploy_is_running && return
