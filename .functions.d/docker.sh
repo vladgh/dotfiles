@@ -19,7 +19,7 @@ docker_install(){
 }
 
 # NAME: docker_install_compose
-# DESCRIPTION: Installs Docker and Docker Compose
+# DESCRIPTION: Installs Docker Compose
 docker_install_compose(){
   local version=1.4.0
   local url='https://github.com/docker/compose/releases/download'
@@ -37,12 +37,7 @@ docker_install_compose(){
 }
 
 # NAME: docker_install_machine
-# DESCRIPTION: Ensure Docker Machine is installed. Tries to get the latest
-# tagged release from GitHub API.
-# USAGE:
-#   docker_install_machine {version}
-# PARAMETERS:
-#   1) The version number (optional; defaults to the latest GitHub release)
+# DESCRIPTION: Installs Docker Machine
 docker_install_machine(){
   local version=0.4.0
   local url=https://github.com/docker/machine/releases/download
