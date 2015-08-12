@@ -8,18 +8,19 @@
   . <(wget -qO- 'https://vladgh.s3.amazonaws.com/functions/common.sh') || true
 
 # Boot2Docker
-b2d() {
+dms() {
   is_osx || return 1
-  [[ "$(boot2docker status)" == 'poweroff' ]] && boot2docker up
-  eval "$(boot2docker shellinit 2>/dev/null)"
+  . /Applications/Docker/Docker\ Quickstart\ Terminal.app/Contents/Resources/Scripts/start.sh
 
-  local ip; ip=$(boot2docker ip)
-  if grep -qF 'boot2docker' /etc/hosts; then
-    echo "Modifying boot2docker ip (${ip}) in hosts"
-    sudo sed -i "/boot2docker/ s/.*/${ip}  boot2docker/g" /etc/hosts
+  local ip; ip=$(docker-machine ip "$DOCKER_MACHINE_NAME")
+  if grep -qF "${ip}  docker" /etc/hosts; then
+    echo "Docker machine ip (${ip}) is already present in hosts"
+  elif grep -qF 'docker' /etc/hosts; then
+    echo "Modifying docker machine ip (${ip}) in hosts"
+    sudo sed -i "/docker/ s/.*/${ip}  docker/g" /etc/hosts
   else
-    echo "Adding boot2docker (${ip}) to hosts"
-    sudo sed -i "\$a${ip}  boot2docker" /etc/hosts
+    echo "Adding docker-machine (${ip}) to hosts"
+    sudo sed -i "\$a${ip}  docker" /etc/hosts
   fi
 }
 
