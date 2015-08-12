@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
-#
 # OSX Specific Functions
-# . <(wget -qO- https://vladgh.s3.amazonaws.com/functions/osx.sh) || true
 
 # Load Common Functions
-. "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)/common.sh" 2>/dev/null || \
-  . <(wget -qO- 'https://vladgh.s3.amazonaws.com/functions/common.sh') || true
+. "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)/common.sh"
 
 # Boot2Docker
 dms() {

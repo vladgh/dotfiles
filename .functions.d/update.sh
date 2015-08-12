@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
-#
 # Update system
-# . <(wget -qO- https://vladgh.s3.amazonaws.com/functions/update.sh) || true
 
 # Load Common Functions
-. "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)/common.sh" 2>/dev/null || \
-  . <(wget -qO- 'https://vladgh.s3.amazonaws.com/functions/common.sh') || true
+. "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)/common.sh"
 
 update_ubuntu() {
   is_ubuntu || return
