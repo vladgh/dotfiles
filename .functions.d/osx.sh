@@ -21,3 +21,6 @@ dms() {
   fi
 }
 
+# Docker
+eval "$(docker-machine env default --shell=bash 2>/dev/null)"
+
