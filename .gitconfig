@@ -7,7 +7,7 @@
   nb = checkout -b
   mg = merge --no-ff
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all --decorate
-  cmm = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f; git commit -m"
+  cmm = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f; git commit -s -m"
   wip = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f; git commit -m \"WIP\""
   unwip = !"git log -n 1 | grep -q -c WIP && git reset HEAD~1"
 
