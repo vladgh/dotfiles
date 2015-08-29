@@ -110,3 +110,7 @@ fi
 
 # Github
 command -v hub > /dev/null 2>&1 && eval "$(hub alias -s)"
+
+# Travis
+[ -s ${HOME}/.travis/travis.sh ] && source ${HOME}/.travis/travis.sh
+
