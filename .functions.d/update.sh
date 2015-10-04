@@ -26,7 +26,7 @@ update_vim() {
 
 update_ruby() {
   is_cmd rvm || return
-  rvm get stable
+  rvm get master
   gem update --system
   gem update
 }
