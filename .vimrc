@@ -109,7 +109,7 @@ if has('unnamedplus')
 else
   set clipboard=unnamed
 endif
-vnoremap p "0p " Replace without yanking
+vnoremap p "_dP  " Replace without yanking
 
 " Select all text
 nmap <C-a> ggVG
