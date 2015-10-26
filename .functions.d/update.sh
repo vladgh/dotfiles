@@ -4,6 +4,11 @@
 # Load Common Functions
 . "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)/common.sh"
 
+update_xcode() {
+  is_osx || return
+  xcode-select --install 2>/dev/null || xcode-select --version
+}
+
 update_ubuntu() {
   is_ubuntu || return
   apt_update && apt_upgrade
@@ -19,7 +24,7 @@ update_brew() {
 
 update_vim() {
   (
-  cd "${HOME}/.vim/bundle"
+  cd "${HOME}/.vim/bundle" || exit
   find .  -mindepth 1 -maxdepth 1 -type d -print -exec git -C {} pull \;
   )
 }
@@ -48,6 +53,7 @@ update_pip() {
 updt() {
   local command=$1
   local available='
+    xcode
     ubuntu
     brew
     pip
