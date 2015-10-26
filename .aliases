@@ -34,6 +34,9 @@ alias genSalt='openssl rand -base64 32'
 
 # DOCKER
 # Aliases
+alias dms='echo "Starting docker machine..." && docker-machine start default'
+alias dmo='echo "Stopping docker machine..." docker-machine stop default'
+alias dme='eval "$(docker-machine env default)"'
 alias dl='docker ps -lq'
 alias dlc='docker ps'
 alias dli='docker images'
