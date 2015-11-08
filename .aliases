@@ -32,6 +32,10 @@ alias sr='screen -r' # Resume
 # Generate Salt
 alias genSalt='openssl rand -base64 32'
 
+# RUBY
+# Bundle
+alias be='bundle exec'
+
 # DOCKER
 # Aliases
 alias dms='echo "Starting docker machine..." && docker-machine start default'
