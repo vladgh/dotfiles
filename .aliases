@@ -38,10 +38,10 @@ alias be='bundle exec'
 
 # DOCKER
 # Aliases
-alias dms='echo "Starting docker machine..." && docker-machine start default'
+alias dme='eval "$(docker-machine env default)"'
+alias dms='echo "Starting docker machine..." && docker-machine start default && dme'
 alias dmo='echo "Stopping docker machine..." && docker-machine stop default'
 alias dml='echo "Docker machines:" && docker-machine ls'
-alias dme='eval "$(docker-machine env default)"'
 alias dl='docker ps -lq'
 alias dlc='docker ps'
 alias dli='docker images'
