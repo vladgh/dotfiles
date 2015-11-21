@@ -3,8 +3,8 @@
 # Vlad's Aliases
 
 # Misc
-alias prj='cd $PROJECTS'
 alias ll='ls -lahpF' # Ubuntu & Mac compatible
+alias prj='cd $PROJECTS'
 
 # Reload the shell (i.e. invoke as a login shell)
 alias reload='echo "Reloading BASH" && . ~/.bash_profile'
@@ -24,11 +24,6 @@ alias ta='tmux attach-session -t'
 alias tc='tmux new-session -s'
 alias tl='tmux list-sessions'
 
-# Screen
-alias sc='screen -S' # Create
-alias sl='screen -ls' # List
-alias sr='screen -r' # Resume
-
 # Generate Salt
 alias genSalt='openssl rand -base64 32'
 
@@ -37,11 +32,12 @@ alias genSalt='openssl rand -base64 32'
 alias be='bundle exec'
 
 # DOCKER
-# Aliases
-alias dme='eval "$(docker-machine env default)"'
+# Docker Machine Aliases
+alias dme='echo "Loading Docker Environment..." && eval "$(docker-machine env default)"'
 alias dms='echo "Starting docker machine..." && docker-machine start default && dme'
 alias dmo='echo "Stopping docker machine..." && docker-machine stop default'
 alias dml='echo "Docker machines:" && docker-machine ls'
+# Docker Aliases
 alias dl='docker ps -lq'
 alias dlc='docker ps'
 alias dli='docker images'
