@@ -10,7 +10,7 @@ is_ubuntu() { is_cmd lsb_release && [[ "$(lsb_release -si)" =~ Ubuntu ]] ;}
 get_dist()  { lsb_release -cs ;}
 
 # Logging stuff.
-is_color()  { [[ $TERM =~ xterm ]] ;}
+is_color()  { [[ $TERM =~ color ]] ;}
 is_silent() { [[ $SILENT == true ]] ;}
 e_header() {
   is_silent || { is_color && echo -e "\n\033[1m$*\033[0m" || echo -e "\n$*" ;}
