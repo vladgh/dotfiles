@@ -4,6 +4,11 @@
 # Load Common Functions
 . "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)/common.sh"
 
+update_osx() {
+  is_osx || return
+  sudo softwareupdate -i -a
+}
+
 update_xcode() {
   is_osx || return
   xcode-select --install 2>/dev/null || xcode-select --version
@@ -36,12 +41,6 @@ update_ruby() {
   gem update
 }
 
-update_docker() {
-  if is_cmd boot2docker; then
-    boot2docker stop && boot2docker upgrade
-  fi
-}
-
 update_pip() {
   if is_osx; then
     pip install --upgrade pip setuptools awscli
@@ -53,12 +52,12 @@ update_pip() {
 updt() {
   local command=$1
   local available='
+    osx
     xcode
     ubuntu
     brew
     pip
     ruby
-    docker
     vim
   '
 
