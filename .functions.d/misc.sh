@@ -51,34 +51,44 @@ extract () {
 
 # CHROME
 open_chrome(){
-  local tmpdir chrome
+  # vars
+  local var scratch remote tmpdir chrome port proxy
+
+  # defaults
+  scratch=false
   tmpdir="$(mktemp -d -t 'chrome-unsafe_data_dir')"
-  chrome='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
-  $chrome \
-    --disable-sync \
-    --disable-first-run-ui \
-    --no-default-browser-check \
-    --no-first-run \
-    --proxy-server="${1}" \
-    --user-data-dir="${tmpdir}" \
-    'https://www.whatismyip.com' >/dev/null 2>&1 &
+  chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
+  port='8523'
+
+  # argumets
+  for var in "$@"; do
+    if [[ "$var" == -s ]]; then
+      scratch=true
+    elif [[ "$var" =~ -r=.* ]]; then
+      remote=${var//-r=/}
+    fi
+  done
+
+  if [ -n "${remote}" ]; then
+    proxy="--proxy-server=socks5://localhost:${port}"
+    ssh="ssh -vXNCD $port $remote"
+  else
+    proxy='--proxy-server=direct://'
+    ssh=''
+  fi
+
+  if $scratch; then
+    chrome="${chrome} --disable-sync --disable-first-run-ui --no-default-browser-check --no-first-run --user-data-dir='${tmpdir}'"
+  fi
+
+  sh -c "$chrome $proxy https://www.whatismyip.com" >/dev/null 2>&1 &
+  sh -c "$ssh"
 }
+
+# SSH Tunnel
 ssh_tunnel(){
   # shellcheck disable=SC2029
   ssh -vXNCD "$1" "$2"
-}
-chrome_virgin(){
-  local remote=$1
-  local port='8523'
-
-  if [ -n "${remote}" ]; then
-    echo "Opening Chrome in background with ssh tunnel to ${remote}"
-    open_chrome "socks5://localhost:${port}"
-    ssh_tunnel "$port" "$remote"
-  else
-    echo 'Opening Chrome in background without ssh tunnel'
-    open_chrome
-  fi
 }
 
 # SSH
@@ -86,4 +96,3 @@ add_public_key(){
   ssh "$@" "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys" \
     < ~/.ssh/id_rsa.pub
 }
-
