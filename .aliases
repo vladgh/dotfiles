@@ -30,6 +30,7 @@ alias genSalt='openssl rand -base64 32'
 # RUBY
 # Bundle
 alias be='bundle exec'
+alias ber='bundle exec rake'
 
 # DOCKER
 # Docker Machine Aliases
