@@ -10,7 +10,7 @@ filetype plugin indent on
 " SETTINGS --------------------------------------------------------------------
 
 " Theme
-colorscheme molokai
+colorscheme solarized
 set background=dark
 
 " Change key key
