@@ -50,7 +50,7 @@ export LESS_TERMCAP_md="${yellow}";
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
   xterm) [ "$COLORTERM" == "gnome-terminal" ] && color_prompt=yes;; # Ubuntu
-  xterm-256color) color_prompt=yes;;
+  *-256color) color_prompt=yes;;
 esac
 
 # check for color support
