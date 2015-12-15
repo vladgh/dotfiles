@@ -15,6 +15,6 @@ if [ -s /etc/bash_completion.d/git-prompt ] || [ -s /usr/local/etc/bash_completi
   export GIT_PS1_SHOWUNTRACKEDFILES=true
   export GIT_PS1_SHOWCOLORHINTS=true
   export GIT_PS1_SHOWUPSTREAM="auto"
-  export PROMPT_COMMAND='__git_ps1 "\e[0;34m\\u\e[0;36m@\h\e[0m:\W" "\\\$ "'
+  export PROMPT_COMMAND='__git_ps1 "\[${fgblu}\]\u\[${fgpur}\]@\h\[${reset}\]:\W" "\\\$ "'
 fi
 
