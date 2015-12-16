@@ -2,7 +2,7 @@
 # Update system
 
 # Load Common Functions
-. "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)/common.sh"
+. "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)/common"
 
 update_osx() {
   is_osx || return
@@ -43,9 +43,9 @@ update_ruby() {
 
 update_pip() {
   if is_osx; then
-    pip install --upgrade pip setuptools awscli
+    pip install --upgrade pip setuptools awscli aws-shell
   else
-    sudo -H pip install --upgrade pip setuptools awscli
+    sudo -H pip install --upgrade pip setuptools awscli aws-shell
   fi
 }
 
