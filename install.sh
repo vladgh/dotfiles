@@ -9,8 +9,8 @@
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
 # Load system functions
-if [ -s "${DOTFILES}/.functions.d/common.sh" ]; then
-  . "${DOTFILES}/.functions.d/common.sh"
+if [ -s "${DOTFILES}/.functions.d/common" ]; then
+  . "${DOTFILES}/.functions.d/common"
 fi
 
 # NAME: dotfiles_list
