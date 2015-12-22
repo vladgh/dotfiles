@@ -4,6 +4,7 @@
   cm = commit --verbose
   cs = commit -s --verbose
   br = branch
+  ba = branch --all
   nb = checkout -b
   mg = merge --no-ff
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all --decorate
