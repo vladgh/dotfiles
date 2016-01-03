@@ -96,3 +96,10 @@ add_public_key(){
   ssh "$@" "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys" \
     < ~/.ssh/id_rsa.pub
 }
+
+# Timezones
+now_in(){
+  for t in US/Central America/Phoenix Europe/Bucharest US/Eastern; do
+    zdump $t
+  done
+}
