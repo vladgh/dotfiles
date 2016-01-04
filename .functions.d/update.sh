@@ -16,7 +16,10 @@ update_xcode() {
 
 update_ubuntu() {
   is_ubuntu || return
-  apt_update && apt_upgrade
+  sudo apt-get -qy update
+  sudo apt-get -qy dist-upgrade
+  sudo apt-get -qy autoremove
+  sudo apt-get -qy autoclean
 }
 
 update_brew() {
@@ -42,6 +45,7 @@ update_ruby() {
 }
 
 update_pip() {
+  is_cmd pip || return
   if is_osx; then
     pip install --upgrade pip setuptools awscli aws-shell
   else
@@ -61,7 +65,7 @@ updt() {
     vim
   '
 
-  if [[ "${available}" =~ $command ]]; then
+  if [[ -n "$command" ]] && [[ "${available}" =~ "$command" ]]; then
     "update_${command}"
   else
     for cmd in $available; do "update_${cmd}"; done
