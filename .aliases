@@ -42,7 +42,7 @@ alias dml='echo "Docker machines:" && docker-machine ls'
 alias dl='docker ps -lq'
 alias dlc='docker ps'
 alias dli='docker images'
-alias dru='docker run -it --rm ubuntu bash'
+alias dru='docker run -it --rm -v $(pwd):/docker ubuntu bash'
 
 # VAGRANT
 alias vgs='vagrant global-status'
