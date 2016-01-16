@@ -2,6 +2,7 @@
 
 ###############################################################################
 # This script installs the dotfiles
+# Ex: `SECRETS_DIR=/path/to/secrets dotfiles/install.sh`
 # @author Vlad Ghinea
 ###############################################################################
 
@@ -10,13 +11,14 @@ DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
 # Load system functions
 if [ -s "${DOTFILES}/.functions.d/common" ]; then
+  # shellcheck source=/dev/null
   . "${DOTFILES}/.functions.d/common"
 fi
 
 # NAME: dotfiles_list
 # DESCRIPTION: Lists the dotfiles
 dotfiles_list(){
-  find "$DOTFILES" -maxdepth 1 -name '.*' \
+  find "$DOTFILES" -maxdepth 1 -mindepth 1 -name '.*' \
     ! -path '*/.git' \
     ! -path '*/.gitignore' \
     ! -path '*/.gitmodules' \
@@ -24,11 +26,14 @@ dotfiles_list(){
     -o -name 'bin'
 }
 
-# NAME: dotfiles_list
-# DESCRIPTION: Lists the dotfiles
-dotfiles_list_private(){
-  if [ -d "${DOTFILES}/.private" ]; then
-    find "${DOTFILES}/.private" -maxdepth 1 -name '.*' \
+# NAME: dotfiles_list_secrets
+# DESCRIPTION: Lists the secret files
+dotfiles_list_secrets(){
+  if [ -d "${SECRETS_DIR}" ]; then
+    find "${SECRETS_DIR}" -maxdepth 1 -mindepth 1 -name '.*' \
+      ! -path '*/.git' \
+      ! -path '*/.gitignore' \
+      ! -path '*/.gitmodules' \
       ! -path '*/.DS_Store'
   fi
 }
@@ -64,12 +69,12 @@ dotfiles_install(){
   [ -d "$bakdir" ] || mkdir -p "$bakdir"
 
   (
-  cd "$HOME"
+  cd "$HOME" || exit
   for dotfile in $(dotfiles_list); do
-    dotfiles_link $dotfile
+    dotfiles_link "$dotfile"
   done
-  for dotfile in $(dotfiles_list_private); do
-    dotfiles_link $dotfile
+  for dotfile in $(dotfiles_list_secrets); do
+    dotfiles_link "$dotfile"
   done
   )
   return 1
@@ -89,7 +94,7 @@ dotfiles_permissions(){
 # NAME: dotfiles_delete_broken_symlinks
 # DESCRIPTION: Cleans broken symlinks in the $HOME directory
 dotfiles_delete_broken_symlinks(){
-  if find -L "${HOME}/" -maxdepth 1 -type l -exec rm {} +; then
+  if find -L "${HOME}/" -maxdepth 1 -mindepth 1 -type l -exec rm {} +; then
     e_ok 'Deleted broken symlinks'
   fi
 }
