@@ -2,11 +2,12 @@
 # Update system
 
 # Load Common Functions
+# shellcheck disable=1090
 . "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)/common"
 
 update_osx() {
   is_osx || return
-  sudo softwareupdate -i -a
+  #sudo softwareupdate -i -a
 }
 
 update_xcode() {
@@ -65,7 +66,7 @@ updt() {
     vim
   '
 
-  if [[ -n "$command" ]] && [[ "${available}" =~ "$command" ]]; then
+  if [[ -n "$command" ]] && [[ "${available}" =~ $command ]]; then
     "update_${command}"
   else
     for cmd in $available; do "update_${cmd}"; done
