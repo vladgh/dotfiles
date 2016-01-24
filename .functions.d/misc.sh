@@ -85,6 +85,11 @@ open_chrome(){
   sh -c "$ssh"
 }
 
+# SSH Tmux
+ssht(){
+  ssh -t "$@" "tmux new-session -s vgh || tmux attach-session -t vgh"
+}
+
 # SSH Tunnel
 ssh_tunnel(){
   # shellcheck disable=SC2029
