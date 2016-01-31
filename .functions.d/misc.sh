@@ -108,3 +108,14 @@ now_in(){
     zdump $t
   done
 }
+
+# Watch directory for changes and execute command
+watch_dir(){
+  local dir=$1
+  shift
+  local cmd=$*
+  fswatch -0 -o -r "$dir" | while read -r -d ""; do
+    $cmd
+  done
+}
+
