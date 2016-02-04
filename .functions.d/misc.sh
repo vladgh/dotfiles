@@ -50,6 +50,7 @@ extract () {
 }
 
 # CHROME
+# USAGE: open_chrome -s -r=oga
 open_chrome(){
   # vars
   local var scratch remote tmpdir chrome port proxy
