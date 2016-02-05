@@ -34,9 +34,9 @@ alias ber='bundle exec rake'
 
 # DOCKER
 # Docker Machine Aliases
-alias dme='echo "Loading Docker Environment..." && eval "$(docker-machine env default)"'
-alias dms='echo "Starting docker machine..." && docker-machine start default && dme'
-alias dmo='echo "Stopping docker machine..." && docker-machine stop default'
+alias dme='echo "Loading Docker Environment..." && eval "$(docker-machine env)"'
+alias dms='echo "Starting docker machine..." && docker-machine start && dme'
+alias dmo='echo "Stopping docker machine..." && docker-machine stop'
 alias dml='echo "Docker machines:" && docker-machine ls'
 # Docker Aliases
 alias dl='docker ps -lq'
