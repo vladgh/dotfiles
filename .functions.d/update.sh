@@ -40,7 +40,7 @@ update_vim() {
 
 update_ruby() {
   is_cmd rvm || return
-  rvm get master
+  rvm get head
   gem update --system
   gem update
 }
