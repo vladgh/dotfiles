@@ -48,9 +48,9 @@ update_ruby() {
 update_pip() {
   is_cmd pip || return
   if is_osx; then
-    pip install --upgrade pip setuptools awscli aws-shell
+    pip install --upgrade pip setuptools awscli awsebcli aws-shell ssh2
   else
-    sudo -H pip install --upgrade pip setuptools awscli aws-shell
+    sudo -H pip install --upgrade pip setuptools awsebcli awscli aws-shell ssh2
   fi
 }
 
