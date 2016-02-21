@@ -1,26 +1,32 @@
 #!/usr/bin/env bash
 
 SESSION_NAME='vgh'
-ROOT_DIR="$HOME/Dropbox/Projects"
+PRJ_DIR="${HOME}/Dropbox/Projects"
+PPT_DIR="${PRJ_DIR}/puppet"
 
-tmux has-session -t ${SESSION_NAME}
+if ! tmux has-session -t $SESSION_NAME; then
+  # New PRJ session
+  tmux new-session -d -s $SESSION_NAME -c "$PRJ_DIR" -n PRJ
+  tmux split-window -h -t $SESSION_NAME -c "$PRJ_DIR"
+  tmux split-window -v -t $SESSION_NAME -c "$PRJ_DIR"
 
-# open these only if we don't already have a session
-# if we do just attach to that session
-if [ $? != 0 ]; then
-  # -n => name of window
-  tmux new-session -d -s ${SESSION_NAME} -c "${ROOT_DIR}" -n PRJ
+  # NEW PPT window
+  tmux new-window -n PPT -t $SESSION_NAME -c "$PPT_DIR"
+  tmux split-window -h -t $SESSION_NAME:2 -c "$PPT_DIR"
+  tmux split-window -v -t $SESSION_NAME:2 -c "$PPT_DIR"
 
-  tmux new-window -n OGA -t ${SESSION_NAME} -c "${ROOT_DIR}"
-  tmux split-window -h -t ${SESSION_NAME}:2 -c "${ROOT_DIR}"
-  tmux split-window -v -t ${SESSION_NAME}:2 -c "${ROOT_DIR}"
-
-  tmux send-keys -t ${SESSION_NAME}:2.1 'oga' C-m
-  tmux send-keys -t ${SESSION_NAME}:2.2 'oga' C-m
-  tmux send-keys -t ${SESSION_NAME}:2.3 'oga' C-m
+  # NEW OGA window
+  tmux new-window -n OGA -t $SESSION_NAME -c "$PRJ_DIR"
+  tmux split-window -h -t $SESSION_NAME:3 -c "$PRJ_DIR"
+  tmux split-window -v -t $SESSION_NAME:3 -c "$PRJ_DIR"
+  # commands
+  tmux send-keys -t $SESSION_NAME:3.1 'oga' C-m C-l
+  tmux send-keys -t $SESSION_NAME:3.2 'oga' C-m C-l
+  tmux send-keys -t $SESSION_NAME:3.3 'oga' C-m C-l
 
   # start out on the first window when we attach
-  tmux select-window -t ${SESSION_NAME}:1
+  tmux select-window -t $SESSION_NAME:1
+  tmux select-pane -t $SESSION_NAME:1.1
 fi
 
-tmux attach-session -t ${SESSION_NAME}
+tmux attach-session -t $SESSION_NAME
