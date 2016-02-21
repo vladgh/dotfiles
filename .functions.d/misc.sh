@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 # Miscellaneous Functions
 
-# Load Common Functions
-. "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)/common"
-
 # Create a directory and jump directly into it
 mcd() { mkdir -p "$1" && cd "$1" ;}
 
@@ -119,4 +116,3 @@ watch_dir(){
     $cmd
   done
 }
-

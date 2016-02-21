@@ -1,13 +1,5 @@
 #!/usr/bin/env bash
-# Vlad's Common Functions
-
-# OS detection
-is_root()   { [[ $EUID == 0 ]] ;}
-is_cmd()    { command -v "$@" >/dev/null 2>&1 ;}
-is_osx()    { [[ $(uname) == Darwin ]] ;}
-is_linux()  { [[ $(uname) == Linux ]] ;}
-is_ubuntu() { is_cmd lsb_release && [[ "$(lsb_release -si)" =~ Ubuntu ]] ;}
-get_dist()  { lsb_release -cs ;}
+# Output Functions
 
 # Color
 fgblk="$(tput setaf 0)"     # Black - Regular
@@ -89,4 +81,3 @@ e_ok() {
     { is_color && echo -e "  \033[1;32m✔\033[0m  $*" || echo "  ✔  $*" ;}
 }
 e_finish() { e_ok "Finished ${BASH_SOURCE[0]} at $(/bin/date "+%F %T")"; }
-

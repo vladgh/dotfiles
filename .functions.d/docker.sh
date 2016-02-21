@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 # Docker Functions
 
-# Load Common Functions
-# shellcheck source=/dev/null
-. "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)/common"
-
 # Kill all running containers.
 docker_killall(){
   docker kill "$(docker ps -q)"
@@ -24,4 +20,3 @@ docker_delstopped(){
     docker rm "$name"
   fi
 }
-

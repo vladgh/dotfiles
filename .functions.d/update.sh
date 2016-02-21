@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 # Update system
 
-# Load Common Functions
-# shellcheck disable=1090
-. "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)/common"
-
 update_osx() {
   is_osx || return
   #sudo softwareupdate -i -a

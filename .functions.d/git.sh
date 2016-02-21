@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 # Git Functions
 
-# Load Common Functions
-. "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)/common"
-
 # Export PS1 with the git info
 if [ -s /etc/bash_completion.d/git-prompt ] || [ -s /usr/local/etc/bash_completion.d/git-prompt.sh ]; then
   if [ -s /usr/local/etc/bash_completion.d/git-prompt.sh ]; then
@@ -20,4 +17,3 @@ if [ -s /etc/bash_completion.d/git-prompt ] || [ -s /usr/local/etc/bash_completi
   export GIT_PS1_SHOWUPSTREAM="auto"
   export PROMPT_COMMAND='__git_ps1 "\[${fgblu}\]\u\[${fgpur}\]@\h\[${normal}\]:\W" "\\\$ "'
 fi
-
