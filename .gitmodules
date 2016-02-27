@@ -70,3 +70,6 @@
 [submodule ".vim/bundle/vim-reek"]
 	path = .vim/bundle/vim-reek
 	url = https://github.com/rainerborene/vim-reek.git
+[submodule ".vim/bundle/vim-airline-themes"]
+	path = .vim/bundle/vim-airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes.git
