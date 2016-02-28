@@ -1,0 +1,32 @@
+cask_args appdir: '/Applications'
+tap 'caskroom/cask'
+tap 'homebrew/dupes'
+
+brew 'bash'
+brew 'bash-completion'
+brew 'python'
+brew 'vim', args: ['override-system-vi', 'with-lua', 'with-python3']
+brew 'node'
+brew 'gnu-sed', args: ['with-default-names']
+brew 'gnu-tar', args: ['with-default-names']
+brew 'gnu-which', args: ['with-default-names']
+brew 'gnutls', args: ['with-default-names']
+brew 'grep', args: ['with-default-names']
+brew 'findutils'
+brew 'coreutils'
+brew 'binutils'
+brew 'diffutils'
+brew 'gzip'
+brew 'watch'
+brew 'tmux'
+brew 'wget'
+brew 'nmap'
+brew 'ack'
+brew 'git'
+brew 'git-extras'
+brew 'htop-osx'
+brew 'gnupg'
+brew 'jq'
+brew 'fswatch'
+brew 'shellcheck'
+brew 'stormssh'
