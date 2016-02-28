@@ -10,10 +10,8 @@
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
 # Load system functions
-if [ -s "${DOTFILES}/.functions.d/common" ]; then
-  # shellcheck source=/dev/null
-  . "${DOTFILES}/.functions.d/common"
-fi
+# shellcheck source=/dev/null
+. "${DOTFILES}/.functions.d/load" || true
 
 # NAME: dotfiles_list
 # DESCRIPTION: Lists the dotfiles
