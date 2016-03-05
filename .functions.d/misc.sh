@@ -116,3 +116,24 @@ watch_dir(){
     $cmd
   done
 }
+
+# Simple bash server
+simple_bash_server(){
+  while true; do
+  	HOST=$(hostname -s)
+  	HTML="
+<html>
+	<head>
+		<title>Simple BASH Server</title>
+		<style>body {margin-top:   40px; background-color: #333;}</style>
+	</head>
+	<body>
+		<div style=color:white;text-align:center>
+			<h1>Running on ${HOST}</h1>
+		</div>
+	</body>
+</html>
+  "
+    echo "$HTML" | nc -q 0 -l -p 80
+  done
+}
