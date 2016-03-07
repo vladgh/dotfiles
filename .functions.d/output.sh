@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Output Functions
 
-# Color
+# BASH Colors
 fgblk="$(tput setaf 0)"     # Black - Regular
 fgred="$(tput setaf 1)"     # Red
 fggrn="$(tput setaf 2)"     # Green

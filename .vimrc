@@ -121,6 +121,9 @@ nmap <silent> <C-k> :-m.<CR>k
 " Search for the word under cursor in current dir
 map <F4> :execute "vimgrep /" . expand("<cword>") . "/gj **" <Bar> cw<CR>
 
+" Escape the highlighted search
+nnoremap <esc><esc> :noh<return><esc>
+
 " Buffer mappings
 " ,. : list buffers
 " ,b ,n ,g: go back/forward/last used buffer
