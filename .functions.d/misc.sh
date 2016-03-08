@@ -2,12 +2,12 @@
 # Miscellaneous Functions
 
 # Create a directory and jump directly into it
-mcd() { mkdir -p "$1" && cd "$1" ;}
+mcd() { mkdir -p "$1" && cd "$1" || return ;}
 
 # VMware
 vmware_install() {
   (
-  cd "$(mktemp -d)"
+  cd "$(mktemp -d)" || return
   sudo apt-get --quiet --yes install build-essential "linux-headers-$(uname -r)"
   tar zxvf "/media/$(whoami)/VMware\ Tools/VMwareTools-*.tar.gz"
   sudo ./vmware-tools-distrib/vmware-install.pl -d
@@ -120,18 +120,18 @@ watch_dir(){
 # Simple bash server
 simple_bash_server(){
   while true; do
-  	HOST=$(hostname -s)
-  	HTML="
+    HOST=$(hostname -s)
+    HTML="
 <html>
-	<head>
-		<title>Simple BASH Server</title>
-		<style>body {margin-top:   40px; background-color: #333;}</style>
-	</head>
-	<body>
-		<div style=color:white;text-align:center>
-			<h1>Running on ${HOST}</h1>
-		</div>
-	</body>
+  <head>
+    <title>Simple BASH Server</title>
+    <style>body {margin-top:   40px; background-color: #333;}</style>
+  </head>
+  <body>
+    <div style=color:white;text-align:center>
+      <h1>Running on ${HOST}</h1>
+    </div>
+  </body>
 </html>
   "
     echo "$HTML" | nc -q 0 -l -p 80

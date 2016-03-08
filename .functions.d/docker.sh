@@ -22,17 +22,17 @@ docker_delstopped(){
 }
 
 # Runs docker exec in the latest container
-function docker_exec_last {
-  docker exec -it $( docker ps -a -q -l) /bin/bash
+docker_exec_last(){
+  docker exec -it "$(docker ps -a -q -l)" /bin/bash
 }
 
 # Backup files from a docker volume into /tmp/backup.tar.gz
-function docker_volume_backup() {
+docker_volume_backup(){
   docker run --rm -v /tmp:/backup --volumes-from "$1" debian:jessie tar -czvf /backup/backup.tar.gz "${@:2}"
 }
 
 # Restore files from /tmp/backup.tar.gz into a docker volume
-function docker_volume_restore() {
+docker_volume_restore(){
   docker run --rm -v /tmp:/backup --volumes-from "$1" debian:jessie tar -xzvf /backup/backup.tar.gz "${@:2}"
   echo "Double checking files..."
   docker run --rm -v /tmp:/backup --volumes-from "$1" debian:jessie ls -lh "${@:2}"
