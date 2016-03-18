@@ -3,7 +3,6 @@
 
 update_osx() {
   is_osx || return
-  #sudo softwareupdate -i -a
 }
 
 update_xcode() {
