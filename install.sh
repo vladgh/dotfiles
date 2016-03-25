@@ -9,6 +9,9 @@
 # Read dotfiles directory
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
+# Default secrets directory
+SECRETS_DIR="${SECRETS_DIR:-"$(pwd)/.secrets"}"
+
 # Load system functions
 # shellcheck source=/dev/null
 . "${DOTFILES}/.functions.d/load" || true
@@ -75,7 +78,6 @@ dotfiles_install(){
     dotfiles_link "$dotfile"
   done
   )
-  return 1
 }
 
 # NAME: dotfiles_permissions
