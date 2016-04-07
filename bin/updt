@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 # Update system
 
+# Load functions
+# shellcheck disable=1090
+[ -s "${HOME}/.functions.d/load" ] && . "${HOME}/.functions.d/load"
+
 update_osx() {
   is_osx || return
 }
@@ -49,7 +53,7 @@ update_pip() {
   fi
 }
 
-updt() {
+main() {
   local command=$1
   local available='
     osx
@@ -67,3 +71,5 @@ updt() {
     for cmd in $available; do "update_${cmd}"; done
   fi
 }
+
+main "$@"
