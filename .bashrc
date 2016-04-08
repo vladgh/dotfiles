@@ -91,6 +91,7 @@ export VISUAL=vim
 export EDITOR=$VISUAL
 
 # Add tab completion for many Bash commands
+# shellcheck disable=1090,1091
 if which brew > /dev/null && [ -f "$(brew --prefix)/etc/bash_completion" ]; then
   source "$(brew --prefix)/etc/bash_completion";
 elif [ -f /etc/bash_completion ]; then
@@ -99,8 +100,9 @@ fi
 
 # GNU Core utilities
 if which brew > /dev/null && [ -d "$(brew --prefix coreutils)/libexec/gnubin" ]; then
-  export PATH="$PATH:$(brew --prefix coreutils)/libexec/gnubin"
-  export MANPATH="$MANPATH:$(brew --prefix coreutils)/libexec/gnubin"
+  PATH="$PATH:$(brew --prefix coreutils)/libexec/gnubin"
+  MANPATH="$MANPATH:$(brew --prefix coreutils)/libexec/gnubin"
+  export PATH MANPATH
 fi
 
 # RVM
