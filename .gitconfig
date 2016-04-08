@@ -2,7 +2,7 @@
   st = !git fetch && git status
   co = checkout
   cm = commit --verbose
-  cs = commit -s --verbose
+  cs = commit -S --verbose
   br = branch
   ba = branch --all
   nb = checkout -b
