@@ -114,3 +114,12 @@ command -v hub > /dev/null 2>&1 && eval "$(hub alias -s)"
 # Travis
 [ -s ${HOME}/.travis/travis.sh ] && source ${HOME}/.travis/travis.sh
 
+# GPG Agent (http://chive.ch/security/2016/04/06/gpg-on-os-x.html)
+# shellcheck disable=1090
+[ -f ~/.gnupg/gpg-agent.env ] && source ~/.gnupg/gpg-agent.env
+if [ -S "${GPG_AGENT_INFO%%:*}" ]; then
+  export GPG_AGENT_INFO
+else
+  eval "$(gpg-agent --daemon --log-file /tmp/gpg.log --write-env-file ~/.gnupg/gpg-agent.env --pinentry-program /usr/local/bin/pinentry-mac)"
+fi
+export GPG_TTY; GPG_TTY=$(tty)
