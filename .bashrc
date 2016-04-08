@@ -123,8 +123,8 @@ command -v hub > /dev/null 2>&1 && eval "$(hub alias -s)"
 [ -f ~/.gnupg/gpg-agent.env ] && source ~/.gnupg/gpg-agent.env
 if [ -S "${GPG_AGENT_INFO%%:*}" ]; then
   export GPG_AGENT_INFO
+  export SSH_AUTH_SOCK
 else
-  command -v gpg-agent > /dev/null 2>&1 && \
-    eval "$(gpg-agent --daemon --log-file /tmp/gpg.log --write-env-file ~/.gnupg/gpg-agent.env --pinentry-program /usr/local/bin/pinentry-mac)"
+  eval "$(gpg-agent --daemon --log-file /tmp/gpg.log --write-env-file ~/.gnupg/gpg-agent.env --pinentry-program /usr/local/bin/pinentry-mac --default-cache-ttl 14400 --enable-ssh-support --use-standard-socket)"
 fi
 export GPG_TTY; GPG_TTY=$(tty)
