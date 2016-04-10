@@ -3,6 +3,7 @@
   co = checkout
   cm = commit --verbose
   cs = commit -S --verbose
+  csa = commit -a -S --verbose
   br = branch
   ba = branch --all
   nb = checkout -b
