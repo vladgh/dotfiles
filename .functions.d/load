@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 # Common functions
 
-# Immediately exit on errors
-# set -euo pipefail
-
 # Load all functions
 for file in $(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)/*.sh; do
   # shellcheck disable=1090
