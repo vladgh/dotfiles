@@ -1,9 +1,9 @@
 [alias]
   st = !git fetch && git status
   co = checkout
+  aa = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f"
   cm = commit --verbose
   cs = commit -S --verbose
-  csa = commit -a -S --verbose
   br = branch
   ba = branch --all
   nb = checkout -b
