@@ -53,6 +53,16 @@ update_pip() {
   fi
 }
 
+update_other(){
+  echo 'Update VIM Pathogen'
+  mkdir -p ~/.vim/autoload
+  curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+  echo 'Update Diff Highlight'
+  mkdir -p ~/bin
+  curl -LSso ~/bin/diff-highlight https://raw.github.com/git/git/master/contrib/diff-highlight/diff-highlight
+  chmod +x ~/bin/diff-highlight
+}
+
 main() {
   local command=$1
   local available='
@@ -63,6 +73,7 @@ main() {
     pip
     ruby
     vim
+    other
   '
 
   if [[ -n "$command" ]] && [[ "${available}" =~ $command ]]; then
