@@ -3,7 +3,7 @@
 
 # Kill all running containers.
 docker_killall(){
-  docker kill "$(docker ps -q)"
+  for c in $(docker ps -q 2>/dev/null); do docker kill "$c"; done
 }
 
 # Delete all stopped containers and untagged images.
