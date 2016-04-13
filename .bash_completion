@@ -13,5 +13,17 @@ complete -C aws_completer aws
   [ -s /usr/local/bin/eb_completion.bash ] && \
   . /usr/local/bin/eb_completion.bash
 
-# vim: ft=sh
+# Docker for Mac
+if [[ -d /usr/local/etc/bash_completion.d ]]; then
+  (
+    cd /usr/local/etc/bash_completion.d || true
+    [[ ! -L docker.bash-completion ]] && \
+      ln -s /Applications/Docker.app/Contents/Resources/etc/docker.bash-completion
+    [[ ! -L docker-machine.bash-completion ]] && \
+      ln -s /Applications/Docker.app/Contents/Resources/etc/docker-machine.bash-completion
+    [[ ! -L docker-compose.bash-completion ]] && \
+      ln -s /Applications/Docker.app/Contents/Resources/etc/docker-compose.bash-completion
+  )
+fi
 
+# vim: ft=sh
