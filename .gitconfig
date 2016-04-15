@@ -2,8 +2,8 @@
   st = !git fetch && git status
   co = checkout
   aa = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f"
-  cm = commit --verbose
-  cs = commit -S --verbose
+  cm = commit -v
+  cs = commit -S -v
   br = branch
   ba = branch --all
   nb = checkout -b
@@ -11,6 +11,7 @@
   df = diff HEAD
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all --decorate
   cmm = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f; git commit -s -m"
+  csm = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f; git commit -S -v -m"
   wip = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f; git commit -m \"WIP\""
   unwip = !"git log -n 1 | grep -q -c WIP && git reset HEAD~1"
 
