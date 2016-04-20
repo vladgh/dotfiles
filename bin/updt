@@ -53,6 +53,15 @@ update_pip() {
   fi
 }
 
+update_ecs_cli(){
+  local os
+  echo 'Updating AWS ECS-CLI'
+  if is_osx; then os=darwin; else os=linux; fi
+  curl -o /usr/local/bin/ecs-cli \
+    "https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-${os}-amd64-latest"
+  chmod +x /usr/local/bin/ecs-cli
+}
+
 update_other(){
   echo 'Update VIM Pathogen'
   mkdir -p ~/.vim/autoload
@@ -74,6 +83,7 @@ main() {
     ruby
     vim
     other
+    ecs_cli
   '
 
   if [[ -n "$command" ]] && [[ "${available}" =~ $command ]]; then
