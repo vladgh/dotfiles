@@ -137,3 +137,16 @@ simple_bash_server(){
     echo "$HTML" | nc -q 0 -l -p 80
   done
 }
+
+# Reload GPG Agent
+reload_gpg_agent(){
+  echo 'Stopping GPG Agent...'
+  unset GPG_AGENT_INFO SSH_AUTH_SOCK
+  [ -f ~/.gnupg/gpg-agent.env ] && rm ~/.gnupg/gpg-agent.env
+  pkill gpg-agent
+
+  echo 'Starting GPG Agent...'
+  eval "$(gpg-agent --daemon --log-file /tmp/gpg.log --write-env-file ~/.gnupg/gpg-agent.env --pinentry-program /usr/local/bin/pinentry-mac --default-cache-ttl 14400 --enable-ssh-support --use-standard-socket)"
+
+  echo 'Done.'
+}
