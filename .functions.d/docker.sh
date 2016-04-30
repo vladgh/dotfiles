@@ -39,3 +39,9 @@ docker_volume_restore(){
   echo "Double checking files..."
   docker run --rm -v /tmp:/backup --volumes-from "$1" debian:jessie ls -lh "${@:2}"
 }
+
+docker_compact_disk(){
+  cd ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux
+  /Applications/Docker.app/Contents/MacOS/qemu-img convert -p -O qcow2 Docker.qcow2 Docker2.qcow2
+  mv Docker2.qcow2 Docker.qcow2
+}
