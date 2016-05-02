@@ -10,10 +10,12 @@
   mg = merge --no-ff
   df = diff HEAD
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all --decorate
+  undo = reset --soft HEAD^
   cmm = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f; git commit -s -m"
   csm = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f; git commit -S -v -m"
   wip = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f; git commit -m \"WIP\""
   unwip = !"git log -n 1 | grep -q -c WIP && git reset HEAD~1"
+  deploy = "!merge(){ git checkout $2 && git merge $1 && git push $2 && git checkout ${1#refs/heads/}; }; merge $(git symbolic-ref HEAD) $1"
 
 [core]
   autocrlf = false
