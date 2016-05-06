@@ -12,6 +12,8 @@ docker_clean(){
   docker rm -v $(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
   # shellcheck disable=SC2046
   docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
+  # shellcheck disable=SC2046
+  docker volume rm $(docker volume ls -f dangling=true -q 2>/dev/null) 2>/dev/null
 }
 
 docker_delstopped(){
