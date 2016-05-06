@@ -15,7 +15,7 @@
   csm = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f; git commit -S -v -m"
   wip = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f; git commit -m \"WIP\""
   unwip = !"git log -n 1 | grep -q -c WIP && git reset HEAD~1"
-  deploy = "!merge(){ git checkout $2 && git merge $1 && git push $2 && git checkout ${1#refs/heads/}; }; merge $(git symbolic-ref HEAD) $1"
+  deploy = "!do_deploy(){ git checkout $2 && git merge $1 && git push $2 && git checkout ${1#refs/heads/}; }; do_deploy $(git symbolic-ref HEAD) ${1:-master}"
 
 [core]
   autocrlf = false
