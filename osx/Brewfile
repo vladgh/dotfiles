@@ -30,3 +30,6 @@ brew 'jq'
 brew 'fswatch'
 brew 'shellcheck'
 brew 'stormssh'
+
+tap 'zzrotdesign/tap'
+brew 'docker-clean'
