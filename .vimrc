@@ -163,9 +163,9 @@ let g:rubycomplete_classes_in_global = 1
 let g:rubycomplete_rails = 1
 
 " NERDTree {
-" Autostart
+" Autostart (inside the Projects bookmark)
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree Projects | endif
 " Close if it's the only window
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
