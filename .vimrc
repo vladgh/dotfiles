@@ -41,6 +41,9 @@ set shellcmdflag=-lc " set the ! shell to be a login shell to get at functions a
 set showmatch " Show matching braces.
 set ttyfast " Fast terminal connection
 set virtualedit=block
+set guioptions-=T " Removes toolbar
+set guioptions-=r " Removes scroll bar
+set guioptions-=L " Removes left scroll bar
 
 "default indent settings
 set shiftwidth=2
