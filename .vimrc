@@ -22,6 +22,7 @@ set history=1000 "store lots of :cmdline history
 set showcmd "show incomplete cmds down the bottom
 set showmode "show current mode down the bottom
 set number "show line numbers
+set relativenumber " show relative line numbers
 set incsearch "find the next match as we type the search
 set hlsearch "highlight searches by default
 set wrap "dont wrap lines
