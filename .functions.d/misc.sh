@@ -139,16 +139,23 @@ simple_bash_server(){
 }
 
 # Reload GPG Agent
-gpg_agent_reload(){
+gpg_agent_unload(){
   echo 'Stopping GPG Agent...'
   unset GPG_AGENT_INFO SSH_AUTH_SOCK
   [ -f ~/.gnupg/gpg-agent.env ] && rm ~/.gnupg/gpg-agent.env
   pkill gpg-agent
+}
 
+# Reload GPG Agent
+gpg_agent_load(){
   echo 'Starting GPG Agent...'
   eval "$(gpg-agent --daemon --log-file /tmp/gpg.log --write-env-file ~/.gnupg/gpg-agent.env --pinentry-program /usr/local/bin/pinentry-mac --default-cache-ttl 14400 --enable-ssh-support --use-standard-socket)"
+}
 
-  echo 'Done.'
+# Encrypts and decrypts phrase
+gpg_agent_reload(){
+  gpg_agent_unload
+  gpg_agent_load
 }
 
 # Encrypts and decrypts phrase
