@@ -3,6 +3,7 @@
 
 # Misc
 alias ll='ls -lahpF' # Ubuntu & Mac compatible
+alias gg='( git gui & )'
 alias prj='cd $PROJECTS'
 
 # Reload the shell (i.e. invoke as a login shell)
