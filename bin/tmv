@@ -2,23 +2,22 @@
 
 SESSION_NAME='vgh'
 PRJ_DIR="${HOME}/Dropbox/Projects"
-PPT_DIR="${PRJ_DIR}/puppet"
 
 if ! tmux has-session -t $SESSION_NAME; then
   # New PRJ session
   tmux new-session -d -s $SESSION_NAME -c "$PRJ_DIR" -n PRJ
-  tmux split-window -h -t $SESSION_NAME -c "$PRJ_DIR"
-  tmux split-window -v -t $SESSION_NAME -c "$PRJ_DIR"
+  tmux split-window -h -t $SESSION_NAME -c "${PRJ_DIR}/vgs"
+  tmux split-window -v -t $SESSION_NAME -c "${PRJ_DIR}/dotfiles"
 
   # NEW PPT window
-  tmux new-window -n PPT -t $SESSION_NAME -c "$PPT_DIR"
-  tmux split-window -h -t $SESSION_NAME:2 -c "$PPT_DIR"
-  tmux split-window -v -t $SESSION_NAME:2 -c "$PPT_DIR"
+  tmux new-window -n PPT -t $SESSION_NAME -c "${PRJ_DIR}/puppet"
+  tmux split-window -h -t $SESSION_NAME:2 -c "${PRJ_DIR}/puppet/dist/profile"
+  tmux split-window -v -t $SESSION_NAME:2 -c "${PRJ_DIR}/puppet_stk"
 
   # NEW OGA window
-  tmux new-window -n OGA -t $SESSION_NAME -c "$PRJ_DIR"
-  tmux split-window -h -t $SESSION_NAME:3 -c "$PRJ_DIR"
-  tmux split-window -v -t $SESSION_NAME:3 -c "$PRJ_DIR"
+  tmux new-window -n OGA -t $SESSION_NAME -c "${PRJ_DIR}/oga_stk"
+  tmux split-window -h -t $SESSION_NAME:3 -c "${PRJ_DIR}/oga_stk"
+  tmux split-window -v -t $SESSION_NAME:3 -c "${PRJ_DIR}/oga_stk"
   # commands
   tmux send-keys -t $SESSION_NAME:3.1 'oga' C-m C-l
   tmux send-keys -t $SESSION_NAME:3.2 'oga' C-m C-l
