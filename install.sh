@@ -2,7 +2,7 @@
 
 ###############################################################################
 # This script installs the dotfiles
-# Ex: `SECRETS_DIR=/path/to/secrets dotfiles/install.sh`
+# Ex: `PRIVATE_DIR=/path/to/secrets dotfiles/install.sh`
 # @author Vlad Ghinea
 ###############################################################################
 
@@ -10,7 +10,7 @@
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
 # Default secrets directory
-SECRETS_DIR="${SECRETS_DIR:-"$(pwd)/.secrets"}"
+PRIVATE_DIR="${PRIVATE_DIR:-"$(pwd)/.private"}"
 
 # Load system functions
 # shellcheck source=/dev/null
@@ -30,8 +30,8 @@ dotfiles_list(){
 # NAME: dotfiles_list_secrets
 # DESCRIPTION: Lists the secret files
 dotfiles_list_secrets(){
-  if [ -d "${SECRETS_DIR}" ]; then
-    find "${SECRETS_DIR}" -maxdepth 1 -mindepth 1 -name '.*' \
+  if [ -d "${PRIVATE_DIR}" ]; then
+    find "${PRIVATE_DIR}" -maxdepth 1 -mindepth 1 -name '.*' \
       ! -path '*/.git' \
       ! -path '*/.gitignore' \
       ! -path '*/.gitmodules' \

@@ -24,10 +24,10 @@ HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help";
 
 # Prefer US English and use UTF-8
 # enable en_US locale w/ utf-8 encodings if not already configured
-: ${LANG:="en_US.UTF-8"}
-: ${LANGUAGE:="en"}
-: ${LC_CTYPE:="en_US.UTF-8"}
-: ${LC_ALL:="en_US.UTF-8"}
+: "${LANG:="en_US.UTF-8"}"
+: "${LANGUAGE:="en"}"
+: "${LC_CTYPE:="en_US.UTF-8"}"
+: "${LC_ALL:="en_US.UTF-8"}"
 export LANG LANGUAGE LC_CTYPE LC_ALL
 
 # Don’t clear the screen after quitting a manual page
@@ -47,7 +47,7 @@ shopt -s cdspell;
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # Highlight section titles in manual pages
-export LESS_TERMCAP_md="${yellow}";
+export LESS_TERMCAP_md="${yellow:-}";
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
@@ -73,7 +73,11 @@ unset color_prompt
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 if [ -x /usr/bin/dircolors ]; then
-  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  if test -r ~/.dircolors; then
+    eval "$(dircolors -b ~/.dircolors)"
+  else
+    eval "$(dircolors -b)"
+  fi
   alias ls='ls --color=auto'
   alias grep='grep --color=auto'
   alias fgrep='fgrep --color=auto'
@@ -86,6 +90,9 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
   PATH="$HOME/bin:$PATH"
+fi
+if [ -d "$HOME/.bin" ] ; then
+  PATH="$HOME/.bin:$PATH"
 fi
 
 # Editor
