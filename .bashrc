@@ -115,11 +115,10 @@ if which brew > /dev/null && [ -d "$(brew --prefix coreutils)/libexec/gnubin" ];
 fi
 
 # RVM
-rvm_path=
 # shellcheck disable=1090
 [ -s "${HOME}/.rvm/scripts/rvm" ] && . "${HOME}/.rvm/scripts/rvm"
 # shellcheck disable=1090
-[ -r "$rvm_path/scripts/completion" ] && . "$rvm_path/scripts/completion"
+[ -r "${HOME}/.rvm/scripts/completion" ] && . "${HOME}/.rvm/scripts/completion"
 [ -d "${HOME}/.rvm" ] && export PATH="$PATH:$HOME/.rvm/bin"
 
 # Github
