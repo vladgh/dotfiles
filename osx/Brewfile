@@ -5,7 +5,7 @@ tap 'homebrew/dupes'
 brew 'bash'
 brew 'bash-completion'
 brew 'python'
-brew 'vim', args: ['override-system-vi', 'with-lua', 'with-python3']
+brew 'vim', args: ['with-override-system-vi']
 brew 'node'
 brew 'gnu-sed', args: ['with-default-names']
 brew 'gnu-tar', args: ['with-default-names']
