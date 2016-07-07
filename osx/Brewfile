@@ -5,8 +5,8 @@ tap 'homebrew/dupes'
 brew 'bash'
 brew 'bash-completion'
 brew 'python'
-brew 'vim', args: ['with-override-system-vi']
 brew 'node'
+brew 'vim', args: ['with-override-system-vi']
 brew 'gnu-sed', args: ['with-default-names']
 brew 'gnu-tar', args: ['with-default-names']
 brew 'gnu-which', args: ['with-default-names']
@@ -26,6 +26,8 @@ brew 'git'
 brew 'git-extras'
 brew 'htop-osx'
 brew 'gnupg'
+brew 'gpg-agent'
+brew 'pinentry-mac'
 brew 'jq'
 brew 'fswatch'
 brew 'shellcheck'
