@@ -36,3 +36,5 @@ brew 'packer'
 
 tap 'zzrotdesign/tap'
 brew 'docker-clean'
+
+cask 'vagrant'
