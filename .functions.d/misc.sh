@@ -162,8 +162,3 @@ gpg_agent_reload(){
 gpg_agent_test(){
   echo 'hello world' | gpg -e -r "$(whoami)" | gpg -d
 }
-
-# Tail the Cloud Init Log on a host
-tail_cloud_init(){
-  ssh "$@" tail -f /var/log/cloud-init-output.log
-}

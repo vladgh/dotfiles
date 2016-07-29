@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-# Common functions
-
-# Load all functions
-for file in $(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)/*.sh; do
-  # shellcheck disable=1090
-  . "$file" || true
-done

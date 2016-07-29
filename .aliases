@@ -44,9 +44,6 @@ alias dlc='docker ps'
 alias dli='docker images'
 alias dru='docker run -it --rm -v $(pwd):/docker ubuntu bash'
 
-# VAGRANT
-alias vgs='vagrant global-status'
-
 # OSX ALIASES
 if is_osx; then
   # Reload DNS
