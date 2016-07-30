@@ -87,6 +87,14 @@ fi
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
+# Editor
+export VISUAL=vim
+export EDITOR=$VISUAL
+
+# Load environment variables
+# shellcheck disable=1090
+[ -s "${HOME}/.env" ] && . "${HOME}/.env"
+
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
   PATH="$HOME/bin:$PATH"
@@ -95,9 +103,15 @@ if [ -d "$HOME/.bin" ] ; then
   PATH="$HOME/.bin:$PATH"
 fi
 
-# Editor
-export VISUAL=vim
-export EDITOR=$VISUAL
+# Load functions
+for file in ${HOME}/.functions.d/*.sh; do
+  # shellcheck disable=1090
+  . "$file" || true
+done
+
+# Load .alias
+# shellcheck disable=1090
+[ -s "${HOME}/.aliases" ] && . "${HOME}/.aliases"
 
 # Add tab completion for many Bash commands
 # shellcheck disable=1090,1091
@@ -109,28 +123,28 @@ fi
 
 # GNU Core utilities
 if which brew > /dev/null && [ -d "$(brew --prefix coreutils)/libexec/gnubin" ]; then
-  PATH="$PATH:$(brew --prefix coreutils)/libexec/gnubin"
-  MANPATH="$MANPATH:$(brew --prefix coreutils)/libexec/gnubin"
+  PATH="$(brew --prefix coreutils)/libexec/gnubin:${PATH}"
+  MANPATH="$(brew --prefix coreutils)/libexec/gnubin:${MANPATH}"
   export PATH MANPATH
 fi
 
 # RVM
+export PATH="${PATH}:${HOME}/.rvm/bin" # Add RVM to PATH for scripting
 # shellcheck disable=1090
 [ -s "${HOME}/.rvm/scripts/rvm" ] && . "${HOME}/.rvm/scripts/rvm"
 # shellcheck disable=1090
 [ -r "${HOME}/.rvm/scripts/completion" ] && . "${HOME}/.rvm/scripts/completion"
-[ -d "${HOME}/.rvm" ] && export PATH="$PATH:$HOME/.rvm/bin"
 
 # Github
 command -v hub > /dev/null 2>&1 && eval "$(hub alias -s)"
 
 # Travis
 # shellcheck disable=1090
-[ -s "${HOME}/.travis/travis.sh" ] && source "${HOME}/.travis/travis.sh"
+[ -s "${HOME}/.travis/travis.sh" ] && . "${HOME}/.travis/travis.sh"
 
 # GPG Agent (http://chive.ch/security/2016/04/06/gpg-on-os-x.html)
 # shellcheck disable=1090
-[ -f ~/.gnupg/gpg-agent.env ] && source ~/.gnupg/gpg-agent.env
+[ -f ~/.gnupg/gpg-agent.env ] && . ~/.gnupg/gpg-agent.env
 if [ -S "${GPG_AGENT_INFO%%:*}" ]; then
   export GPG_AGENT_INFO
   export SSH_AUTH_SOCK
