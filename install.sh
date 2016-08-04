@@ -10,11 +10,13 @@
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
 # Default secrets directory
-PRIVATE_DIR="${PRIVATE_DIR:-"$(pwd)/.private"}"
+PRIVATE_DIR="${PRIVATE_DIR:-"${DOTFILES}/.private"}"
 
-# Load system functions
-# shellcheck source=/dev/null
-. "${DOTFILES}/.functions.d/load" || true
+# Load functions
+for file in ${HOME}/.functions.d/*.sh; do
+  # shellcheck disable=1090
+  . "$file" || true
+done
 
 # NAME: dotfiles_list
 # DESCRIPTION: Lists the dotfiles
