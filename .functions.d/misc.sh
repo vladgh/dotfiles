@@ -140,7 +140,6 @@ simple_bash_server(){
 
 # Reload GPG Agent
 gpg_agent_unload(){
-  echo 'Stopping GPG Agent...'
   unset GPG_AGENT_INFO SSH_AUTH_SOCK
   [ -f ~/.gnupg/gpg-agent.env ] && rm ~/.gnupg/gpg-agent.env
   pkill gpg-agent
@@ -148,13 +147,34 @@ gpg_agent_unload(){
 
 # Reload GPG Agent
 gpg_agent_load(){
-  echo 'Starting GPG Agent...'
-  eval "$(gpg-agent --daemon --log-file /tmp/gpg.log --write-env-file ~/.gnupg/gpg-agent.env --pinentry-program /usr/local/bin/pinentry-mac --default-cache-ttl 14400 --enable-ssh-support --use-standard-socket)"
+  # http://chive.ch/security/2016/04/06/gpg-on-os-x.html
+
+  # Do not load if the agent is not installed
+  if ! is_cmd gpg-agent; then return; fi
+
+  # Pin entry program
+  if is_osx; then
+    pin_entry='/usr/local/bin/pinentry-mac'
+  elif is_ubuntu; then
+    pin_entry='/usr/bin/pinentry-gtk-2'
+  fi
+
+  # shellcheck disable=1090
+  [ -f ~/.gnupg/gpg-agent.env ] && . ~/.gnupg/gpg-agent.env
+  if [ -S "${GPG_AGENT_INFO%%:*}" ]; then
+    export GPG_AGENT_INFO
+    export SSH_AUTH_SOCK
+  else
+    eval "$(gpg-agent --daemon --log-file /tmp/gpg.log --write-env-file ~/.gnupg/gpg-agent.env --pinentry-program ${pin_entry} --default-cache-ttl 14400 --enable-ssh-support --use-standard-socket)"
+  fi
+  export GPG_TTY; GPG_TTY=$(tty)
 }
 
 # Encrypts and decrypts phrase
 gpg_agent_reload(){
+  echo 'Stopping GPG Agent...'
   gpg_agent_unload
+  echo 'Starting GPG Agent...'
   gpg_agent_load
 }
 
