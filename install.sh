@@ -13,7 +13,7 @@ DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 PRIVATE_DIR="${PRIVATE_DIR:-"${DOTFILES}/.private"}"
 
 # Load functions
-for file in ${HOME}/.functions.d/*.sh; do
+for file in ${DOTFILES}/.functions.d/*.sh; do
   # shellcheck disable=1090
   . "$file" || true
 done
