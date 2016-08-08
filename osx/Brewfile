@@ -33,6 +33,7 @@ brew 'fswatch'
 brew 'shellcheck'
 brew 'stormssh'
 brew 'packer'
+brew 'terraform '
 
 tap 'zzrotdesign/tap'
 brew 'docker-clean'
