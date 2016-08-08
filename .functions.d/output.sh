@@ -48,11 +48,11 @@ revers="$(tput rev)"        # reverse
 # Logging stuff.
 is_color()  { [[ $TERM =~ color ]] ;}
 is_silent() { [[ $SILENT == true ]] ;}
-e_header()  { is_silent || { is_color && printf "\n${mkbold}${bfgwht}%s${normal}" "$@" || printf "\n%s\n" "$@" ;} ;}
-e_footer()  { is_silent || { is_color && printf "\n${mkbold}${bfgwht}%s${normal}" "$@" || printf "  ➜  %s" "$@";} ;}
-e_ok()      { is_silent || { is_color && printf "  ${bfggrn}✔${normal}  %s\n" "$@" || printf "  ✔  %s" "$@" ;} ;}
-e_error()   { is_silent || { is_color && printf "  ${fgred}✖${normal}  %s\n" "$@" || printf "  ✖  %s" "$@";} ;}
-e_warn()    { is_silent || { is_color && printf "  ${fgylw}${normal}  %s\n" "$@" || printf "    %s" "$@";} ;}
-e_arrow()   { is_silent || { is_color && printf "  ${fgcyn}➜${normal}  %s\n" "$@" || printf "  ➜  %s" "$@";} ;}
+e_header()  { is_silent || { is_color && printf "\n${mkbold}${bfgwht}%s${normal}\n" "$@" || printf "\n%s\n" "$@" ;} ;}
+e_footer()  { is_silent || { is_color && printf "\n${mkbold}${bfgwht}%s${normal}\n" "$@" || printf "  ➜  %s\n" "$@";} ;}
+e_ok()      { is_silent || { is_color && printf "  ${bfggrn}✔${normal}  %s\n" "$@" || printf "  ✔  %s\n" "$@" ;} ;}
+e_error()   { is_silent || { is_color && printf "  ${fgred}✖${normal}  %s\n" "$@" || printf "  ✖  %s\n" "$@";} ;}
+e_warn()    { is_silent || { is_color && printf "  ${fgylw}${normal}  %s\n" "$@" || printf "    %s\n" "$@";} ;}
+e_arrow()   { is_silent || { is_color && printf "  ${fgcyn}➜${normal}  %s\n" "$@" || printf "  ➜  %s\n" "$@";} ;}
 e_abort()   { e_error "$1"; return "${2:-1}" ;}
 e_finish()  { e_ok "Finished ${BASH_SOURCE[0]} at $(/bin/date "+%F %T")"; }
