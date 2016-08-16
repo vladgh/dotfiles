@@ -113,19 +113,32 @@ done
 # shellcheck disable=1090
 [ -s "${HOME}/.aliases" ] && . "${HOME}/.aliases"
 
-# Add tab completion for many Bash commands
-# shellcheck disable=1090,1091
-if which brew > /dev/null && [ -f "$(brew --prefix)/etc/bash_completion" ]; then
-  source "$(brew --prefix)/etc/bash_completion";
-elif [ -f /etc/bash_completion ]; then
-  source /etc/bash_completion;
-fi
+# MacOS
+if which brew > /dev/null; then
+  # Add tab completion for many Bash commands
+  # shellcheck disable=1090,1091
+  if [ -f "$(brew --prefix)/etc/bash_completion" ]; then
+    source "$(brew --prefix)/etc/bash_completion";
+  elif [ -f /etc/bash_completion ]; then
+    source /etc/bash_completion;
+  fi
 
-# GNU Core utilities
-if which brew > /dev/null && [ -d "$(brew --prefix coreutils)/libexec/gnubin" ]; then
-  PATH="$(brew --prefix coreutils)/libexec/gnubin:${PATH}"
-  MANPATH="$(brew --prefix coreutils)/libexec/gnubin:${MANPATH}"
-  export PATH MANPATH
+  __gnubin_dir="$(brew --prefix coreutils)/libexec/gnubin"
+  __gpgbin_dir="$(brew --prefix coreutils)/libexec/gpgbin"
+
+  # GNU Core utilities
+  if [ -d "$__gnubin_dir" ]; then
+    PATH="${__gnubin_dir}:${PATH}"
+    MANPATH="${__gnubin_dir}:${MANPATH}"
+    export PATH MANPATH
+  fi
+
+  # GPG utilities
+  if [ -d "$__gpgbin_dir" ]; then
+    PATH="${__gpgbin_dir}:${PATH}"
+    MANPATH="${__gpgbin_dir}:${MANPATH}"
+    export PATH MANPATH
+  fi
 fi
 
 # RVM
