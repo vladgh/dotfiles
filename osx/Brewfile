@@ -1,6 +1,7 @@
 cask_args appdir: '/Applications'
 tap 'caskroom/cask'
 tap 'homebrew/dupes'
+tap 'homebrew/completions'
 
 brew 'bash'
 brew 'bash-completion'
@@ -33,7 +34,8 @@ brew 'fswatch'
 brew 'shellcheck'
 brew 'stormssh'
 brew 'packer'
-brew 'terraform '
+brew 'terraform'
+brew 'vagrant-completion'
 
 tap 'zzrotdesign/tap'
 brew 'docker-clean'
