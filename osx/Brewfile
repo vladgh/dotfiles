@@ -36,6 +36,7 @@ brew 'stormssh'
 brew 'packer'
 brew 'terraform'
 brew 'vagrant-completion'
+brew 'graphviz'
 
 tap 'zzrotdesign/tap'
 brew 'docker-clean'
