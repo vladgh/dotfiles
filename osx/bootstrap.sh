@@ -26,10 +26,13 @@ if [[ "$(dscl . -read ~ UserShell | awk '{print $2}')" != "$binroot/bash" ]]; th
   sudo chsh -s "$binroot/bash" "$USER" >/dev/null 2>&1
 fi
 
+# Ruby
+curl -sSL https://get.rvm.io | bash -s -- --ruby --with-gems='bundler'
+
 # Python
-pip install --upgrade pip setuptools
-pip install --upgrade awscli awsebcli aws-shell
-pip install --upgrade ssh2
+pip install --upgrade pip setuptools virtualenv \
+                      awscli awsebcli aws-shell \
+                      ssh2
 
 # Node.js
 npm install npm -g
