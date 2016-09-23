@@ -141,6 +141,12 @@ if which brew > /dev/null; then
   fi
 fi
 
+# GPG Agent (http://chive.ch/security/2016/04/06/gpg-on-os-x.html)
+gpg_agent_load
+
+# SSH Agent
+eval "$(ssh-agent -s >/dev/null)"
+
 # RVM
 export PATH="${PATH}:${HOME}/.rvm/bin" # Add RVM to PATH for scripting
 # shellcheck disable=1090
@@ -154,6 +160,3 @@ command -v hub > /dev/null 2>&1 && eval "$(hub alias -s)"
 # Travis
 # shellcheck disable=1090
 [ -s "${HOME}/.travis/travis.sh" ] && . "${HOME}/.travis/travis.sh"
-
-# GPG Agent (http://chive.ch/security/2016/04/06/gpg-on-os-x.html)
-gpg_agent_load
