@@ -140,12 +140,12 @@ simple_bash_server(){
 
 # Reload GPG Agent
 gpg_agent_unload(){
-  unset GPG_AGENT_INFO SSH_AUTH_SOCK
+  unset GPG_AGENT_INFO
   [ -f ~/.gnupg/gpg-agent.env ] && rm ~/.gnupg/gpg-agent.env
   pkill gpg-agent
 }
 
-# Reload GPG Agent
+# Load GPG Agent
 gpg_agent_load(){
   # http://chive.ch/security/2016/04/06/gpg-on-os-x.html
 
@@ -163,9 +163,8 @@ gpg_agent_load(){
   [ -f ~/.gnupg/gpg-agent.env ] && . ~/.gnupg/gpg-agent.env
   if [ -S "${GPG_AGENT_INFO%%:*}" ]; then
     export GPG_AGENT_INFO
-    export SSH_AUTH_SOCK
   else
-    eval "$(gpg-agent --daemon --log-file /tmp/gpg.log --write-env-file ~/.gnupg/gpg-agent.env --pinentry-program ${pin_entry} --default-cache-ttl 14400 --enable-ssh-support --use-standard-socket)"
+    eval "$(gpg-agent --daemon --log-file /tmp/gpg.log --write-env-file ~/.gnupg/gpg-agent.env --pinentry-program ${pin_entry} --default-cache-ttl 14400)"
   fi
   export GPG_TTY; GPG_TTY=$(tty)
 }
