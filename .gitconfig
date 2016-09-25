@@ -16,7 +16,7 @@
   csa = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f; git commit -S -v"
   wip = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f; git commit -m \"WIP\""
   unwip = !"git log -n 1 | grep -q -c WIP && git reset HEAD~1"
-  deploy = "!do_deploy(){ git checkout $2 && git merge --gpg-sign --no-ff $1 && git push ;}; do_deploy $(git symbolic-ref --short HEAD) ${1:-master}"
+  deploy = "!do_deploy(){ git checkout $2 && git merge --gpg-sign --no-ff $1 && git push && git co $1 ;}; do_deploy $(git symbolic-ref --short HEAD) ${1:-master}"
 
 [core]
   autocrlf = false
