@@ -138,17 +138,8 @@ simple_bash_server(){
   done
 }
 
-# Reload GPG Agent
-gpg_agent_unload(){
-  unset GPG_AGENT_INFO
-  [ -f ~/.gnupg/gpg-agent.env ] && rm ~/.gnupg/gpg-agent.env
-  pkill gpg-agent
-}
-
 # Load GPG Agent
 gpg_agent_load(){
-  # http://chive.ch/security/2016/04/06/gpg-on-os-x.html
-
   # Do not load if the agent is not installed
   if ! is_cmd gpg-agent; then return; fi
 
@@ -164,12 +155,19 @@ gpg_agent_load(){
   if [ -S "${GPG_AGENT_INFO%%:*}" ]; then
     export GPG_AGENT_INFO
   else
-    eval "$(gpg-agent --daemon --log-file /tmp/gpg.log --write-env-file ~/.gnupg/gpg-agent.env --pinentry-program ${pin_entry} --default-cache-ttl 14400)"
+    eval "$(gpg-agent --daemon --log-file /tmp/gpg.log --write-env-file ~/.gnupg/gpg-agent.env --pinentry-program ${pin_entry})"
   fi
   export GPG_TTY; GPG_TTY=$(tty)
 }
 
-# Encrypts and decrypts phrase
+# Unload GPG Agent
+gpg_agent_unload(){
+  unset GPG_AGENT_INFO GPG_TTY
+  [ -f ~/.gnupg/gpg-agent.env ] && rm ~/.gnupg/gpg-agent.env
+  sudo killall gpg-agent
+}
+
+# Relaod GPG Agent
 gpg_agent_reload(){
   echo 'Stopping GPG Agent...'
   gpg_agent_unload
