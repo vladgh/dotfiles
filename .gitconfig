@@ -1,5 +1,5 @@
 [alias]
-  st = !git fetch --all && git status
+  st = !git fetch --all --prune && git status
   co = checkout
   aa = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f"
   cm = commit -v

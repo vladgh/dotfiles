@@ -3,7 +3,6 @@
 
 # Misc
 alias ll='ls -lahpF' # Ubuntu & Mac compatible
-alias gg='( git gui & )'
 alias prj='cd $PROJECTS'
 
 # Reload the shell (i.e. invoke as a login shell)
@@ -14,6 +13,10 @@ alias ip='dig +short myip.opendns.com @resolver1.opendns.com'
 
 # Vim
 alias gvim='gvim 2>/dev/null'
+
+# GIT
+alias gg='( git gui & )'
+alias git_delete_merged='git branch --merged | egrep -v "(^\*|production|master|dev)" | xargs git branch -d'
 
 # Temp Dir
 alias tmp='cd $(mktemp -d 2>/dev/null || mktemp -d -t "mytmpdir")'
