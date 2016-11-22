@@ -16,7 +16,6 @@ alias gvim='gvim 2>/dev/null'
 
 # GIT
 alias gg='( git gui & )'
-alias git_delete_merged='git branch --merged | egrep -v "(^\*|production|master|dev)" | xargs git branch -d'
 
 # Temp Dir
 alias tmp='cd $(mktemp -d 2>/dev/null || mktemp -d -t "mytmpdir")'
