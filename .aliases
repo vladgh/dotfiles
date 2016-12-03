@@ -32,6 +32,7 @@ alias genSalt='openssl rand -base64 32'
 # RUBY
 # Bundle
 alias be='bundle exec'
+alias bup='bundle update'
 alias ber='bundle exec rake'
 
 # DOCKER
