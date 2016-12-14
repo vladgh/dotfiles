@@ -47,6 +47,9 @@ alias dlc='docker ps'
 alias dli='docker images'
 alias dru='docker run -it --rm -v $(pwd):/docker ubuntu bash'
 
+# Flocker
+alias fli='docker run --rm --privileged -v /root:/root -v /chq:/chq:shared -v /var/log:/var/log -v /lib/modules/:/lib/modules clusterhq/fli'
+
 # OSX ALIASES
 if is_osx; then
   # Reload DNS
