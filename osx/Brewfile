@@ -1,5 +1,6 @@
 cask_args appdir: '/Applications'
 tap 'caskroom/cask'
+
 tap 'homebrew/dupes'
 tap 'homebrew/completions'
 
@@ -38,6 +39,9 @@ brew 'packer'
 brew 'terraform'
 brew 'vagrant-completion'
 brew 'graphviz'
+
+tap 'linode/cli'
+brew 'linode-cli'
 
 tap 'zzrotdesign/tap'
 brew 'docker-clean'
