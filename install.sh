@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 
-###############################################################################
-# This script installs the dotfiles
-# Ex: `PRIVATE_DIR=/path/to/secrets dotfiles/install.sh`
-# @author Vlad Ghinea
-###############################################################################
-
 # Read dotfiles directory
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
@@ -18,8 +12,7 @@ for file in ${DOTFILES}/.functions.d/*.sh; do
   . "$file" || true
 done
 
-# NAME: dotfiles_list
-# DESCRIPTION: Lists the dotfiles
+# Lists the dotfiles
 dotfiles_list(){
   find "$DOTFILES" -maxdepth 1 -mindepth 1 -name '.*' \
     ! -path '*/.git' \
@@ -29,8 +22,7 @@ dotfiles_list(){
     -o -name 'bin'
 }
 
-# NAME: dotfiles_list_secrets
-# DESCRIPTION: Lists the secret files
+# Lists the secret files
 dotfiles_list_secrets(){
   if [ -d "${PRIVATE_DIR}" ]; then
     find "${PRIVATE_DIR}" -maxdepth 1 -mindepth 1 -name '.*' \
@@ -41,6 +33,7 @@ dotfiles_list_secrets(){
   fi
 }
 
+# Creates links for the specified dotfile
 dotfiles_link(){
   local name; name=$(basename "$dotfile")
   local prev="${HOME}/${name}"
@@ -64,8 +57,7 @@ dotfiles_link(){
 
 }
 
-# NAME: dotfiles_link
-# DESCRIPTION: Creates links for dotfiles
+# Iterate public and private dotfiles and creates links for each of them
 dotfiles_install(){
   local bakdir
   bakdir="${HOME}/backups/dotfiles.$(date "+%Y_%m_%d-%H_%M_%S").bak"
@@ -82,8 +74,7 @@ dotfiles_install(){
   )
 }
 
-# NAME: dotfiles_permissions
-# DESCRIPTION: Sets permissions for dotfiles
+# Sets permissions for dotfiles
 dotfiles_permissions(){
   if find "${HOME}/bin/" -type f -exec chmod +x {} \; 2>/dev/null; then
     e_ok 'Made files in "bin" directory executable'
@@ -93,14 +84,33 @@ dotfiles_permissions(){
   fi
 }
 
-# NAME: dotfiles_delete_broken_symlinks
-# DESCRIPTION: Cleans broken symlinks in the $HOME directory
+# Cleans broken symlinks in the $HOME directory
 dotfiles_delete_broken_symlinks(){
   if find -L "${HOME}/" -maxdepth 1 -mindepth 1 -type l -exec rm {} +; then
     e_ok 'Deleted broken symlinks'
   fi
 }
 
-dotfiles_install
-dotfiles_permissions
-dotfiles_delete_broken_symlinks
+# Install VIM plugins
+dotfiles_install_vim_plugins(){
+  if [ ! -d "${HOME}/.vim/bundle/Vundle.vim" ]; then
+    git clone https://github.com/VundleVim/Vundle.vim.git "${HOME}/.vim/bundle/Vundle.vim"
+    e_ok 'Cloned Vundle'
+  fi
+  if is_cmd vim; then
+    vim +PluginInstall +qall
+    e_ok 'Installed/Updated VIM plugins'
+  else
+    e_warn 'Vim is not installed! Skipped plugins installation'
+  fi
+}
+
+# Script's logic
+main(){
+  dotfiles_install
+  dotfiles_permissions
+  dotfiles_delete_broken_symlinks
+  dotfiles_install_vim_plugins
+}
+
+main "$@"
