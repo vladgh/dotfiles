@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Read dotfiles directory
-DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
+DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
 
 # Default secrets directory
 PRIVATE_DIR="${PRIVATE_DIR:-"${DOTFILES}/.private"}"

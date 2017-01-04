@@ -4,9 +4,9 @@
 
 ```bash
 git clone --recursive https://github.com/vladgh/dotfiles.git
-dotfiles/install.sh
+dotfiles/bin/install.sh
 # OR
-PRIVATE_DIR=/path/to/secrets dotfiles/install.sh
+PRIVATE_DIR=/path/to/secrets dotfiles/bin/install.sh
 ```
 
 ## Bugs
