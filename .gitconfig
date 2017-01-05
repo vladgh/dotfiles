@@ -11,6 +11,7 @@
   df = diff HEAD
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all --decorate
   stp = !git pull --all --prune && git status
+  pup = !git push --set-upstream origin $(git symbolic-ref --short HEAD)
   cmm = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f; git commit -s -m"
   csm = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f; git commit -S -v -m"
   csa = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f; git commit -S -v"
