@@ -141,9 +141,6 @@ if which brew > /dev/null; then
   fi
 fi
 
-# GPG Agent
-gpg_agent_load
-
 # RVM
 export PATH="${PATH}:${HOME}/.rvm/bin" # Add RVM to PATH for scripting
 # shellcheck disable=1090
