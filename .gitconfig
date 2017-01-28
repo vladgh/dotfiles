@@ -1,4 +1,5 @@
 [alias]
+  al = !git config --get-regexp alias
   st = !git fetch --all --prune && git status
   co = checkout
   aa = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f"
@@ -8,6 +9,9 @@
   ba = branch --all
   nb = checkout -b
   mg = merge --no-ff
+  sl = stash list
+  sa = stash apply
+  ss = stash save
   df = diff HEAD
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all --decorate
   stp = !git pull --all --prune && git status
@@ -17,7 +21,10 @@
   csa = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f; git commit -S -v"
   wip = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f; git commit -m \"WIP\""
   unwip = !"git log -n 1 | grep -q -c WIP && git reset HEAD~1"
-  deploy = "!do_deploy(){ git checkout $2 && git merge --gpg-sign --no-ff $1 && git push && git co $1 && git rebase $2 ;}; do_deploy $(git symbolic-ref --short HEAD) ${1:-master}"
+  deploy = "!f(){ git checkout $2 && git merge --gpg-sign --no-ff $1 && git push && git co $1 && git rebase $2 ;}; f $(git symbolic-ref --short HEAD) ${1-master}"
+  countbase = "!f() { compareBranch=${1-master}; git rev-list --count HEAD ^$compareBranch; }; f"
+  squashbase = "!f() { branchName=${1-master}; commitCount=$(git countbase $branchName); git rebase -i HEAD~$commitCount; }; f"
+  pullbase = "!f() { branchName=${1-master}; git checkout $branchName && git pull && git checkout - && git rebase -i $branchName; }; f"
   undo = reset --soft HEAD^
 
 [core]
