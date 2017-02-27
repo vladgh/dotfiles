@@ -22,7 +22,7 @@ Plugin 'ngmy/vim-rubocop'
 Plugin 'rainerborene/vim-reek'
 Plugin 'rodjek/vim-puppet'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
+
 Plugin 'scrooloose/syntastic'
 Plugin 'thinca/vim-template'
 Plugin 'tomasr/molokai'
@@ -181,7 +181,7 @@ nnoremap <Leader>0 :10b<CR>
 
 " GIT (fugitive)
 " Show status
-nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gs :Gfetch<CR>:Gstatus<CR>
 " Add current file
 nnoremap <Leader>ga :Git add %:p<CR><CR>
 " Add all files
@@ -189,7 +189,7 @@ nnoremap <Leader>gA :Git add .<CR><CR>
 " Commit changes
 nnoremap <Leader>gc :Gcommit -S -v -q<CR>
 " Commit changes to current file
-nnoremap <Leader>gt :Gcommit -S -v -q %:p<CR>
+nnoremap <Leader>gf :Gcommit -S -v -q %:p<CR>
 
 " END MAPPINGS ----------------------------------------------------------------
 
