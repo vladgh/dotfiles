@@ -179,6 +179,11 @@ nnoremap <Leader>8 :8b<CR>
 nnoremap <Leader>9 :9b<CR>
 nnoremap <Leader>0 :10b<CR>
 
+" GIT (fugitive)
+nnoremap <Leader>ga :Git add %:p<CR><CR>
+nnoremap <Leader>gA :Git add .<CR><CR>
+nnoremap <Leader>gc :Gcommit -S -v -q<CR>
+
 " END MAPPINGS ----------------------------------------------------------------
 
 " PLUGINS ---------------------------------------------------------------------

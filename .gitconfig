@@ -11,6 +11,7 @@
   mg = merge --no-ff
   sl = stash list
   sa = stash apply
+  sp = stash pop
   ss = stash save
   df = diff HEAD
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all --decorate
