@@ -180,12 +180,16 @@ nnoremap <Leader>9 :9b<CR>
 nnoremap <Leader>0 :10b<CR>
 
 " GIT (fugitive)
-nnoremap <Leader>gs :Gstatus<CR> " Show status
-nnoremap <Leader>ga :Git add %:p<CR><CR> " Add current file
-nnoremap <Leader>ga :Git add %:p<CR><CR> " Add current file
-nnoremap <Leader>gA :Git add .<CR><CR> " Add all files
-nnoremap <Leader>gc :Gcommit -S -v -q<CR> " Commit changes
-nnoremap <Leader>gt :Gcommit -S -v -q %:p<CR> " Commit changes to current file
+" Show status
+nnoremap <Leader>gs :Gstatus<CR>
+" Add current file
+nnoremap <Leader>ga :Git add %:p<CR><CR>
+" Add all files
+nnoremap <Leader>gA :Git add .<CR><CR>
+" Commit changes
+nnoremap <Leader>gc :Gcommit -S -v -q<CR>
+" Commit changes to current file
+nnoremap <Leader>gt :Gcommit -S -v -q %:p<CR>
 
 " END MAPPINGS ----------------------------------------------------------------
 
