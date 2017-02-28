@@ -1,5 +1,5 @@
-"Use Vim settings, rather then Vi settings (much better!).
-"This must be first, because it changes other options as a side effect.
+" Use Vim settings, rather then Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
 set nocompatible " required
 
 " set the runtime path to include Vundle and initialize
@@ -22,7 +22,7 @@ Plugin 'ngmy/vim-rubocop'
 Plugin 'rainerborene/vim-reek'
 Plugin 'rodjek/vim-puppet'
 Plugin 'scrooloose/nerdcommenter'
-
+Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'thinca/vim-template'
 Plugin 'tomasr/molokai'
@@ -190,7 +190,6 @@ nnoremap <Leader>gA :Git add .<CR><CR>
 nnoremap <Leader>gc :Gcommit -S -v -q<CR>
 " Commit changes to current file
 nnoremap <Leader>gf :Gcommit -S -v -q %:p<CR>
-
 " END MAPPINGS ----------------------------------------------------------------
 
 " PLUGINS ---------------------------------------------------------------------
