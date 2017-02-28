@@ -181,7 +181,7 @@ nnoremap <Leader>0 :10b<CR>
 
 " GIT (fugitive)
 " Show status
-nnoremap <Leader>gs :Gfetch<CR>:Gstatus<CR>
+nnoremap <Leader>gs :Gstatus<CR>
 " Add current file
 nnoremap <Leader>ga :Git add %:p<CR><CR>
 " Add all files
