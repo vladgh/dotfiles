@@ -181,15 +181,15 @@ nnoremap <Leader>0 :10b<CR>
 
 " GIT (fugitive)
 " Show status
-nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gs :Gfetch<bar>Gstatus<CR>
 " Add current file
 nnoremap <Leader>ga :Git add %:p<CR><CR>
 " Add all files
 nnoremap <Leader>gA :Git add .<CR><CR>
 " Commit changes
-nnoremap <Leader>gc :Gcommit -S -v -q<CR>
+nnoremap <Leader>gc :Gcommit -S<CR>
 " Commit changes to current file
-nnoremap <Leader>gf :Gcommit -S -v -q %:p<CR>
+nnoremap <Leader>gf :Gcommit -S %:p<CR>
 " END MAPPINGS ----------------------------------------------------------------
 
 " PLUGINS ---------------------------------------------------------------------
