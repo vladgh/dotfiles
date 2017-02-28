@@ -6,14 +6,9 @@ docker_killall(){
   for c in $(docker ps -q 2>/dev/null); do docker kill "$c"; done
 }
 
-# Delete all stopped containers and untagged images.
+# Delete all stopped containers, untagged images, volumes, networks, etc.
 docker_clean(){
-  # shellcheck disable=SC2046
-  docker rm -v $(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
-  # shellcheck disable=SC2046
-  docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
-  # shellcheck disable=SC2046
-  docker volume rm $(docker volume ls -f dangling=true -q 2>/dev/null) 2>/dev/null
+  docker system prune --force
 }
 
 docker_delstopped(){
