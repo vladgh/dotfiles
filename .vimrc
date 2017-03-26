@@ -13,6 +13,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
 Plugin 'ervandew/supertab'
+Plugin 'fatih/vim-go'
 Plugin 'godlygeek/tabular'
 Plugin 'honza/vim-snippets'
 Plugin 'jistr/vim-nerdtree-tabs'
@@ -36,8 +37,8 @@ Plugin 'vim-ruby/vim-ruby'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
-filetype plugin indent on    " required
-syntax on                    " required
+filetype plugin indent on    " load filetype-specific indent files, required
+syntax on                    " enable syntax processing, required
 
 " SETTINGS --------------------------------------------------------------------
 
@@ -68,7 +69,7 @@ endif
 set hidden " Hide buffers when not displayed
 set noeb vb t_vb= "disable beep
 set visualbell "flash screen on beep
-set cursorline " Highlight the current line
+set cursorline " highlight the current line
 set colorcolumn=80 " Lines longer than 80 chars
 set shellcmdflag=-lc " set the ! shell to be a login shell to get at functions and aliases
 set showmatch " Show matching braces.
@@ -80,9 +81,9 @@ set guioptions-=L " Removes left scroll bar
 
 "default indent settings
 set shiftwidth=2
-set softtabstop=2
-set tabstop=2
-set expandtab
+set softtabstop=2 " number of spaces in tab when editing
+set tabstop=2 " number of visual spaces per TAB
+set expandtab " tabs are spaces
 set autoindent
 set smarttab
 
@@ -134,6 +135,11 @@ endif
 " END SETTINGS ----------------------------------------------------------------
 
 " MAPPINGS --------------------------------------------------------------------
+" Capital W annoyance
+command WQ wq
+command Wq wq
+command W w
+command Q q
 
 " Will allow you to use :w!! to write to a file using sudo if you forgot to sudo
 " vim file (it will prompt for sudo password when writing)
@@ -145,7 +151,8 @@ if has('unnamedplus')
 else
   set clipboard=unnamed
 endif
-vnoremap p "_dP  " Replace without yanking
+" Replace without yanking
+vnoremap p "_dP
 
 " Select all text
 nmap <C-a> ggVG
@@ -242,6 +249,12 @@ let g:miniBufExplMapCTabSwitchWindows = 1
 let g:miniBufExplUseSingleClick = 1
 let g:miniBufExplModSelTarget = 1
 
+" CTRLP
+let g:ctrlp_match_window = 'bottom,order:ttb'
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+
 " END PLUGINS -----------------------------------------------------------------
 
 " COMMANDS --------------------------------------------------------------------
@@ -275,5 +288,15 @@ imap <C-t> <ESC>:tabnew<cr>
 " END OS SPECIFIC ----------------------------------------------------------------
 
 " FUNCTIONS -------------------------------------------------------------------
+
+" toggle between number and relativenumber
+function! ToggleNumber()
+  if(&relativenumber == 1)
+    set norelativenumber
+    set number
+  else
+    set relativenumber
+  endif
+endfunc
 
 " END FUNCTIONS ---------------------------------------------------------------

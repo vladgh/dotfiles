@@ -55,6 +55,9 @@ if is_osx; then
   # Reload DNS
   alias flushdns="dscacheutil -flushcache"
 
+  # Restart CUPS
+  alias restart_cups='sudo launchctl stop org.cups.cupsd; sudo launchctl start org.cups.cupsd'
+
   # Suspend
   alias away='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
 
