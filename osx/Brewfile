@@ -48,4 +48,5 @@ brew 'linode-cli'
 tap 'zzrotdesign/tap'
 brew 'docker-clean'
 
+cask 'ngrok'
 cask 'vagrant'
