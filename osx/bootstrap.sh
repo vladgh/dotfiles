@@ -28,6 +28,7 @@ fi
 
 # Ruby
 curl -sSL https://get.rvm.io | bash -s -- --ruby --with-gems='bundler'
+bundle config specific_platform true
 
 # Python
 pip install --upgrade pip setuptools virtualenv \
