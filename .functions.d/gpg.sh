@@ -30,7 +30,7 @@ gpg_agent_unload(){
   sudo killall gpg-agent
 }
 
-# Relaod GPG Agent
+# Reload GPG Agent
 gpg_agent_reload(){
   echo 'Stopping GPG Agent...'
   gpg_agent_unload
@@ -38,7 +38,7 @@ gpg_agent_reload(){
   gpg_agent_load
 }
 
-# Encrypts and decrypts phrase
+# Test encryption and decryption of phrase
 gpg_agent_test(){
   echo 'hello world' | gpg -e -r "$(whoami)" | gpg -d
 }
