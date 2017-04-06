@@ -33,6 +33,9 @@
   excludesfile = /Users/vlad/.gitignore.global
   pager = less
 
+[include]
+  path = ~/.gitconfig.private
+
 [color]
   ui = auto
   diff = auto
@@ -51,9 +54,6 @@
 
 [push]
   default = tracking
-
-[include]
-  path = ~/.gitconfig.private
 
 [filter "lfs"]
   clean = git lfs clean %f
