@@ -14,12 +14,7 @@ gpg_agent_load(){
   fi
 
   # shellcheck disable=1090
-  [ -f ~/.gnupg/gpg-agent.env ] && . ~/.gnupg/gpg-agent.env
-  if [ -S "${GPG_AGENT_INFO%%:*}" ]; then
-    export GPG_AGENT_INFO
-  else
-    eval "$(gpg-agent --daemon --log-file /tmp/gpg.log --write-env-file ~/.gnupg/gpg-agent.env --pinentry-program ${pin_entry})"
-  fi
+  eval "$(gpg-agent --daemon --log-file /tmp/gpg.log --pinentry-program ${pin_entry})"
   export GPG_TTY; GPG_TTY=$(tty)
 }
 
