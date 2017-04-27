@@ -84,7 +84,7 @@ open_chrome(){
 }
 
 # SSH Tmux
-ssht(){
+ssh_tmux(){
   ssh -t "$@" "tmux new-session -s vgh || tmux attach-session -t vgh"
 }
 
