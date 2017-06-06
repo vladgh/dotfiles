@@ -5,7 +5,7 @@
   aa = !"git add -A; git ls-files --deleted -z | xargs -0 rm -f"
   cm = commit -v
   cs = commit -S -v
-  br = branch
+  br = branch -av
   ba = branch --all
   nb = checkout -b
   mg = merge --no-ff

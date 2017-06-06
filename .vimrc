@@ -135,7 +135,7 @@ endif
 " END SETTINGS ----------------------------------------------------------------
 
 " MAPPINGS --------------------------------------------------------------------
-" Capital W annoyance
+" Capital W or Q annoyance
 command WQ wq
 command Wq wq
 command W w
