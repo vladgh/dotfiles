@@ -8,7 +8,6 @@ brew 'bash'
 brew 'bash-completion'
 brew 'reattach-to-user-namespace'
 brew 'python'
-brew 'node'
 brew 'vim', args: ['with-override-system-vi']
 brew 'ag'
 brew 'gnu-sed', args: ['with-default-names']

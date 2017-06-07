@@ -141,16 +141,23 @@ if which brew > /dev/null; then
   fi
 fi
 
-# RVM
-export PATH="${PATH}:${HOME}/.rvm/bin" # Add RVM to PATH for scripting
-# shellcheck disable=1090
-[ -s "${HOME}/.rvm/scripts/rvm" ] && . "${HOME}/.rvm/scripts/rvm"
-# shellcheck disable=1090
-[ -r "${HOME}/.rvm/scripts/completion" ] && . "${HOME}/.rvm/scripts/completion"
-
 # Github
 command -v hub > /dev/null 2>&1 && eval "$(hub alias -s)"
 
 # Travis
 # shellcheck disable=1090
 [ -s "${HOME}/.travis/travis.sh" ] && . "${HOME}/.travis/travis.sh"
+
+# NodeJS Version Manager
+export NVM_DIR="$HOME/.nvm"
+# shellcheck disable=1090
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+# shellcheck disable=1090
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# RVM
+export PATH="${PATH}:${HOME}/.rvm/bin" # Add RVM to PATH for scripting
+# shellcheck disable=1090
+[ -s "${HOME}/.rvm/scripts/rvm" ] && . "${HOME}/.rvm/scripts/rvm"
+# shellcheck disable=1090
+[ -r "${HOME}/.rvm/scripts/completion" ] && . "${HOME}/.rvm/scripts/completion"
