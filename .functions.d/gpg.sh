@@ -6,31 +6,37 @@ gpg_agent_load(){
   # Do not load if the agent is not installed
   if ! is_cmd gpg-agent; then return; fi
 
-  # Pin entry program
-  if is_osx; then
-    pin_entry='/usr/local/bin/pinentry-mac'
-  elif is_ubuntu; then
-    pin_entry='/usr/bin/pinentry-gtk-2'
-  fi
+  # Do not load if gpg-connect-agent is not installed
+  if ! is_cmd gpg-connect-agent; then return; fi
 
-  # shellcheck disable=1090
-  eval "$(gpg-agent --daemon --log-file /tmp/gpg.log --pinentry-program ${pin_entry})"
-  export GPG_TTY; GPG_TTY=$(tty)
+  # Do not load if gpg-connect-agent is not installed
+  if ! is_cmd gpgconf; then return; fi
+
+  # GPG TTY Settings
+  GPG_TTY="$(tty)"; export GPG_TTY
+  gpg-connect-agent updatestartuptty /bye >/dev/null
+
+  # Start the agent
+  gpgconf --launch gpg-agent
 }
 
 # Unload GPG Agent
 gpg_agent_unload(){
-  unset GPG_AGENT_INFO GPG_TTY
-  [ -f ~/.gnupg/gpg-agent.env ] && rm ~/.gnupg/gpg-agent.env
-  sudo killall gpg-agent
+  gpgconf --kill gpg-agent
 }
 
-# Reload GPG Agent
-gpg_agent_reload(){
+# Restart GPG Agent
+gpg_agent_restart(){
   echo 'Stopping GPG Agent...'
   gpg_agent_unload
   echo 'Starting GPG Agent...'
   gpg_agent_load
+}
+
+# Reload GPG Agent
+gpg_agent_reload(){
+  echo 'Reloading GPG Agent...'
+  gpgconf --reload gpg-agent
 }
 
 # Test encryption and decryption of phrase
