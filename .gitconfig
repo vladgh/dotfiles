@@ -1,3 +1,7 @@
+[user]
+  name = Vlad
+  email = vlad@ghn.me
+
 [alias]
   al = !git config --get-regexp alias
   st = !git fetch --all --prune && git status
