@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+
+# Load functions
+# shellcheck disable=1090
+for file in ${HOME}/.functions.d/*.sh; do . "$file"; done
+
 # Miscellaneous Functions
 
 # Create a directory and jump directly into it
@@ -136,4 +141,75 @@ simple_bash_server(){
   "
     echo "$HTML" | nc -q 0 -l -p 80
   done
+}
+
+# Docker Functions
+
+# Kill all running containers.
+docker_killall(){
+  for c in $(docker ps -q 2>/dev/null); do docker kill "$c"; done
+}
+
+# Delete all stopped containers, untagged images, volumes, networks, etc.
+docker_clean(){
+  docker system prune --force
+}
+
+docker_delstopped(){
+  local name=$1
+  local state; state=$(docker inspect --format "{{.State.Running}}" "$name" 2>/dev/null)
+
+  if [[ "$state" == "false" ]]; then
+    docker rm "$name"
+  fi
+}
+
+# Runs docker exec in the latest container
+docker_exec_last(){
+  docker exec -it "$(docker ps -a -q -l)" /bin/bash
+}
+
+# Miscellaneous GPG Functions
+
+# Load GPG Agent
+gpg_agent_load(){
+  # Do not load if the agent is not installed
+  if ! is_cmd gpg-agent; then return; fi
+
+  # Do not load if gpg-connect-agent is not installed
+  if ! is_cmd gpg-connect-agent; then return; fi
+
+  # Do not load if gpg-connect-agent is not installed
+  if ! is_cmd gpgconf; then return; fi
+
+  # GPG TTY Settings
+  GPG_TTY="$(tty)"; export GPG_TTY
+  gpg-connect-agent updatestartuptty /bye >/dev/null
+
+  # Start the agent
+  gpgconf --launch gpg-agent
+}
+
+# Unload GPG Agent
+gpg_agent_unload(){
+  gpgconf --kill gpg-agent
+}
+
+# Restart GPG Agent
+gpg_agent_restart(){
+  echo 'Stopping GPG Agent...'
+  gpg_agent_unload
+  echo 'Starting GPG Agent...'
+  gpg_agent_load
+}
+
+# Reload GPG Agent
+gpg_agent_reload(){
+  echo 'Reloading GPG Agent...'
+  gpgconf --reload gpg-agent
+}
+
+# Test encryption and decryption of phrase
+gpg_agent_test(){
+  echo 'hello world' | gpg -e -r "$(whoami)" | gpg -d
 }

@@ -1,36 +1,37 @@
 #!/usr/bin/env bash
 
+# Bash strict mode
+set -euo pipefail
+IFS=$'\n\t'
+
 # Read dotfiles directory
-DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
+DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
 # Default secrets directory
 PRIVATE_DIR="${PRIVATE_DIR:-"${DOTFILES}/.private"}"
 
-# Load functions
-for file in ${DOTFILES}/.functions.d/*.sh; do
-  # shellcheck disable=1090
-  . "$file" || true
-done
+# Load VGS library (https://github.com/vghn/vgs)
+# shellcheck disable=1090
+if [[ -s ~/vgs/load ]]; then
+  . ~/vgs/load
+else
+  >&2 echo 'The VGS library is required (https://github.com/vghn/vgs)'; exit 1
+fi
 
 # Lists the dotfiles
 dotfiles_list(){
-  find "$DOTFILES" -maxdepth 1 -mindepth 1 -name '.*' \
-    ! -path '*/.git' \
-    ! -path '*/.gitignore' \
-    ! -path '*/.gitmodules' \
-    ! -path '*/.DS_Store' \
-    -o -name 'bin'
-}
-
-# Lists the secret files
-dotfiles_list_secrets(){
-  if [ -d "${PRIVATE_DIR}" ]; then
-    find "${PRIVATE_DIR}" -maxdepth 1 -mindepth 1 -name '.*' \
-      ! -path '*/.git' \
-      ! -path '*/.gitignore' \
-      ! -path '*/.gitmodules' \
-      ! -path '*/.DS_Store'
-  fi
+  for dir in "${@:?}"; do
+    if [ -d "$dir" ]; then
+      find "$dir" -maxdepth 1 -mindepth 1 -name '.*' \
+        ! -path '*/.git' \
+        ! -path '*/.gitignore' \
+        ! -path '*/.gitmodules' \
+        ! -path '*/.DS_Store' \
+        -o -name 'bin'
+    else
+      e_warn "'${dir}' does not exist!"
+    fi
+  done
 }
 
 # Creates links for the specified dotfile
@@ -65,10 +66,7 @@ dotfiles_install(){
 
   (
   cd "$HOME" || exit
-  for dotfile in $(dotfiles_list); do
-    dotfiles_link "$dotfile"
-  done
-  for dotfile in $(dotfiles_list_secrets); do
+  for dotfile in $(dotfiles_list "$DOTFILES" "$PRIVATE_DIR"); do
     dotfiles_link "$dotfile"
   done
   )

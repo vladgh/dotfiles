@@ -103,13 +103,11 @@ if [ -d "$HOME/.bin" ] ; then
   PATH="$HOME/.bin:$PATH"
 fi
 
-# Load functions
-for file in ${HOME}/.functions.d/*.sh; do
-  # shellcheck disable=1090
-  . "$file" || true
-done
+# Load .functions
+# shellcheck disable=1090
+[ -s "${HOME}/.functions" ] && . "${HOME}/.functions"
 
-# Load .alias
+# Load .aliases
 # shellcheck disable=1090
 [ -s "${HOME}/.aliases" ] && . "${HOME}/.aliases"
 
@@ -139,6 +137,24 @@ if which brew > /dev/null; then
     MANPATH="${__gpgbin_dir}:${MANPATH}"
     export PATH MANPATH
   fi
+fi
+
+# Export PS1 with the git info
+if [ -s /etc/bash_completion.d/git-prompt ] || [ -s /usr/local/etc/bash_completion.d/git-prompt.sh ]; then
+  if [ -s /usr/local/etc/bash_completion.d/git-prompt.sh ]; then
+    # shellcheck disable=SC1091
+    . /usr/local/etc/bash_completion.d/git-prompt.sh
+  elif [ -s /etc/bash_completion.d/git-prompt ]; then
+    # shellcheck disable=SC1091
+    . /etc/bash_completion.d/git-prompt
+  fi
+  export GIT_PS1_SHOWDIRTYSTATE=true
+  export GIT_PS1_SHOWSTASHSTATE=true
+  export GIT_PS1_SHOWUNTRACKEDFILES=true
+  export GIT_PS1_SHOWCOLORHINTS=true
+  export GIT_PS1_SHOWUPSTREAM="auto"
+  # shellcheck disable=2154
+  export PROMPT_COMMAND='__git_ps1 "\[${fgblu}\]\u\[${fgpur}\]@\h\[${normal}\]:\W" "\\\$ "'
 fi
 
 # Github
