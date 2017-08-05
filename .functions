@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
 # Load functions
-# shellcheck disable=1090
-for file in ${HOME}/.functions.d/*.sh; do . "$file"; done
+if [[ -d "${HOME}/.functions.d" ]]; then
+  # shellcheck disable=1090
+  for file in ${HOME}/.functions.d/*.sh; do . "$file"; done
+fi
 
 # Miscellaneous Functions
 
