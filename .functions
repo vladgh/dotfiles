@@ -175,6 +175,9 @@ docker_exec_last(){
 
 # Load GPG Agent
 gpg_agent_load(){
+  # Do not load if tty is not installed
+  if ! is_cmd tty; then return; fi
+
   # Do not load if the agent is not installed
   if ! is_cmd gpg-agent; then return; fi
 
@@ -184,12 +187,19 @@ gpg_agent_load(){
   # Do not load if gpg-connect-agent is not installed
   if ! is_cmd gpgconf; then return; fi
 
-  # GPG TTY Settings
+  # Use a TTY for GPG
   GPG_TTY="$(tty)"; export GPG_TTY
-  gpg-connect-agent updatestartuptty /bye >/dev/null
+  # Start the gpg-agent if not already running
+  if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
+    gpg-connect-agent /bye >/dev/null 2>&1
+    gpg-connect-agent updatestartuptty /bye >/dev/null
+  fi
+}
 
-  # Start the agent
-  gpgconf --launch gpg-agent
+# Reload GPG Agent
+gpg_agent_reload(){
+  echo 'Reloading GPG Agent...'
+  gpgconf --reload gpg-agent
 }
 
 # Unload GPG Agent
@@ -203,12 +213,6 @@ gpg_agent_restart(){
   gpg_agent_unload
   echo 'Starting GPG Agent...'
   gpg_agent_load
-}
-
-# Reload GPG Agent
-gpg_agent_reload(){
-  echo 'Reloading GPG Agent...'
-  gpgconf --reload gpg-agent
 }
 
 # Test encryption and decryption of phrase
