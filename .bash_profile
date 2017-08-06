@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
+# shellcheck disable=1090
+
+# Load .profile
+[[ -s "${HOME}/.profile" ]] && . "${HOME}/.profile"
 
 # Load .bashrc
-# shellcheck disable=1090
-[ -s "${HOME}/.bashrc" ] && . "${HOME}/.bashrc"
+[[ -s "${HOME}/.bashrc" ]] && . "${HOME}/.bashrc"

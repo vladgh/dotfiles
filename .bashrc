@@ -43,19 +43,19 @@ shopt -s nocaseglob;
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell;
 
-# make less more friendly for non-text input files, see lesspipe(1)
+# Make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # Highlight section titles in manual pages
 export LESS_TERMCAP_md="${yellow:-}";
 
-# set a fancy prompt (non-color, unless we know we "want" color)
+# Set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
   xterm) [ "$COLORTERM" == "gnome-terminal" ] && color_prompt=yes;; # Ubuntu
   *-256color) color_prompt=yes;;
 esac
 
-# check for color support
+# Check for color support
 if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
   color_prompt=yes
 else
@@ -63,13 +63,13 @@ else
 fi
 
 if [ "$color_prompt" = yes ]; then
-  PS1="\[$(tput bold)$(tput setaf 2)\]\u\[$(tput setaf 7)\]@\[$(tput setaf 4)\]\h:\[$(tput setaf 6)\]\w $ \[$(tput sgr0)\]"
+  PS1="\[$(tput bold)$(tput setaf 2)\]\u\[$(tput setaf 7)\]@\[$(tput setaf 4)\]\h:\[$(tput setaf 6)\]\w\[$(tput sgr0)\] \[$(tput setaf 1)\]\${?#0}\[$(tput sgr0)\]\$ "
 else
   PS1='\u@\h:\w\$ '
 fi
 unset color_prompt
 
-# enable color support of ls and also add handy aliases
+# Enable color support of ls and also add handy aliases
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 if [ -x /usr/bin/dircolors ]; then
@@ -84,7 +84,7 @@ if [ -x /usr/bin/dircolors ]; then
   alias egrep='egrep --color=auto'
 fi
 
-# colored GCC warnings and errors
+# Colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # Editor
@@ -105,11 +105,7 @@ fi
 
 # Load VGS library (https://github.com/vghn/vgs)
 # shellcheck disable=1090
-if [[ -s ~/vgs/load ]]; then
-  . ~/vgs/load
-else
-  >&2 echo 'The VGS library is required (https://github.com/vghn/vgs)'
-fi
+. ~/vgs/load || { >&2 echo 'VGS library is required'; return 1; }
 
 # Load .functions
 # shellcheck disable=1090
@@ -162,7 +158,7 @@ if [ -s /etc/bash_completion.d/git-prompt ] || [ -s /usr/local/etc/bash_completi
   export GIT_PS1_SHOWCOLORHINTS=true
   export GIT_PS1_SHOWUPSTREAM="auto"
   # shellcheck disable=2154
-  export PROMPT_COMMAND='__git_ps1 "\[${fgblu}\]\u\[${fgpur}\]@\h\[${normal}\]:\W" "\\\$ "'
+  export PROMPT_COMMAND='__git_ps1 "\[$(tput bold)$(tput setaf 2)\]\u\[$(tput setaf 7)\]@\[$(tput setaf 4)\]\h:\[$(tput setaf 6)\]\w\[$(tput sgr0)\]" " \[$(tput setaf 1)\]\${?#0}\[$(tput sgr0)\]\$ "'
 fi
 
 # Github
