@@ -4,19 +4,15 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-# Read dotfiles directory
+# Dotfiles directory
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
-# Default secrets directory
+# Private directory
 PRIVATE_DIR="${PRIVATE_DIR:-"${DOTFILES}/.private"}"
 
 # Load VGS library (https://github.com/vghn/vgs)
 # shellcheck disable=1090
-if [[ -s ~/vgs/load ]]; then
-  . ~/vgs/load
-else
-  >&2 echo 'The VGS library is required (https://github.com/vghn/vgs)'; exit 1
-fi
+. ~/vgs/load || { >&2 echo 'VGS library is required'; exit 1; }
 
 # Lists the dotfiles
 dotfiles_list(){
@@ -55,7 +51,6 @@ dotfiles_link(){
   else # Create symlink if the oldfile doesn't exist
     ln -sfn "$dotfile" "$prev" && e_ok "Linked ${prev} to ${dotfile}"
   fi
-
 }
 
 # Iterate public and private dotfiles and creates links for each of them
