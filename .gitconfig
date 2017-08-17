@@ -30,6 +30,7 @@
   countbase = "!f() { compareBranch=${1-master}; git rev-list --count HEAD ^$compareBranch; }; f"
   squashbase = "!f() { branchName=${1-master}; commitCount=$(git countbase $branchName); git rebase -i HEAD~$commitCount; }; f"
   pullbase = "!f() { branchName=${1-master}; git checkout $branchName && git pull && git checkout - && git rebase -i $branchName; }; f"
+  updatefork = !"git checkout master && git fetch upstream master && git merge upstream/master && push master"
   undo = reset --soft HEAD^
 
 [core]
