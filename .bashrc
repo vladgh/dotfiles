@@ -141,6 +141,10 @@ if which brew > /dev/null; then
     MANPATH="${__gpgbin_dir}:${MANPATH}"
     export PATH MANPATH
   fi
+
+  # Other
+  PATH="$(brew --prefix sqlite)/bin:${PATH}"
+  export PATH
 fi
 
 # Export PS1 with the git info
