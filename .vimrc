@@ -10,6 +10,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'Raimondi/delimitMate'
 Plugin 'SirVer/ultisnips'
+Plugin 'airblade/vim-gitgutter'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
 Plugin 'ekalinin/Dockerfile.vim'
