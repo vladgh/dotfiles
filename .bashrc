@@ -172,13 +172,6 @@ command -v hub > /dev/null 2>&1 && eval "$(hub alias -s)"
 # shellcheck disable=1090
 [ -s "${HOME}/.travis/travis.sh" ] && . "${HOME}/.travis/travis.sh"
 
-# NodeJS Version Manager
-export NVM_DIR="${HOME}/.nvm"
-# shellcheck disable=1090
-[ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && . "$(brew --prefix)/opt/nvm/nvm.sh"  # This loads nvm
-# shellcheck disable=1090
-[ -s "${NVM_DIR}/bash_completion" ] && . "${NVM_DIR}/bash_completion"  # This loads nvm bash_completion
-
 # RVM
 export PATH="${PATH}:${HOME}/.rvm/bin" # Add RVM to PATH for scripting
 # shellcheck disable=1090
