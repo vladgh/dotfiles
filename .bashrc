@@ -143,6 +143,7 @@ if which brew > /dev/null; then
   fi
 
   # Other
+  PATH="$(brew --prefix curl)/bin:${PATH}"
   PATH="$(brew --prefix sqlite)/bin:${PATH}"
   export PATH
 fi
