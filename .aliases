@@ -53,7 +53,8 @@ alias fli='docker run --rm --privileged -v /root:/root -v /chq:/chq:shared -v /v
 # OSX ALIASES
 if is_osx; then
   # Reload DNS
-  alias flushdns="dscacheutil -flushcache"
+  alias dnsflush='dscacheutil -flushcache'
+  alias dnsreset='sudo killall -HUP mDNSResponder && echo macOS DNS Cache Resete'
 
   # Restart CUPS
   alias restart_cups='sudo launchctl stop org.cups.cupsd; sudo launchctl start org.cups.cupsd'
@@ -62,8 +63,8 @@ if is_osx; then
   alias away='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
 
   # Show/hide hidden files in Finder
-  alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-  alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+  alias show='defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder'
+  alias hide='defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder'
 
   # Recursively delete `.DS_Store` files
   alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
