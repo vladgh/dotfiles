@@ -3,8 +3,12 @@
 ## Installation
 
 ```bash
-git clone --recursive https://github.com/vladgh/dotfiles.git
-dotfiles/install.sh
+# Required VGS library
+git clone https://github.com/vghn/vgs.git ~/vgs
+
+# Dotfiles
+git clone https://github.com/vladgh/dotfiles.git ~/dotfiles
+~/dotfiles/install.sh
 ```
 OR
 ```
