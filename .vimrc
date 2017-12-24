@@ -48,7 +48,7 @@ syntax on                    " enable syntax processing, required
 " SETTINGS --------------------------------------------------------------------
 
 " Theme
-colorscheme solarized
+silent! colorscheme solarized
 set background=dark
 
 " Change key key
