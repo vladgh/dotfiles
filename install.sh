@@ -12,7 +12,7 @@ SECRETS_DIR="${SECRETS_DIR:-}"
 
 # Load VGS library (https://github.com/vghn/vgs)
 # shellcheck disable=1090
-. ~/vgs/load || { >&2 echo 'VGS library is required'; exit 1; }
+. ~/vgs/load || { echo 'VGS library is required' >&2; exit 1; }
 
 # Lists the dotfiles
 dotfiles_list(){
@@ -25,7 +25,7 @@ dotfiles_list(){
         ! -path '*/.DS_Store' \
         -o -name 'bin'
     else
-      e_warn "'${dir}' does not exist!"
+      e_warn "'${dir}' does not exist!" >&2
     fi
   done
 }
@@ -94,7 +94,7 @@ dotfiles_install_vim_plugins(){
     vim +PluginInstall +qall
     e_ok 'Installed/Updated VIM plugins'
   else
-    e_warn 'Vim is not installed! Skipped plugins installation'
+    e_warn 'Vim is not installed! Skipped plugins installation' >&2
   fi
 }
 
