@@ -7,8 +7,8 @@ IFS=$'\n\t'
 # Dotfiles directory
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
-# Private directory
-PRIVATE_DIR="${PRIVATE_DIR:-"${DOTFILES}/.private"}"
+# Secrets directory
+SECRETS_DIR="${SECRETS_DIR:-}"
 
 # Load VGS library (https://github.com/vghn/vgs)
 # shellcheck disable=1090
@@ -61,7 +61,7 @@ dotfiles_install(){
 
   (
   cd "$HOME" || exit
-  for dotfile in $(dotfiles_list "$DOTFILES" "$PRIVATE_DIR"); do
+  for dotfile in $(dotfiles_list "$DOTFILES" "$SECRETS_DIR"); do
     dotfiles_link "$dotfile"
   done
   )
