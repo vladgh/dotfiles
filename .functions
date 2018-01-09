@@ -11,12 +11,17 @@ fi
 # Create a directory and jump directly into it
 mcd() { mkdir -p "$1" && cd "$1" || return ;}
 
+# Inspect a certificate
+cert_inspect(){
+  openssl x509 -in "$1" -text -noout
+}
+
 # VMware
 vmware_install() {
   (
   cd "$(mktemp -d)" || return
   sudo apt-get --quiet --yes install build-essential "linux-headers-$(uname -r)"
-  tar zxvf "/media/$(whoami)/VMware\ Tools/VMwareTools-*.tar.gz"
+  tar zxvf "/media/$(whoami)/VMware\\ Tools/VMwareTools-*.tar.gz"
   sudo ./vmware-tools-distrib/vmware-install.pl -d
   )
 }

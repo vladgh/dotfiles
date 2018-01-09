@@ -5,6 +5,7 @@
 alias ll='ls -lahpF' # Ubuntu & Mac compatible
 alias prj='cd $PROJECTS'
 alias sudo='sudo ' # Allow aliases to work with sudo
+alias rmdbctrash="find . -name *\\ \\(*conflicted* -exec mv -v {} ~/.Trash/ \\;" # recursively move Dropbox conflicted files to Trash
 
 # Reload the shell (i.e. invoke as a login shell)
 alias reload='printf "Reloading BASH... " && . ~/.bash_profile && echo "done."'
