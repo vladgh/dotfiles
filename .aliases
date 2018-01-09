@@ -55,7 +55,7 @@ alias fli='docker run --rm --privileged -v /root:/root -v /chq:/chq:shared -v /v
 if is_osx; then
   # Reload DNS
   alias dnsflush='dscacheutil -flushcache'
-  alias dnsreset='sudo killall -HUP mDNSResponder && echo macOS DNS Cache Resete'
+  alias dnsreset='sudo killall -HUP mDNSResponder && echo macOS DNS Cache Reset'
 
   # Restart CUPS
   alias restart_cups='sudo launchctl stop org.cups.cupsd; sudo launchctl start org.cups.cupsd'
