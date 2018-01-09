@@ -177,7 +177,6 @@ docker_exec_last(){
 }
 
 # Miscellaneous GPG Functions
-
 # Load GPG Agent
 gpg_agent_load(){
   # Do not load if tty is not installed
