@@ -12,7 +12,7 @@ SECRETS_DIR="${SECRETS_DIR:-}"
 
 # Load VGS library (https://github.com/vghn/vgs)
 # shellcheck disable=1090
-. ~/vgs/load || { echo 'VGS library is required' >&2; exit 1; }
+. ~/vgs/load 2>/dev/null || { echo 'VGS library is required' >&2; exit 1; }
 
 # Lists the dotfiles
 dotfiles_list(){

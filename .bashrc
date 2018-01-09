@@ -105,7 +105,7 @@ fi
 
 # Load VGS library (https://github.com/vghn/vgs)
 # shellcheck disable=1090
-. ~/vgs/load || { >&2 echo 'VGS library is required'; return 1; }
+. ~/vgs/load 2>/dev/null || { echo 'VGS library is required' >&2; return 1; }
 
 # Load .functions
 # shellcheck disable=1090
@@ -174,6 +174,7 @@ command -v hub > /dev/null 2>&1 && eval "$(hub alias -s)"
 [ -s "${HOME}/.travis/travis.sh" ] && . "${HOME}/.travis/travis.sh"
 
 # RVM
+# Make sure this is the last PATH variable change.
 export PATH="${PATH}:${HOME}/.rvm/bin" # Add RVM to PATH for scripting
 # shellcheck disable=1090
 [ -s "${HOME}/.rvm/scripts/rvm" ] && . "${HOME}/.rvm/scripts/rvm"
