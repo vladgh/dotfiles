@@ -8,7 +8,6 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'Raimondi/delimitMate'
 Plugin 'SirVer/ultisnips'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'altercation/vim-colors-solarized'
@@ -18,6 +17,7 @@ Plugin 'ervandew/supertab'
 Plugin 'fatih/vim-go'
 Plugin 'godlygeek/tabular'
 Plugin 'honza/vim-snippets'
+Plugin 'jiangmiao/auto-pairs'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'kien/ctrlp.vim'
 Plugin 'millermedeiros/vim-statline'
