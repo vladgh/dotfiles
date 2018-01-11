@@ -8,6 +8,12 @@ fi
 
 # Miscellaneous Functions
 
+# Check if root
+is_root() { [[ $EUID == 0 ]] ;}
+
+# Check if command exists
+is_cmd() { command -v "$@" >/dev/null 2>&1 ;}
+
 # Create a directory and jump directly into it
 mcd() { mkdir -p "$1" && cd "$1" || return ;}
 
