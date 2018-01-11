@@ -103,10 +103,6 @@ if [ -d "$HOME/.bin" ] ; then
   PATH="$HOME/.bin:$PATH"
 fi
 
-# Load VGS library (https://github.com/vghn/vgs)
-# shellcheck disable=1090
-. ~/vgs/load 2>/dev/null || { echo 'VGS library is required' >&2; return 1; }
-
 # Load .functions
 # shellcheck disable=1090
 [ -s "${HOME}/.functions" ] && . "${HOME}/.functions"

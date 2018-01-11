@@ -10,9 +10,8 @@ DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 # Secrets directory
 SECRETS_DIR="${SECRETS_DIR:-}"
 
-# Load VGS library (https://github.com/vghn/vgs)
-# shellcheck disable=1090
-. "${VGS_PATH:-${HOME}/vgs}/load" || { echo 'VGS library is required' >&2; exit 1; }
+# Check if command exists
+is_cmd() { command -v "$@" >/dev/null 2>&1 ;}
 
 # Lists the dotfiles
 dotfiles_list(){

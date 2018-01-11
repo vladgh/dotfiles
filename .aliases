@@ -53,7 +53,7 @@ alias dru='docker run -it --rm -v $(pwd):/docker ubuntu bash'
 alias fli='docker run --rm --privileged -v /root:/root -v /chq:/chq:shared -v /var/log:/var/log -v /lib/modules/:/lib/modules clusterhq/fli'
 
 # OSX ALIASES
-if is_osx; then
+if [[ $(uname) == Darwin ]]; then
   # Reload DNS
   alias dnsflush='dscacheutil -flushcache'
   alias dnsreset='sudo killall -HUP mDNSResponder && echo macOS DNS Cache Reset'
