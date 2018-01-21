@@ -176,3 +176,13 @@ export PATH="${PATH}:${HOME}/.rvm/bin" # Add RVM to PATH for scripting
 [ -s "${HOME}/.rvm/scripts/rvm" ] && . "${HOME}/.rvm/scripts/rvm"
 # shellcheck disable=1090
 [ -r "${HOME}/.rvm/scripts/completion" ] && . "${HOME}/.rvm/scripts/completion"
+
+# Serverless
+# shellcheck disable=1091
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.bash ] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.bash
+# shellcheck disable=1091
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash ] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash
