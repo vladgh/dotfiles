@@ -13,6 +13,12 @@ SECRETS_DIR="${SECRETS_DIR:-}"
 # Check if command exists
 is_cmd() { command -v "$@" >/dev/null 2>&1 ;}
 
+# Logging
+e_ok()    { printf "  ✔  %s\\n" "$@" ;}
+e_warn()  { printf "    %s\\n" "$@" ;}
+e_error() { printf "  ✖  %s\\n" "$@" ;}
+e_abort() { e_error "$1"; return "${2:-1}" ;}
+
 # Lists the dotfiles
 dotfiles_list(){
   for dir in "${@:?}"; do
