@@ -44,25 +44,27 @@ shopt -s nocaseglob;
 shopt -s cdspell;
 
 # Make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+if [[ -x /usr/bin/lesspipe ]]; then
+  eval "$(SHELL=/bin/sh lesspipe)"
+fi
 
 # Highlight section titles in manual pages
 export LESS_TERMCAP_md="${yellow:-}";
 
 # Set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-  xterm) [ "$COLORTERM" == "gnome-terminal" ] && color_prompt=yes;; # Ubuntu
+  xterm) if [[ "$COLORTERM" == "gnome-terminal" ]]; then color_prompt=yes; fi;;
   *-256color) color_prompt=yes;;
 esac
 
 # Check for color support
-if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+if [[ -x /usr/bin/tput ]] && tput setaf 1 >&/dev/null; then
   color_prompt=yes
 else
   color_prompt=no
 fi
 
-if [ "$color_prompt" = yes ]; then
+if [[ "$color_prompt" == yes ]]; then
   PS1="\[$(tput bold)$(tput setaf 2)\]\u\[$(tput setaf 7)\]@\[$(tput setaf 4)\]\h:\[$(tput setaf 6)\]\w\[$(tput sgr0)\] \[$(tput setaf 1)\]\${?#0}\[$(tput sgr0)\]\$ "
 else
   PS1='\u@\h:\w\$ '
@@ -72,7 +74,7 @@ unset color_prompt
 # Enable color support of ls and also add handy aliases
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
-if [ -x /usr/bin/dircolors ]; then
+if [[ -x /usr/bin/dircolors ]]; then
   if test -r ~/.dircolors; then
     eval "$(dircolors -b ~/.dircolors)"
   else
@@ -93,31 +95,37 @@ export EDITOR=$VISUAL
 
 # Load environment variables
 # shellcheck disable=1090
-[ -s "${HOME}/.env" ] && . "${HOME}/.env"
+if [[ -s "${HOME}/.env" ]]; then
+  . "${HOME}/.env"
+fi
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-  PATH="$HOME/bin:$PATH"
+if [[ -d "${HOME}/bin" ]] ; then
+  PATH="${HOME}/bin:${PATH}"
 fi
-if [ -d "$HOME/.bin" ] ; then
-  PATH="$HOME/.bin:$PATH"
+if [[ -d "${HOME}/.bin" ]] ; then
+  PATH="${HOME}/.bin:${PATH}"
 fi
 
 # Load .functions
 # shellcheck disable=1090
-[ -s "${HOME}/.functions" ] && . "${HOME}/.functions"
+if [[ -s "${HOME}/.functions" ]]; then
+  . "${HOME}/.functions"
+fi
 
 # Load .aliases
 # shellcheck disable=1090
-[ -s "${HOME}/.aliases" ] && . "${HOME}/.aliases"
+if [[ -s "${HOME}/.aliases" ]]; then
+  . "${HOME}/.aliases"
+fi
 
 # MacOS
-if which brew > /dev/null; then
+if which brew >/dev/null; then
   # Add tab completion for many Bash commands
   # shellcheck disable=1090,1091
-  if [ -f "$(brew --prefix)/etc/bash_completion" ]; then
+  if [[ -f "$(brew --prefix)/etc/bash_completion" ]]; then
     source "$(brew --prefix)/etc/bash_completion";
-  elif [ -f /etc/bash_completion ]; then
+  elif [[ -f /etc/bash_completion ]]; then
     source /etc/bash_completion;
   fi
 
@@ -125,14 +133,14 @@ if which brew > /dev/null; then
   __gpgbin_dir="$(brew --prefix coreutils)/libexec/gpgbin"
 
   # GNU Core utilities
-  if [ -d "$__gnubin_dir" ]; then
+  if [[ -d "$__gnubin_dir" ]]; then
     PATH="${__gnubin_dir}:${PATH}"
     MANPATH="${__gnubin_dir}:${MANPATH}"
     export PATH MANPATH
   fi
 
   # GPG utilities
-  if [ -d "$__gpgbin_dir" ]; then
+  if [[ -d "$__gpgbin_dir" ]]; then
     PATH="${__gpgbin_dir}:${PATH}"
     MANPATH="${__gpgbin_dir}:${MANPATH}"
     export PATH MANPATH
@@ -145,11 +153,11 @@ if which brew > /dev/null; then
 fi
 
 # Export PS1 with the git info
-if [ -s /etc/bash_completion.d/git-prompt ] || [ -s /usr/local/etc/bash_completion.d/git-prompt.sh ]; then
-  if [ -s /usr/local/etc/bash_completion.d/git-prompt.sh ]; then
+if [[ -s /etc/bash_completion.d/git-prompt ]] || [ -s /usr/local/etc/bash_completion.d/git-prompt.sh ]; then
+  if [[ -s /usr/local/etc/bash_completion.d/git-prompt.sh ]]; then
     # shellcheck disable=SC1091
     . /usr/local/etc/bash_completion.d/git-prompt.sh
-  elif [ -s /etc/bash_completion.d/git-prompt ]; then
+  elif [[ -s /etc/bash_completion.d/git-prompt ]]; then
     # shellcheck disable=SC1091
     . /etc/bash_completion.d/git-prompt
   fi
@@ -163,26 +171,38 @@ if [ -s /etc/bash_completion.d/git-prompt ] || [ -s /usr/local/etc/bash_completi
 fi
 
 # Github
-command -v hub > /dev/null 2>&1 && eval "$(hub alias -s)"
+if command -v hub >/dev/null 2>&1; then
+  eval "$(hub alias -s)"
+fi
 
 # Travis
 # shellcheck disable=1090
-[ -s "${HOME}/.travis/travis.sh" ] && . "${HOME}/.travis/travis.sh"
+if [[ -s "${HOME}/.travis/travis.sh" ]]; then
+  . "${HOME}/.travis/travis.sh"
+fi
 
 # RVM
 # Make sure this is the last PATH variable change.
 export PATH="${PATH}:${HOME}/.rvm/bin" # Add RVM to PATH for scripting
 # shellcheck disable=1090
-[ -s "${HOME}/.rvm/scripts/rvm" ] && . "${HOME}/.rvm/scripts/rvm"
+if [[ -s "${HOME}/.rvm/scripts/rvm" ]]; then
+  . "${HOME}/.rvm/scripts/rvm"
+fi
 # shellcheck disable=1090
-[ -r "${HOME}/.rvm/scripts/completion" ] && . "${HOME}/.rvm/scripts/completion"
+if [[ -r "${HOME}/.rvm/scripts/completion" ]]; then
+  . "${HOME}/.rvm/scripts/completion"
+fi
 
 # Serverless
 # shellcheck disable=1091
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
-[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.bash ] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.bash
+if [[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.bash ]]; then
+  . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.bash
+fi
 # shellcheck disable=1091
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
-[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash ] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash
+if [[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash ]]; then 
+  . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash
+fi

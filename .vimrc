@@ -69,6 +69,7 @@ set wildmode=list:longest,full "make cmdline tab completion similar to bash
 set wildmenu "enable ctrl-n and ctrl-p to scroll thru matches
 set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
 if &term =~ '256color'
+  set t_Co=256
   set t_ut=
 endif
 set hidden " Hide buffers when not displayed
