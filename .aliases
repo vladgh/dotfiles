@@ -2,6 +2,7 @@
 # Vlad's Aliases
 
 # Misc
+alias ls='ls --color=auto'
 alias ll='ls -lahpF' # Ubuntu & Mac compatible
 alias prj='cd $PROJECTS'
 alias sudo='sudo ' # Allow aliases to work with sudo
