@@ -84,6 +84,7 @@ set virtualedit=block
 set guioptions-=T " Removes toolbar
 set guioptions-=r " Removes scroll bar
 set guioptions-=L " Removes left scroll bar
+set cm=blowfish2 " uses the Blowfish cipher in an improved mode
 
 "default indent settings
 set shiftwidth=2
