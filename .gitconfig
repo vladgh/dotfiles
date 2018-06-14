@@ -36,7 +36,7 @@
 [core]
   autocrlf = false
   excludesfile = /Users/vlad/.gitignore.global
-  pager = less
+	pager = diff-so-fancy | less --tabs=2 -RFX
 
 [include]
   path = ~/.gitconfig.private
@@ -49,13 +49,8 @@
   interactive = auto
   grep = auto
 
-[pager]
-  log = diff-highlight | less
-  show = diff-highlight | less
-  diff = diff-highlight | less
-
 [interactive]
-  diffFilter = diff-highlight
+  diffFilter = diff-so-fancy
 
 [push]
   default = tracking
