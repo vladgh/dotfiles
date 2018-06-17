@@ -1,6 +1,3 @@
-# Private
-.private/
-
 # Ignore any file with '.local' in the name
 *.local*
 
