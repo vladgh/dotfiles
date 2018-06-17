@@ -4,11 +4,14 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-# Dotfiles directory
-DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
+# DEBUG
+[ -z "${DEBUG:-}" ] || set -x
 
-# Secrets directory
-SECRETS_DIR="${SECRETS_DIR:-}"
+# VARs
+DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
+SECRETS_S3_PATH="${SECRETS_S3_PATH:-}" # Optional S3 location for the secret files (no trailing slash)
+SECRETS_LOCAL_PATH="${SECRETS_LOCAL_PATH:-}" # Optional directory to save secret files (no trailing slash)
+TMPDIR=$(mktemp -d 2>/dev/null || mktemp -d -t 'tmp')
 
 # Check if command exists
 is_cmd() { command -v "$@" >/dev/null 2>&1 ;}
@@ -22,27 +25,25 @@ e_abort() { e_error "$1"; return "${2:-1}" ;}
 # Lists the dotfiles
 dotfiles_list(){
   for dir in "${@:?}"; do
-    if [ -d "$dir" ]; then
+    if [[ -d "$dir" ]]; then
       find "$dir" -maxdepth 1 -mindepth 1 -name '.*' \
         ! -path '*/.git' \
         ! -path '*/.gitignore' \
         ! -path '*/.gitmodules' \
         ! -path '*/.DS_Store' \
         -o -name 'bin'
-    else
-      e_warn "'${dir}' does not exist!" >&2
     fi
   done
 }
 
 # Creates links for the specified dotfile
 dotfiles_link(){
-  local name; name=$(basename "$dotfile")
-  local prev="${HOME}/${name}"
+  name=$(basename "$dotfile")
+  prev="${HOME}/${name}"
 
-  if [ -s "$prev" ]; then # Old file exists
-    if [ -L "$prev" ]; then # Old file is a symlink
-      if [ "$(readlink "$prev")" != "$dotfile" ]; then # Symlink is not the same
+  if [[ -s "$prev" ]]; then # Old file exists
+    if [[ -L "$prev" ]]; then # Old file is a symlink
+      if [[ "$(readlink "$prev")" != "$dotfile" ]]; then # Symlink is not the same
         rm "$prev"
         ln -sfn "$dotfile" "$prev"
         e_ok "Replaced link for ${prev} to ${dotfile}"
@@ -58,15 +59,36 @@ dotfiles_link(){
   fi
 }
 
+# Download and decrypt secrets
+dotfiles_download_secrets(){
+  if [[ -n "$SECRETS_S3_PATH" ]] && [[ -n "$SECRETS_LOCAL_PATH" ]] && is_cmd aws; then
+    # Download the files to a temporary directory (to preserve AWS settings for the next step)
+    mkdir -p "$TMPDIR"
+    aws s3 sync "${SECRETS_S3_PATH}" "${TMPDIR}" --sse --delete --quiet --exact-timestamps || true ;
+    e_ok "Secret files downloaded from ${SECRETS_S3_PATH}"
+
+    # Back up originals
+    if [[ -d "$SECRETS_LOCAL_PATH" ]]; then
+      mv "$SECRETS_LOCAL_PATH" "${bakdir}/"
+      e_ok "Backed up original ${SECRETS_LOCAL_PATH} directory to ${bakdir}"
+    fi
+
+    # Replace originals
+    mv "$TMPDIR" "$SECRETS_LOCAL_PATH"
+    e_ok "Secret files installed at ${SECRETS_LOCAL_PATH}"
+  fi
+}
+
 # Iterate public and private dotfiles and creates links for each of them
 dotfiles_install(){
-  local bakdir
   bakdir="${HOME}/backups/dotfiles.$(date "+%Y_%m_%d-%H_%M_%S").bak"
-  [ -d "$bakdir" ] || mkdir -p "$bakdir"
+  [[ -d "$bakdir" ]] || mkdir -p "$bakdir"
+
+  dotfiles_download_secrets
 
   (
   cd "$HOME" || exit
-  for dotfile in $(dotfiles_list "$DOTFILES" "$SECRETS_DIR"); do
+  for dotfile in $(dotfiles_list "$DOTFILES" "$SECRETS_LOCAL_PATH"); do
     dotfiles_link "$dotfile"
   done
   )
@@ -79,6 +101,12 @@ dotfiles_permissions(){
   fi
   if find "${HOME}/.ssh/" -type f -name 'id_*' -exec chmod 600 {} \; 2>/dev/null; then
     e_ok 'Hid ssh keys'
+  fi
+  if find "$SECRETS_LOCAL_PATH" -type f -exec chmod 600 {} \; 2>/dev/null; then
+    e_ok "Fixed permissions on secret files"
+  fi
+  if find "$SECRETS_LOCAL_PATH" -type d -exec chmod 700 {} \; 2>/dev/null; then
+    e_ok "Fixed permissions on secret folders"
   fi
 }
 
@@ -103,12 +131,21 @@ dotfiles_install_vim_plugins(){
   fi
 }
 
+# Miscellanous
+dotfiles_misc(){
+  if is_cmd gpgconf; then
+    gpgconf --kill all
+    e_ok 'Restarted GPG Agent'
+  fi
+}
+
 # Script's logic
 main(){
   dotfiles_install
   dotfiles_permissions
   dotfiles_delete_broken_symlinks
   dotfiles_install_vim_plugins
+  dotfiles_misc
 }
 
 main "$@"
