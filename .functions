@@ -3,7 +3,7 @@
 # Load functions
 if [[ -d "${HOME}/.functions.d" ]]; then
   # shellcheck disable=1090
-  for file in ${HOME}/.functions.d/*.sh; do . "$file"; done
+  for file in "${HOME}"/.functions.d/*.sh; do . "$file"; done
 fi
 
 # Miscellaneous Functions
@@ -20,6 +20,41 @@ mcd() { mkdir -p "$1" && cd "$1" || return ;}
 # Inspect a certificate
 cert_inspect(){
   openssl x509 -in "$1" -text -noout
+}
+
+# Vlad's TMUX layout
+vtmux(){
+  SESSION1='VLAD'
+  # SESSION2='OTHER'
+  PRJ_DIR="${HOME}/Dropbox/Projects"
+
+  if ! tmux has-session -t "$SESSION1"; then
+    # PRJ
+    tmux new-session -n 'PRJ' -d -s "$SESSION1" -c "$PRJ_DIR"
+    tmux split-window -h -t "${SESSION1}:1" -c "$PRJ_DIR"
+    tmux split-window -v -t "${SESSION1}:1" -c "$PRJ_DIR"
+
+    # # REMOTE WINDOW
+    # tmux new-window -n 'REMOTE' -t "$SESSION1"
+    # tmux split-window -h -t "${SESSION1}:2"
+    # tmux split-window -v -t "${SESSION1}:2"
+
+    # # OTHER SESSION
+    # tmux new-session -n 'OGA' -d -s "$SESSION2" -c "$PRJ_DIR"
+    # tmux split-window -h -t "${SESSION2}:1" -c "${PRJ_DIR}/Cosmin"
+    # tmux split-window -v -t "${SESSION2}:1" -c "${PRJ_DIR}/Cosmin"
+
+    # # SEND COMMAND
+    # tmux send-keys -t "${SESSION2}:1.1" 'mycmd' Enter C-l
+    # tmux send-keys -t "${SESSION2}:1.2" 'mycmd' Enter C-l
+    # tmux send-keys -t "${SESSION2}:1.3" 'mycmd' Enter C-l
+
+    # Select start-up window
+    tmux select-window -t "${SESSION1}:1"
+    tmux select-pane -t "${SESSION1}:1.1"
+  fi
+
+  tmux attach-session -t "$SESSION1"
 }
 
 # VMware
@@ -213,14 +248,15 @@ gpg_agent_reload(){
 }
 
 # Unload GPG Agent
-gpg_agent_unload(){
+gpg_agent_kill(){
+  echo 'Killing GPG Agent...'
   gpgconf --kill gpg-agent
 }
 
 # Restart GPG Agent
 gpg_agent_restart(){
   echo 'Stopping GPG Agent...'
-  gpg_agent_unload
+  gpg_agent_kill
   echo 'Starting GPG Agent...'
   gpg_agent_load
 }
@@ -228,4 +264,31 @@ gpg_agent_restart(){
 # Test encryption and decryption of phrase
 gpg_agent_test(){
   echo 'hello world' | gpg -e -r "$(whoami)" | gpg -d
+}
+
+# Sync files to/from AWS S3
+sync_s3(){
+  local src="${1:?Must specify source as the 1st argument}"
+  local dst="${2:?Must specify destination as the 2nd argument}"
+
+  # Make sure directory exists
+  if [[ ! "$dst" =~ s3:// ]]; then
+    mkdir -p "$dst"
+  fi
+
+  echo "Sync ${src} to ${dst}"
+  # https://docs.aws.amazon.com/cli/latest/topic/return-codes.html
+  aws s3 sync "${src}" "${dst}" --sse --delete --exact-timestamps || true ;
+}
+
+# Upload encrypted secrets to S3
+upload_encrypted_secrets(){
+  local DIR ARC REC
+  DIR="${HOME}/Dropbox/Projects/.secrets"
+  ARC="s3://vgsec/$(date +"%Y%m%d_%H%M%S").tar.xz.gpg"
+  REC="${GPG_RECIPIENT:?Must specify GPG recipient}"
+
+  echo "Encrypting ${DIR}"
+  tar cJ -C "$DIR" . | gpg --encrypt --sign --recipient "$REC" --cipher-algo AES256 --s2k-digest-algo SHA512 | aws s3 cp --no-progress --sse --acl private - "${ARC}"
+  echo "Secret files uploaded to ${ARC}"
 }
