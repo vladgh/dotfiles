@@ -65,7 +65,7 @@ else
 fi
 
 if [[ "$color_prompt" == yes ]]; then
-  PS1="\[$(tput bold)$(tput setaf 2)\]\u\[$(tput setaf 7)\]@\[$(tput setaf 4)\]\h:\[$(tput setaf 6)\]\w\[$(tput sgr0)\] \[$(tput setaf 1)\]\${?#0}\[$(tput sgr0)\]\$ "
+  PS1="\\[$(tput bold)$(tput setaf 2)\\]\\u\\[$(tput setaf 7)\\]@\\[$(tput setaf 4)\\]\\h:\\[$(tput setaf 6)\\]\\w\\[$(tput sgr0)\\] \\[$(tput setaf 1)\\]\${?#0}\\[$(tput sgr0)\\]\$ "
 else
   PS1='\u@\h:\w\$ '
 fi
@@ -120,36 +120,42 @@ if [[ -s "${HOME}/.aliases" ]]; then
 fi
 
 # MacOS
-if which brew >/dev/null; then
+if command -v brew >/dev/null 2>&1; then
+  HOMEBREW_PREFIX="$(brew --prefix)"
+
   # Add tab completion for many Bash commands
   # shellcheck disable=1090,1091
-  if [[ -f "$(brew --prefix)/etc/bash_completion" ]]; then
-    source "$(brew --prefix)/etc/bash_completion";
+  if [[ -f "${HOMEBREW_PREFIX}/etc/bash_completion" ]]; then
+    source "${HOMEBREW_PREFIX}/etc/bash_completion";
   elif [[ -f /etc/bash_completion ]]; then
     source /etc/bash_completion;
   fi
 
-  __gnubin_dir="$(brew --prefix coreutils)/libexec/gnubin"
-  __gpgbin_dir="$(brew --prefix coreutils)/libexec/gpgbin"
-
   # GNU Core utilities
+  __gnubin_dir="${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin"
   if [[ -d "$__gnubin_dir" ]]; then
     PATH="${__gnubin_dir}:${PATH}"
     MANPATH="${__gnubin_dir}:${MANPATH}"
-    export PATH MANPATH
   fi
 
   # GPG utilities
+  __gpgbin_dir="${HOMEBREW_PREFIX}/opt/coreutils/libexec/gpgbin"
   if [[ -d "$__gpgbin_dir" ]]; then
     PATH="${__gpgbin_dir}:${PATH}"
     MANPATH="${__gpgbin_dir}:${MANPATH}"
-    export PATH MANPATH
+  fi
+
+  # Python
+  __pythonbin_dir="${HOMEBREW_PREFIX}/opt/python/libexec/bin"
+  if [[ -d "$__pythonbin_dir" ]]; then
+    PATH="${__pythonbin_dir}:${PATH}"
   fi
 
   # Other
-  PATH="$(brew --prefix curl)/bin:${PATH}"
-  PATH="$(brew --prefix sqlite)/bin:${PATH}"
-  export PATH
+  PATH="${HOMEBREW_PREFIX}/opt/curl/bin:${PATH}"
+  PATH="${HOMEBREW_PREFIX}/opt/sqlite/bin:${PATH}"
+
+  export PATH MANPATH
 fi
 
 # Export PS1 with the git info
@@ -203,6 +209,6 @@ fi
 # shellcheck disable=1091
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
-if [[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash ]]; then 
+if [[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash ]]; then
   . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash
 fi
