@@ -52,9 +52,6 @@ alias drm='docker system prune -f'
 alias dke='docker exec -it'
 alias dru='docker run -it --rm -v $(pwd):/docker ubuntu bash'
 
-# Flocker
-alias fli='docker run --rm --privileged -v /root:/root -v /chq:/chq:shared -v /var/log:/var/log -v /lib/modules/:/lib/modules clusterhq/fli'
-
 # OSX ALIASES
 if [[ $(uname) == Darwin ]]; then
   # Reload DNS
