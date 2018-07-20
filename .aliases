@@ -47,6 +47,7 @@ alias dml='echo "Docker machines:" && docker-machine ls'
 # Docker Aliases
 alias dl='docker ps -lq'
 alias dlc='docker ps'
+alias dla='docker ps -a'
 alias dli='docker images'
 alias drm='docker system prune -f'
 alias dke='docker exec -it'
