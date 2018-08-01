@@ -32,6 +32,10 @@ alias tl='tmux list-sessions'
 # Generate Salt
 alias genSalt='openssl rand -base64 32'
 
+# RSync
+alias rsyn='rsync -avzrhcP --delete'
+alias srsyn='rsyn --rsync-path="sudo rsync"'
+
 # RUBY
 # Bundle
 alias be='bundle exec'
