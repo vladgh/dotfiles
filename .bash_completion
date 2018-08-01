@@ -26,4 +26,8 @@ if [[ -d /usr/local/etc/bash_completion.d ]]; then
   )
 fi
 
+
+# Terraform
+complete -C /usr/local/bin/terraform terraform
+
 # vim: ft=sh
