@@ -187,6 +187,9 @@ if [[ -s "${HOME}/.travis/travis.sh" ]]; then
   . "${HOME}/.travis/travis.sh"
 fi
 
+# Puppet
+export PATH="${PATH}:/opt/puppetlabs/bin"
+
 # RVM
 # Make sure this is the last PATH variable change.
 export PATH="${PATH}:${HOME}/.rvm/bin" # Add RVM to PATH for scripting
