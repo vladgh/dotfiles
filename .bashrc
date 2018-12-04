@@ -215,3 +215,7 @@ fi
 if [[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash ]]; then
   . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash
 fi
+
+# Ansible
+export ANSIBLE_NOCOWS=1
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
