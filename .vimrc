@@ -262,6 +262,9 @@ let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 
+" GO
+let g:go_version_warning = 0
+
 " END PLUGINS -----------------------------------------------------------------
 
 " COMMANDS --------------------------------------------------------------------
