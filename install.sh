@@ -134,8 +134,7 @@ dotfiles_install_vim_plugins(){
 # Miscellanous
 dotfiles_misc(){
   if is_cmd gpgconf; then
-    gpgconf --kill all
-    e_ok 'Restarted GPG Agent'
+    ( gpg-connect-agent reloadagent /bye && e_ok 'Restarted GPG Agent' ) || true
   fi
 }
 
