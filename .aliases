@@ -25,6 +25,7 @@ alias tmp='cd $(mktemp -d 2>/dev/null || mktemp -d -t "mytmpdir")'
 alias tmpf='vim $(mktemp 2>/dev/null || mktemp -t "mytmpfile")'
 
 # Tmux
+alias ts='tmux attach || tmux new'
 alias ta='tmux attach-session -t'
 alias tc='tmux new-session -s'
 alias tl='tmux list-sessions'
