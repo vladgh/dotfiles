@@ -215,6 +215,12 @@ fi
 if [[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash ]]; then
   . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash
 fi
+# shellcheck disable=1091
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+if [[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.bash ]]; then
+  . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.bash
+fi
 
 # Ansible
 export ANSIBLE_NOCOWS=1
