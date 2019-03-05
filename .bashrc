@@ -154,6 +154,7 @@ if command -v brew >/dev/null 2>&1; then
   # Other
   PATH="${HOMEBREW_PREFIX}/opt/curl/bin:${PATH}"
   PATH="${HOMEBREW_PREFIX}/opt/sqlite/bin:${PATH}"
+  PATH="${HOMEBREW_PREFIX}/opt/gettext/bin:${PATH}"
 
   export PATH MANPATH
 fi
