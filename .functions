@@ -26,7 +26,7 @@ cert_inspect(){
 vtmux(){
   SESSION1='VLAD'
   # SESSION2='OTHER'
-  PRJ_DIR="${HOME}/Dropbox/Projects"
+  PRJ_DIR="${PROJECTS:-$HOME}"
 
   if ! tmux has-session -t "$SESSION1"; then
     # PRJ
@@ -279,16 +279,4 @@ sync_s3(){
   echo "Sync ${src} to ${dst}"
   # https://docs.aws.amazon.com/cli/latest/topic/return-codes.html
   aws s3 sync "${src}" "${dst}" --sse --delete --exact-timestamps || true ;
-}
-
-# Upload encrypted secrets to S3
-upload_encrypted_secrets(){
-  local DIR ARC REC
-  DIR="${HOME}/Dropbox/Projects/.secrets"
-  ARC="s3://vgsec/$(date +"%Y%m%d_%H%M%S").tar.xz.gpg"
-  REC="${GPG_RECIPIENT:?Must specify GPG recipient}"
-
-  echo "Encrypting ${DIR}"
-  tar cJ -C "$DIR" . | gpg --encrypt --sign --recipient "$REC" --cipher-algo AES256 --s2k-digest-algo SHA512 | aws s3 cp --no-progress --sse --acl private - "${ARC}"
-  echo "Secret files uploaded to ${ARC}"
 }

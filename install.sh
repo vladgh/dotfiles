@@ -99,9 +99,6 @@ dotfiles_permissions(){
   if find "${HOME}/bin/" -type f -exec chmod +x {} \; 2>/dev/null; then
     e_ok 'Made files in "bin" directory executable'
   fi
-  if find "${HOME}/.ssh/" -type f -name 'id_*' -exec chmod 600 {} \; 2>/dev/null; then
-    e_ok 'Hid ssh keys'
-  fi
   if find "$SECRETS_LOCAL_PATH" -type f -exec chmod 600 {} \; 2>/dev/null; then
     e_ok "Fixed permissions on secret files"
   fi
@@ -131,20 +128,12 @@ dotfiles_install_vim_plugins(){
   fi
 }
 
-# Miscellanous
-dotfiles_misc(){
-  if is_cmd gpgconf; then
-    ( gpg-connect-agent reloadagent /bye && e_ok 'Restarted GPG Agent' ) || true
-  fi
-}
-
 # Script's logic
 main(){
   dotfiles_install
   dotfiles_permissions
   dotfiles_delete_broken_symlinks
   dotfiles_install_vim_plugins
-  dotfiles_misc
 }
 
 main "$@"
