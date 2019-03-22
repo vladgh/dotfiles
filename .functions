@@ -6,8 +6,6 @@ if [[ -d "${HOME}/.functions.d" ]]; then
   for file in "${HOME}"/.functions.d/*.sh; do . "$file"; done
 fi
 
-# Miscellaneous Functions
-
 # Check if root
 is_root() { [[ $EUID == 0 ]] ;}
 
@@ -56,17 +54,6 @@ vtmux(){
 
   tmux attach-session -t "$SESSION1"
 }
-
-# VMware
-vmware_install() {
-  (
-  cd "$(mktemp -d)" || return
-  sudo apt-get --quiet --yes install build-essential "linux-headers-$(uname -r)"
-  tar zxvf "/media/$(whoami)/VMware\\ Tools/VMwareTools-*.tar.gz"
-  sudo ./vmware-tools-distrib/vmware-install.pl -d
-  )
-}
-vmware_refresh() { sudo vmware-config-tools.pl -d ;}
 
 # Start an HTTP server from a directory, optionally specifying the port
 server() {
@@ -147,12 +134,6 @@ ssh_tunnel(){
   ssh -vXNCD "$1" "$2"
 }
 
-# SSH
-add_public_key(){
-  ssh "$@" "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys" \
-    < ~/.ssh/id_rsa.pub
-}
-
 # Timezones
 now_in(){
   for t in US/Central America/Phoenix Europe/Bucharest US/Eastern; do
@@ -200,21 +181,7 @@ docker_killall(){
 
 # Delete all stopped containers, untagged images, volumes, networks, etc.
 docker_clean(){
-  docker system prune --force
-}
-
-docker_delstopped(){
-  local name=$1
-  local state; state=$(docker inspect --format "{{.State.Running}}" "$name" 2>/dev/null)
-
-  if [[ "$state" == "false" ]]; then
-    docker rm "$name"
-  fi
-}
-
-# Runs docker exec in the latest container
-docker_exec_last(){
-  docker exec -it "$(docker ps -a -q -l)" /bin/bash
+  docker system prune --all --force
 }
 
 # Miscellaneous GPG Functions
@@ -264,19 +231,4 @@ gpg_agent_restart(){
 # Test encryption and decryption of phrase
 gpg_agent_test(){
   echo 'hello world' | gpg -e -r "$(whoami)" | gpg -d
-}
-
-# Sync files to/from AWS S3
-sync_s3(){
-  local src="${1:?Must specify source as the 1st argument}"
-  local dst="${2:?Must specify destination as the 2nd argument}"
-
-  # Make sure directory exists
-  if [[ ! "$dst" =~ s3:// ]]; then
-    mkdir -p "$dst"
-  fi
-
-  echo "Sync ${src} to ${dst}"
-  # https://docs.aws.amazon.com/cli/latest/topic/return-codes.html
-  aws s3 sync "${src}" "${dst}" --sse --delete --exact-timestamps || true ;
 }

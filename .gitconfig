@@ -35,7 +35,7 @@
 
 [core]
   autocrlf = false
-  excludesfile = /Users/vlad/.gitignore.global
+  excludesfile = ~/.gitignore.global
 	pager = diff-so-fancy | less --tabs=2 -RFX
 
 [include]

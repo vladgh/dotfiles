@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 # Vlad's Aliases
 
+# Sudo
+alias sudo='sudo ' # Allow aliases to work with sudo
+
 # Misc
 alias ls='ls --color=auto'
 alias ll='ls -lahpF' # Ubuntu & Mac compatible
-alias prj='cd $PROJECTS'
-alias sudo='sudo ' # Allow aliases to work with sudo
 alias rmdbctrash="find . -name *\\ \\(*conflicted* -exec mv -v {} ~/.Trash/ \\;" # recursively move Dropbox conflicted files to Trash
 
 # Reload the shell (i.e. invoke as a login shell)
@@ -13,12 +14,6 @@ alias reload='printf "Reloading BASH... " && . ~/.bash_profile && echo "done."'
 
 # Network
 alias ip='dig +short myip.opendns.com @resolver1.opendns.com'
-
-# Vim
-alias gvim='gvim 2>/dev/null'
-
-# GIT
-alias gg='( git gui & )'
 
 # Temp Dir
 alias tmp='cd $(mktemp -d 2>/dev/null || mktemp -d -t "mytmpdir")'
@@ -37,19 +32,12 @@ alias genSalt='openssl rand -base64 32'
 alias rsyn='rsync -avzrhcP --delete'
 alias srsyn='rsyn --rsync-path="sudo rsync"'
 
-# RUBY
-# Bundle
+# RUBY Bundle
 alias be='bundle exec'
 alias bup='bundle update'
 alias ber='bundle exec rake'
 
 # DOCKER
-# Docker Machine Aliases
-alias dme='echo "Loading Docker Environment..." && eval "$(docker-machine env)"'
-alias dmon='echo "Starting docker machine..." && docker-machine start && dme'
-alias dmoff='echo "Stopping docker machine..." && docker-machine stop'
-alias dml='echo "Docker machines:" && docker-machine ls'
-# Docker Aliases
 alias dl='docker ps -lq'
 alias dlc='docker ps'
 alias dla='docker ps -a'

@@ -227,8 +227,3 @@ fi
 # Ansible
 export ANSIBLE_NOCOWS=1
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
-
-# Vault
-if command -v vault >/dev/null 2>&1; then
-  complete -C /usr/local/bin/vault vault
-fi

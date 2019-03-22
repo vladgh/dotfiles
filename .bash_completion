@@ -5,14 +5,6 @@
   -W "$(grep "^Host" ~/.ssh/config | \
   grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
 
-# AWS CLI
-complete -C aws_completer aws
-
-# AWS Elastic Beanstalk CLI
-[ ! -s /etc/bash_completion.d/eb_completion.extra ] && \
-  [ -s /usr/local/bin/eb_completion.bash ] && \
-  . /usr/local/bin/eb_completion.bash
-
 # Docker for Mac
 if [[ -d /usr/local/etc/bash_completion.d ]]; then
   (
@@ -26,8 +18,17 @@ if [[ -d /usr/local/etc/bash_completion.d ]]; then
   )
 fi
 
+# AWS
+if command -v aws >/dev/null 2>&1; then
+  complete -C aws_completer aws
+fi
 
 # Terraform
-complete -C /usr/local/bin/terraform terraform
+if command -v terraform >/dev/null 2>&1; then
+  complete -C /usr/local/bin/terraform terraform
+fi
 
-# vim: ft=sh
+# Vault
+if command -v vault >/dev/null 2>&1; then
+  complete -C /usr/local/bin/vault vault
+fi
