@@ -38,9 +38,9 @@ vtmux(){
     # tmux split-window -v -t "${SESSION1}:2"
 
     # # OTHER SESSION
-    # tmux new-session -n 'OGA' -d -s "$SESSION2" -c "$PRJ_DIR"
-    # tmux split-window -h -t "${SESSION2}:1" -c "${PRJ_DIR}/Cosmin"
-    # tmux split-window -v -t "${SESSION2}:1" -c "${PRJ_DIR}/Cosmin"
+    # tmux new-session -n 'HOME' -d -s "$SESSION2" -c "$PRJ_DIR/homelab"
+    # tmux split-window -h -t "${SESSION2}:1" -c "${PRJ_DIR}/homelab"
+    # tmux split-window -v -t "${SESSION2}:1" -c "${PRJ_DIR}/homelab"
 
     # # SEND COMMAND
     # tmux send-keys -t "${SESSION2}:1.1" 'mycmd' Enter C-l
