@@ -232,3 +232,29 @@ gpg_agent_restart(){
 gpg_agent_test(){
   echo 'hello world' | gpg -e -r "$(whoami)" | gpg -d
 }
+
+# Encode special characters in string (for example in passwords)
+# $ urlencode 'test&test^' outputs test%26test%5E
+urlencode() {
+    # urlencode <string>
+    old_lc_collate=$LC_COLLATE
+    LC_COLLATE=C
+
+    local length="${#1}"
+    for (( i = 0; i < length; i++ )); do
+        local c="${1:i:1}"
+        case $c in
+            [a-zA-Z0-9.~_-]) printf "$c" ;;
+            *) printf '%%%02X' "'$c" ;;
+        esac
+    done
+
+    LC_COLLATE=$old_lc_collate
+}
+
+# Decode special characters in string
+urldecode() {
+    # urldecode <string>
+    local url_encoded="${1//+/ }"
+    printf '%b' "${url_encoded//%/\\x}"
+}
