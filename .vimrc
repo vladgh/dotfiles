@@ -1,55 +1,10 @@
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
-set nocompatible " required
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-Plugin 'SirVer/ultisnips'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'bling/vim-airline'
-Plugin 'ekalinin/Dockerfile.vim'
-Plugin 'ervandew/supertab'
-Plugin 'fatih/vim-go'
-Plugin 'godlygeek/tabular'
-Plugin 'honza/vim-snippets'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'kien/ctrlp.vim'
-Plugin 'millermedeiros/vim-statline'
-Plugin 'ngmy/vim-rubocop'
-Plugin 'nvie/vim-flake8'
-Plugin 'rainerborene/vim-reek'
-Plugin 'rodjek/vim-puppet'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'stephpy/vim-yaml'
-Plugin 'thinca/vim-template'
-Plugin 'tomasr/molokai'
-Plugin 'tpope/vim-dotenv'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-rvm'
-Plugin 'tpope/vim-surround'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'vim-ruby/vim-ruby'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
+set nocompatible             " required
 filetype plugin indent on    " load filetype-specific indent files, required
 syntax on                    " enable syntax processing, required
 
 " SETTINGS --------------------------------------------------------------------
-
-" Theme
-silent! colorscheme solarized
-set background=dark
 
 " Change key key
 let mapleader=","
@@ -142,6 +97,7 @@ endif
 " END SETTINGS ----------------------------------------------------------------
 
 " MAPPINGS --------------------------------------------------------------------
+
 " Capital W or Q annoyance
 command WQ wq
 command Wq wq
@@ -193,87 +149,27 @@ nnoremap <Leader>8 :8b<CR>
 nnoremap <Leader>9 :9b<CR>
 nnoremap <Leader>0 :10b<CR>
 
-" GIT (fugitive)
-" Show status
-nnoremap <Leader>gs :Gfetch<bar>Gstatus<CR>
-" Add current file
-nnoremap <Leader>ga :Git add %:p<CR><CR>
-" Add all files
-nnoremap <Leader>gA :Git add .<CR><CR>
-" Commit changes
-nnoremap <Leader>gc :Gcommit -S<CR>
-" Commit changes to current file
-nnoremap <Leader>gf :Gcommit -S %:p<CR>
+" Tab Navigation
+nmap <C-S-tab> :tabprevious<cr>
+nmap <C-tab> :tabnext<cr>
+map <C-S-tab> :tabprevious<cr>
+map <C-tab> :tabnext<cr>
+imap <C-S-tab> <ESC>:tabprevious<cr>i
+imap <C-tab> <ESC>:tabnext<cr>i
+nmap <C-t> :tabnew<cr>
+imap <C-t> <ESC>:tabnew<cr>
+
 " END MAPPINGS ----------------------------------------------------------------
 
-" PLUGINS ---------------------------------------------------------------------
-" UltiSnips
-let g:UltiSnipsSnippetDirectories=["vim-snippets/snippets"]
-
-" Airline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts=1
-
-" Ruby
-imap <S-CR> <CR><CR>end<Esc>-cc
-let g:rubycomplete_buffer_loading = 1
-let g:rubycomplete_classes_in_global = 1
-let g:rubycomplete_rails = 1
-
-" NERDTree {
-" Autostart (inside the Projects bookmark)
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree Projects | endif
-" Close if it's the only window
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
-noremap <leader>l :NERDTreeFind<CR><C-w>w
-noremap <C-E><C-E> :NERDTree<CR>
-noremap <C-E><C-C> :NERDTreeClose<CR>
-let g:NERDTreeShowBookmarks = 1
-let g:NERDTreeShowHidden = 1
-let g:NERDTreeMouseMode = 2
-let g:NERDTreeChDirMode = 2
-let g:nerdtree_tabs_open_on_gui_startup = 0
-let g:nerdtree_tabs_open_on_console_startup = 0
-let g:nerdtree_tabs_smart_startup_focus = 1
-let g:nerdtree_tabs_synchronize_view = 1
-let g:nerdtree_tabs_meaningful_tab_names = 1
-let g:NERDSpaceDelims = 1
-"}
-
-" Tasklist {
-let g:tlWindowPosition = 1 " Open window at the bottom (use 0 for top)
-" }
-
-" ACK
-"let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-" Minibuffer Explorer Settings
-let g:miniBufExplMapWindowNavVim = 0
-let g:miniBufExplMapWindowNavArrows = 0
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplMapCTabSwitchWindows = 1
-let g:miniBufExplUseSingleClick = 1
-let g:miniBufExplModSelTarget = 1
-
-" CTRLP
-let g:ctrlp_match_window = 'bottom,order:ttb'
-let g:ctrlp_switch_buffer = 0
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-
-" GO
-let g:go_version_warning = 0
-
-" END PLUGINS -----------------------------------------------------------------
-
 " COMMANDS --------------------------------------------------------------------
+
 command Todo noautocmd vimgrep /TODO\|FIXME/j ** | cw "Look for notes
 command Spaces autocmd BufWritePre * :%s/\s\+$//e " Delete all trailing whitespace
 
 " END COMMANDS ----------------------------------------------------------------
 
 " OS SPECIFIC ----------------------------------------------------------------
+
 if has("gui_running")
   if has("gui_gtk2")
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
@@ -285,28 +181,4 @@ if has("gui_running")
   endif
 endif
 
-" Tab Navigation
-nmap <C-S-tab> :tabprevious<cr>
-nmap <C-tab> :tabnext<cr>
-map <C-S-tab> :tabprevious<cr>
-map <C-tab> :tabnext<cr>
-imap <C-S-tab> <ESC>:tabprevious<cr>i
-imap <C-tab> <ESC>:tabnext<cr>i
-nmap <C-t> :tabnew<cr>
-imap <C-t> <ESC>:tabnew<cr>
-
 " END OS SPECIFIC ----------------------------------------------------------------
-
-" FUNCTIONS -------------------------------------------------------------------
-
-" toggle between number and relativenumber
-function! ToggleNumber()
-  if(&relativenumber == 1)
-    set norelativenumber
-    set number
-  else
-    set relativenumber
-  endif
-endfunc
-
-" END FUNCTIONS ---------------------------------------------------------------
