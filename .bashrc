@@ -145,12 +145,6 @@ if command -v brew >/dev/null 2>&1; then
     MANPATH="${__gpgbin_dir}:${MANPATH}"
   fi
 
-  # Python
-  __pythonbin_dir="${HOMEBREW_PREFIX}/opt/python/libexec/bin"
-  if [[ -d "$__pythonbin_dir" ]]; then
-    PATH="${__pythonbin_dir}:${PATH}"
-  fi
-
   # Other
   PATH="/usr/local/sbin:${PATH}"
   PATH="${HOMEBREW_PREFIX}/opt/curl/bin:${PATH}"
