@@ -184,18 +184,8 @@ if [[ -s "${HOME}/.travis/travis.sh" ]]; then
 fi
 
 # Puppet
-export PATH="${PATH}:/opt/puppetlabs/bin"
-
-# RVM
-# Make sure this is the last PATH variable change.
-export PATH="${PATH}:${HOME}/.rvm/bin" # Add RVM to PATH for scripting
-# shellcheck disable=1090
-if [[ -s "${HOME}/.rvm/scripts/rvm" ]]; then
-  . "${HOME}/.rvm/scripts/rvm"
-fi
-# shellcheck disable=1090
-if [[ -r "${HOME}/.rvm/scripts/completion" ]]; then
-  . "${HOME}/.rvm/scripts/completion"
+if [[ -d /opt/puppetlabs/bin ]]; then
+  export PATH="${PATH}:/opt/puppetlabs/bin"
 fi
 
 # Serverless
@@ -221,3 +211,15 @@ fi
 # Ansible
 export ANSIBLE_NOCOWS=1
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+# RVM
+# Make sure this is the last PATH variable change.
+export PATH="${PATH}:${HOME}/.rvm/bin" # Add RVM to PATH for scripting
+# shellcheck disable=1090
+if [[ -s "${HOME}/.rvm/scripts/rvm" ]]; then
+  . "${HOME}/.rvm/scripts/rvm"
+fi
+# shellcheck disable=1090
+if [[ -r "${HOME}/.rvm/scripts/completion" ]]; then
+  . "${HOME}/.rvm/scripts/completion"
+fi
