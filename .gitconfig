@@ -1,6 +1,13 @@
 [user]
   name = Vlad
   email = vlad@ghn.me
+  signingkey = FCF51557
+
+[github]
+  user = vladgh
+
+[commit]
+  gpgsign = true
 
 [alias]
   al = !git config --get-regexp alias
@@ -36,10 +43,7 @@
 [core]
   autocrlf = false
   excludesfile = ~/.gitignore.global
-	pager = diff-so-fancy | less --tabs=2 -RFX
-
-[include]
-  path = ~/.gitconfig.private
+  pager = diff-so-fancy | less --tabs=2 -RFX
 
 [color]
   ui = auto
@@ -57,6 +61,6 @@
 
 [filter "lfs"]
   clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
   required = true
