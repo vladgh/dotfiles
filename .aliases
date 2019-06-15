@@ -55,4 +55,7 @@ if [[ $(uname) == Darwin ]]; then
 
   # Recursively delete `.DS_Store` files
   alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
+
+  # Misc
+  alias pubkey="more ~/.ssh/id_ed25519.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
 fi
