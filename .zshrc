@@ -6,8 +6,23 @@ export ZSH="${HOME}/.oh-my-zsh"
 # Set name of the theme to load
 ZSH_THEME="agnoster"
 
+# TMUX
+export ZSH_TMUX_AUTOSTART=true
+
 # Which plugins would you like to load?
-plugins=(colorize dotenv git github osx python ruby rvm tmux zsh-syntax-highlighting)
+plugins=(
+  colorize
+  dotenv
+  git
+  github
+  osx
+  python
+  ruby
+  rvm
+  tmux
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+)
 
 # Load oh-my-zsh
 source "$ZSH/oh-my-zsh.sh"
@@ -73,11 +88,6 @@ if command -v brew >/dev/null 2>&1; then
   PATH="${HOMEBREW_PREFIX}/opt/gettext/bin:${PATH}"
 
   export PATH MANPATH
-fi
-
-# Github
-if command -v hub >/dev/null 2>&1; then
-  eval "$(hub alias -s)"
 fi
 
 # Ansible
