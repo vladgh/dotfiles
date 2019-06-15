@@ -20,41 +20,6 @@ cert_inspect(){
   openssl x509 -in "$1" -text -noout
 }
 
-# Vlad's TMUX layout
-vtmux(){
-  SESSION1='VLAD'
-  # SESSION2='OTHER'
-  PRJ_DIR="${PROJECTS:-$HOME}"
-
-  if ! tmux has-session -t "$SESSION1"; then
-    # PRJ
-    tmux new-session -n 'PRJ' -d -s "$SESSION1" -c "$PRJ_DIR"
-    tmux split-window -h -t "${SESSION1}:1" -c "$PRJ_DIR"
-    tmux split-window -v -t "${SESSION1}:1" -c "$PRJ_DIR"
-
-    # # REMOTE WINDOW
-    # tmux new-window -n 'REMOTE' -t "$SESSION1"
-    # tmux split-window -h -t "${SESSION1}:2"
-    # tmux split-window -v -t "${SESSION1}:2"
-
-    # # OTHER SESSION
-    # tmux new-session -n 'HOME' -d -s "$SESSION2" -c "$PRJ_DIR/homelab"
-    # tmux split-window -h -t "${SESSION2}:1" -c "${PRJ_DIR}/homelab"
-    # tmux split-window -v -t "${SESSION2}:1" -c "${PRJ_DIR}/homelab"
-
-    # # SEND COMMAND
-    # tmux send-keys -t "${SESSION2}:1.1" 'mycmd' Enter C-l
-    # tmux send-keys -t "${SESSION2}:1.2" 'mycmd' Enter C-l
-    # tmux send-keys -t "${SESSION2}:1.3" 'mycmd' Enter C-l
-
-    # Select start-up window
-    tmux select-window -t "${SESSION1}:1"
-    tmux select-pane -t "${SESSION1}:1.1"
-  fi
-
-  tmux attach-session -t "$SESSION1"
-}
-
 # Start an HTTP server from a directory, optionally specifying the port
 server() {
   local port="${1:-8000}";
