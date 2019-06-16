@@ -5,6 +5,7 @@ export ZSH="${HOME}/.oh-my-zsh"
 
 # Set name of the theme to load
 ZSH_THEME="agnoster"
+DEFAULT_USER='vlad' # Hide the "user@hostname" info prompt
 
 # TMUX
 export ZSH_TMUX_AUTOSTART=true
