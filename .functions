@@ -59,7 +59,7 @@ open_chrome(){
 
   # defaults
   scratch=false
-  tmpdir="$(mktemp -d -t 'chrome-unsafe_data_dir')"
+  tmpdir="$(mktemp -d -t chrome-unsafe_data_dir.XXXXXXXXXX)"
   chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
   port='8523'
 
