@@ -83,7 +83,7 @@ if command -v brew >/dev/null 2>&1; then
   fi
 
   # Other
-  PATH="/usr/local/sbin:${PATH}"
+  PATH="/usr/local/bin:/usr/local/sbin:${PATH}"
   PATH="${HOMEBREW_PREFIX}/opt/curl/bin:${PATH}"
   PATH="${HOMEBREW_PREFIX}/opt/sqlite/bin:${PATH}"
   PATH="${HOMEBREW_PREFIX}/opt/gettext/bin:${PATH}"
