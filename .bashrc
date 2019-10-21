@@ -145,6 +145,10 @@ if command -v brew >/dev/null 2>&1; then
     MANPATH="${__gpgbin_dir}:${MANPATH}"
   fi
 
+  # Python
+  alias python=/usr/local/bin/python3
+  alias pip=/usr/local/bin/pip3
+
   # Other
   PATH="/usr/local/bin:/usr/local/sbin:${PATH}"
   PATH="${HOMEBREW_PREFIX}/opt/curl/bin:${PATH}"
