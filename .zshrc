@@ -21,12 +21,36 @@ plugins=(
   ruby
   rvm
   tmux
+  safe-paste
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
 
 # Load oh-my-zsh
 source "$ZSH/oh-my-zsh.sh"
+
+# case-insensitive globbing
+setopt NO_CASE_GLOB
+
+# history
+HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
+# share history across multiple zsh sessions
+setopt SHARE_HISTORY
+# append to history
+setopt APPEND_HISTORY
+# adds commands as they are typed, not at shell exit
+setopt INC_APPEND_HISTORY
+# expire duplicates first
+setopt HIST_EXPIRE_DUPS_FIRST
+# do not store duplications
+setopt HIST_IGNORE_DUPS
+#ignore duplicates when searching
+setopt HIST_FIND_NO_DUPS
+# removes blank lines from history
+setopt HIST_REDUCE_BLANKS
+
+# Fix slow paste from clipboard in ZSH (https://github.com/zsh-users/zsh-syntax-highlighting/issues/295)
+zstyle ':bracketed-paste-magic' active-widgets '.self-*'
 
 # Load environment variables
 # shellcheck disable=1090
