@@ -3,6 +3,10 @@
   email = vlad@ghn.me
   signingkey = FCF51557
 
+[credential]
+  username = vladgh
+  helper = cache --timeout=43200
+
 [github]
   user = vladgh
 
@@ -64,10 +68,3 @@
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process
   required = true
-
-[gpg]
-  program = /usr/local/bin/gpg
-
-[credential]
-  username = vladgh
-  helper = osxkeychain
