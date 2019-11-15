@@ -27,7 +27,10 @@ plugins=(
 )
 
 # Load oh-my-zsh
-source "$ZSH/oh-my-zsh.sh"
+# shellcheck disable=1090
+if [[ -s "$ZSH/oh-my-zsh.sh" ]]; then
+  . "$ZSH/oh-my-zsh.sh"
+fi
 
 # case-insensitive globbing
 setopt NO_CASE_GLOB
@@ -78,8 +81,11 @@ if [[ -s "${HOME}/.aliases" ]]; then
   . "${HOME}/.aliases"
 fi
 
-# Load personal settings if they exist
-[[ -s "${HOME}/.myrc" ]] && . "${HOME}/.myrc"
+# Load TMUX
+# shellcheck disable=1090
+if command -v tmux >/dev/null 2>&1 && [[ -s "${HOME}/.tmux.conf" ]] ; then
+  tmux source-file "${HOME}/.tmux.conf"
+fi
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
