@@ -1,16 +1,27 @@
 #!/usr/bin/env bash
 
+# Output
+e_ok()    { printf "  ✔  %s\\n" "$@" ;}
+e_info()  { printf "  ➜  %s\\n" "$@" ;}
+e_error() { printf "  ✖  %s\\n" "$@" ;}
+e_warn()  { printf "    %s\\n" "$@" ;}
+e_abort() { e_error "$1"; return "${2:-1}" ;}
+
+# Check if command exists
+is_cmd() { command -v "$@" >/dev/null 2>&1 ;}
+
+# Check if root
+is_root() { [[ $EUID == 0 ]] ;}
+
+# OS detection
+is_linux() { [[ $(uname) == Linux ]] ;}
+is_osx()   { [[ $(uname) == Darwin ]] ;}
+
 # Load functions
 if [[ -d "${HOME}/.functions.d" ]]; then
   # shellcheck disable=1090
   for file in "${HOME}"/.functions.d/*.sh; do . "$file"; done
 fi
-
-# Check if root
-is_root() { [[ $EUID == 0 ]] ;}
-
-# Check if command exists
-is_cmd() { command -v "$@" >/dev/null 2>&1 ;}
 
 # Create a directory and jump directly into it
 mcd() { mkdir -p "$1" && cd "$1" || return ;}
@@ -137,7 +148,31 @@ simple_bash_server(){
   done
 }
 
-# Docker Functions
+# Encode special characters in string (for example in passwords)
+# $ urlencode 'test&test^' outputs test%26test%5E
+urlencode() {
+    # urlencode <string>
+    old_lc_collate=$LC_COLLATE
+    LC_COLLATE=C
+
+    local length="${#1}"
+    for (( i = 0; i < length; i++ )); do
+        local c="${1:i:1}"
+        case $c in
+            [a-zA-Z0-9.~_-]) printf "$c" ;;
+            *) printf '%%%02X' "'$c" ;;
+        esac
+    done
+
+    LC_COLLATE=$old_lc_collate
+}
+
+# Decode special characters in string
+urldecode() {
+    # urldecode <string>
+    local url_encoded="${1//+/ }"
+    printf '%b' "${url_encoded//%/\\x}"
+}
 
 # Kill all running containers.
 docker_killall(){
@@ -151,7 +186,7 @@ docker_clean(){
 
 # Miscellaneous GPG Functions
 # Load GPG Agent
-gpg_agent_load(){
+gpg_agent_start(){
   # Do not load if tty is not installed
   if ! is_cmd tty; then return; fi
 
@@ -195,49 +230,5 @@ gpg_agent_restart(){
 
 # Test encryption and decryption of phrase
 gpg_agent_test(){
-  echo '👍' | gpg -e -r "$(whoami)" | gpg -d
-}
-
-# SSH Agent
-ssh_agent_load(){
-  local env="${HOME}/.ssh/ssh-agent.env"
-  if [[ -z "$SSH_AUTH_SOCK" ]]; then
-    if [[ "$(pgrep 'ssh-agent -s' | wc -l | tr -d '[:space:]')" == "0" ]]; then
-      printf 'Launch SSH '
-      ( umask 077; ssh-agent > "$env" )
-    fi
-    if [[ -s "$env" ]]; then
-      eval "$(cat "$env")"
-    fi
-  fi
-  if [[ $(ssh-add -l > /dev/null 2>&1; echo $?) != 0 ]]; then
-    # 0=agent running w/ key; 1=agent w/o key; 2= agent not running
-    ssh-add
-  fi
-}
-
-# Encode special characters in string (for example in passwords)
-# $ urlencode 'test&test^' outputs test%26test%5E
-urlencode() {
-    # urlencode <string>
-    old_lc_collate=$LC_COLLATE
-    LC_COLLATE=C
-
-    local length="${#1}"
-    for (( i = 0; i < length; i++ )); do
-        local c="${1:i:1}"
-        case $c in
-            [a-zA-Z0-9.~_-]) printf "$c" ;;
-            *) printf '%%%02X' "'$c" ;;
-        esac
-    done
-
-    LC_COLLATE=$old_lc_collate
-}
-
-# Decode special characters in string
-urldecode() {
-    # urldecode <string>
-    local url_encoded="${1//+/ }"
-    printf '%b' "${url_encoded//%/\\x}"
+  echo 'OK' | gpg --encrypt --recipient "$(whoami)" | gpg --decrypt
 }
