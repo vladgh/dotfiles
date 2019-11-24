@@ -129,6 +129,11 @@ fi
 export ANSIBLE_NOCOWS=1
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
+# Load personal configuration files
+if [[ -s "${HOME}/.vgrc" ]]; then
+  . "${HOME}/.vgrc"
+fi
+
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 

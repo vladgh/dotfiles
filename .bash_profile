@@ -7,3 +7,6 @@ fi
 if [[ -s "${HOME}/.bashrc" ]]; then
   . "${HOME}/.bashrc"
 fi
+if [[ -s "${HOME}/.vgrc" ]]; then
+  . "${HOME}/.vgrc"
+fi
