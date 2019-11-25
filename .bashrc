@@ -123,6 +123,7 @@ if [[ -s "${HOME}/.aliases" ]]; then
 fi
 
 # Load personal configuration files
+# shellcheck disable=1090
 if [[ -s "${HOME}/.vgrc" ]]; then
   . "${HOME}/.vgrc"
 fi
