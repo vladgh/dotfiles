@@ -37,6 +37,11 @@ alias drm='docker system prune -f'
 alias dke='docker exec -it'
 alias dru='docker run -it --rm -v $(pwd):/docker ubuntu bash'
 
+# UBUNTU ALIASES
+if cat /etc/*release | grep '^NAME' | grep 'Ubuntu'; then
+  alias vupdt='sudo apt-get update && sudo apt-get -qy dist-upgrade && sudo apt-get -y autoremove --purge && sudo apt-get -qy clean'
+fi
+
 # OSX ALIASES
 if [[ $(uname) == Darwin ]]; then
   # Reload DNS
