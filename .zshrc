@@ -7,9 +7,6 @@ export ZSH="${HOME}/.oh-my-zsh"
 ZSH_THEME="agnoster"
 DEFAULT_USER='vlad' # Hide the "user@hostname" info prompt
 
-# TMUX
-export ZSH_TMUX_AUTOSTART=true
-
 # Which plugins would you like to load?
 plugins=(
   colorize
@@ -86,12 +83,6 @@ if [[ -s "${HOME}/.vgrc" ]]; then
   . "${HOME}/.vgrc"
 fi
 
-# Load TMUX
-# shellcheck disable=1090
-if command -v tmux >/dev/null 2>&1 && [[ -s "${HOME}/.tmux.conf" ]] ; then
-  tmux source-file "${HOME}/.tmux.conf"
-fi
-
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
@@ -134,15 +125,25 @@ fi
 export ANSIBLE_NOCOWS=1
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
+# Serverless
+# shellcheck disable=1091
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+if [[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.bash ]]; then
+  . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.bash
+fi
+# shellcheck disable=1091
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+if [[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash ]]; then
+  . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.bash
+fi
+# shellcheck disable=1091
 # tabtab source for slss package
 # uninstall by removing these lines or running `tabtab uninstall slss`
-[[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh
+if [[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.bash ]]; then
+  . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.bash
+fi
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
