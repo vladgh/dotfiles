@@ -122,12 +122,6 @@ if [[ -s "${HOME}/.aliases" ]]; then
   . "${HOME}/.aliases"
 fi
 
-# Load personal configuration files
-# shellcheck disable=1090
-if [[ -s "${HOME}/.vgrc" ]]; then
-  . "${HOME}/.vgrc"
-fi
-
 # MacOS
 if command -v brew >/dev/null 2>&1; then
   HOMEBREW_PREFIX="$(brew --prefix)"
