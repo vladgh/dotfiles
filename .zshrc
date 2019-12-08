@@ -79,8 +79,8 @@ if [[ -s "${HOME}/.aliases" ]]; then
 fi
 
 # Load personal configuration files
-if [[ -s "${HOME}/.vgrc" ]]; then
-  . "${HOME}/.vgrc"
+if [[ -s "${HOME}/.envrc" ]]; then
+  . "${HOME}/.envrc"
 fi
 
 # Preferred editor for local and remote sessions

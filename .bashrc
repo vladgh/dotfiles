@@ -124,8 +124,8 @@ fi
 
 # Load personal configuration files
 # shellcheck disable=1090
-if [[ -s "${HOME}/.vgrc" ]]; then
-  . "${HOME}/.vgrc"
+if [[ -s "${HOME}/.envrc" ]]; then
+  . "${HOME}/.envrc"
 fi
 
 # MacOS
