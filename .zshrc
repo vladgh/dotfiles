@@ -18,7 +18,6 @@ plugins=(
   ruby
   rvm
   tmux
-  safe-paste
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
