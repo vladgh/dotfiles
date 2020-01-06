@@ -128,6 +128,11 @@ if [[ -s "${HOME}/.envrc" ]]; then
   . "${HOME}/.envrc"
 fi
 
+# Ubuntu Snap packages
+if command -v snap >/dev/null 2>&1; then
+  export PATH="/snap/bin:${PATH}"
+fi
+
 # MacOS
 if command -v brew >/dev/null 2>&1; then
   HOMEBREW_PREFIX="$(brew --prefix)"
