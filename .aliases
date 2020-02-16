@@ -10,7 +10,7 @@ alias ll='ls -lahpF' # Ubuntu & Mac compatible
 alias rmdbctrash="find . -name *\\ \\(*conflicted* -exec mv -v {} ~/.Trash/ \\;" # recursively move Dropbox conflicted files to Trash
 
 # Network
-alias ip='dig +short myip.opendns.com @resolver1.opendns.com'
+alias myip='dig +short myip.opendns.com @resolver1.opendns.com ANY'
 
 # Temp Dir
 alias tmp='cd $(mktemp -d 2>/dev/null || mktemp -d -t "mytmpdir")'
