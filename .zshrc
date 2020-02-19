@@ -22,6 +22,9 @@ plugins=(
   zsh-syntax-highlighting
 )
 
+# Plugin settings
+ZSH_DOTENV_PROMPT=false
+
 # Load oh-my-zsh
 # shellcheck disable=1090
 if [[ -s "$ZSH/oh-my-zsh.sh" ]]; then
