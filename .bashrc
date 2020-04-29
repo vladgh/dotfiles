@@ -99,6 +99,14 @@ if [[ -s "${HOME}/.env" ]]; then
   . "${HOME}/.env"
 fi
 
+# set PATH so it include other standard locations
+if [[ -d /usr/local/bin ]]; then
+  PATH="/usr/local/bin:${PATH}"
+fi
+if [[ -d /usr/local/sbin ]]; then
+  PATH="/usr/local/sbin:${PATH}"
+fi
+
 # set PATH so it includes user's private bin if it exists
 if [[ -d "${HOME}/.local/bin" ]] ; then
   PATH="${HOME}/.local/bin:${PATH}"
@@ -160,14 +168,21 @@ if command -v brew >/dev/null 2>&1; then
   fi
 
   # Python
-  alias python=/usr/local/bin/python3
-  alias pip=/usr/local/bin/pip3
+  __pythonbin_dir="${HOMEBREW_PREFIX}/opt/python/libexec/bin"
+  if [[ -d "$__pythonbin_dir" ]]; then
+    PATH="${__pythonbin_dir}:${PATH}"
+  fi
 
   # Other
-  PATH="/usr/local/bin:/usr/local/sbin:${PATH}"
-  PATH="${HOMEBREW_PREFIX}/opt/curl/bin:${PATH}"
-  PATH="${HOMEBREW_PREFIX}/opt/sqlite/bin:${PATH}"
-  PATH="${HOMEBREW_PREFIX}/opt/gettext/bin:${PATH}"
+  if [[ -d "${HOMEBREW_PREFIX}/opt/curl/bin" ]]; then
+    PATH="${HOMEBREW_PREFIX}/opt/curl/bin:${PATH}"
+  fi
+  if [[ -d "${HOMEBREW_PREFIX}/opt/sqlite/bin" ]]; then
+    PATH="${HOMEBREW_PREFIX}/opt/sqlite/bin:${PATH}"
+  fi
+  if [[ -d "${HOMEBREW_PREFIX}/opt/gettext/bin" ]]; then
+    PATH="${HOMEBREW_PREFIX}/opt/gettext/bin:${PATH}"
+  fi
 
   export PATH MANPATH
 fi
