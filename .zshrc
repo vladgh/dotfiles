@@ -3,10 +3,6 @@
 # Path to your oh-my-zsh installation.
 export ZSH="${HOME}/.oh-my-zsh"
 
-# Set name of the theme to load
-ZSH_THEME="agnoster"
-DEFAULT_USER='vlad' # Hide the "user@hostname" info prompt
-
 # Which plugins would you like to load?
 plugins=(
   colorize
@@ -22,8 +18,12 @@ plugins=(
   zsh-syntax-highlighting
 )
 
+# Set name of the theme to load
+export ZSH_THEME="agnoster"
+export DEFAULT_USER="$(whoami)" # Hide the "user@hostname" info prompt
+
 # Plugin settings
-ZSH_DOTENV_PROMPT=false
+export ZSH_DOTENV_PROMPT=false
 
 # Load oh-my-zsh
 # shellcheck disable=1090
@@ -58,6 +58,14 @@ zstyle ':bracketed-paste-magic' active-widgets '.self-*'
 # shellcheck disable=1090
 if [[ -s "${HOME}/.env" ]]; then
   . "${HOME}/.env"
+fi
+
+# set PATH so it include other standard locations
+if [[ -d /usr/local/bin ]]; then
+  PATH="/usr/local/bin:${PATH}"
+fi
+if [[ -d /usr/local/sbin ]]; then
+  PATH="/usr/local/sbin:${PATH}"
 fi
 
 # set PATH so it includes user's private bin if it exists
@@ -119,14 +127,21 @@ if command -v brew >/dev/null 2>&1; then
   fi
 
   # Python
-  alias python=/usr/local/bin/python3
-  alias pip=/usr/local/bin/pip3
+  __pythonbin_dir="${HOMEBREW_PREFIX}/opt/python/libexec/bin"
+  if [[ -d "$__pythonbin_dir" ]]; then
+    PATH="${__pythonbin_dir}:${PATH}"
+  fi
 
   # Other
-  PATH="/usr/local/bin:/usr/local/sbin:${PATH}"
-  PATH="${HOMEBREW_PREFIX}/opt/curl/bin:${PATH}"
-  PATH="${HOMEBREW_PREFIX}/opt/sqlite/bin:${PATH}"
-  PATH="${HOMEBREW_PREFIX}/opt/gettext/bin:${PATH}"
+  if [[ -d "${HOMEBREW_PREFIX}/opt/curl/bin" ]]; then
+    PATH="${HOMEBREW_PREFIX}/opt/curl/bin:${PATH}"
+  fi
+  if [[ -d "${HOMEBREW_PREFIX}/opt/sqlite/bin" ]]; then
+    PATH="${HOMEBREW_PREFIX}/opt/sqlite/bin:${PATH}"
+  fi
+  if [[ -d "${HOMEBREW_PREFIX}/opt/gettext/bin" ]]; then
+    PATH="${HOMEBREW_PREFIX}/opt/gettext/bin:${PATH}"
+  fi
 
   export PATH MANPATH
 fi
