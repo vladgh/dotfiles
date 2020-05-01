@@ -120,9 +120,10 @@ if command -v brew >/dev/null 2>&1; then
 
   # Add tab completion
   if [[ -d "${HOMEBREW_PREFIX}/share/zsh-completions" ]]; then
-  FPATH="$HOMEBREW_PREFIX"/share/zsh-completions:"$FPATH"
-  autoload -Uz compinit
-  compinit
+    FPATH="$HOMEBREW_PREFIX"/share/zsh-completions:"$FPATH"
+    autoload -Uz compinit
+    compinit
+  fi
 
   # GNU Core utilities
   __gnubin_dir="${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin"
