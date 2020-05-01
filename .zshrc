@@ -13,10 +13,16 @@ plugins=(
   python
   ruby
   rvm
-  tmux
-  zsh-autosuggestions
-  zsh-syntax-highlighting
 )
+if command -v tmux >/dev/null 2>&1; then
+  plugins+=( tmux )
+fi
+if [[ -d "${HOME}/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]]; then
+  plugins+=( zsh-autosuggestions )
+fi
+if [[ -d "${HOME}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]]; then
+  plugins+=( zsh-syntax-highlighting )
+fi
 
 # Set name of the theme to load
 export ZSH_THEME="agnoster"
@@ -111,6 +117,12 @@ fi
 # MacOS
 if command -v brew >/dev/null 2>&1; then
   HOMEBREW_PREFIX="$(brew --prefix)"
+
+  # Add tab completion
+  if [[ -d "${HOMEBREW_PREFIX}/share/zsh-completions" ]]; then
+  FPATH="$HOMEBREW_PREFIX"/share/zsh-completions:"$FPATH"
+  autoload -Uz compinit
+  compinit
 
   # GNU Core utilities
   __gnubin_dir="${HOMEBREW_PREFIX}/opt/coreutils/libexec/gnubin"

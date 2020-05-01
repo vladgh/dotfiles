@@ -145,7 +145,7 @@ fi
 if command -v brew >/dev/null 2>&1; then
   HOMEBREW_PREFIX="$(brew --prefix)"
 
-  # Add tab completion for many Bash commands
+  # Add tab completion
   # shellcheck disable=1090,1091
   if [[ -f "${HOMEBREW_PREFIX}/etc/bash_completion" ]]; then
     source "${HOMEBREW_PREFIX}/etc/bash_completion";
