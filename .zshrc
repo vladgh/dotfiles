@@ -163,6 +163,27 @@ fi
 export ANSIBLE_NOCOWS=1
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
+# Github
+if command -v hub >/dev/null 2>&1; then
+  eval "$(hub alias -s)"
+fi
+
+# Travis
+# shellcheck disable=1090
+if [[ -s "${HOME}/.travis/travis.sh" ]]; then
+  . "${HOME}/.travis/travis.sh"
+fi
+
+# Puppet
+if [[ -d /opt/puppetlabs/bin ]]; then
+  export PATH="${PATH}:/opt/puppetlabs/bin"
+fi
+
+# ACME Shell script
+if [[ -f "${HOME}/.acme.sh/acme.sh.env" ]]; then
+  . "${HOME}/.acme.sh/acme.sh.env"
+fi
+
 # Serverless
 # shellcheck disable=1091
 # tabtab source for serverless package
@@ -183,5 +204,16 @@ if [[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions
   . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.bash
 fi
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+# RVM
+# Make sure this is the last PATH variable change.
+if [[ -d "${HOME}/.rvm/bin" ]]; then
+  export PATH="${PATH}:${HOME}/.rvm/bin" # Add RVM to PATH for scripting
+fi
+# shellcheck disable=1090
+if [[ -s "${HOME}/.rvm/scripts/rvm" ]]; then
+  . "${HOME}/.rvm/scripts/rvm"
+fi
+# shellcheck disable=1090
+if [[ -r "${HOME}/.rvm/scripts/completion" ]]; then
+  . "${HOME}/.rvm/scripts/completion"
+fi

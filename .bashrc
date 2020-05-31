@@ -205,6 +205,10 @@ if [[ -s /etc/bash_completion.d/git-prompt ]] || [ -s /usr/local/etc/bash_comple
   export PROMPT_COMMAND='__git_ps1 "\[$(tput bold)$(tput setaf 2)\]\u\[$(tput setaf 7)\]@\[$(tput setaf 4)\]\h:\[$(tput setaf 6)\]\w\[$(tput sgr0)\]" " \[$(tput setaf 1)\]\${?#0}\[$(tput sgr0)\]\$ "'
 fi
 
+# Ansible
+export ANSIBLE_NOCOWS=1
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
 # Github
 if command -v hub >/dev/null 2>&1; then
   eval "$(hub alias -s)"
@@ -219,6 +223,11 @@ fi
 # Puppet
 if [[ -d /opt/puppetlabs/bin ]]; then
   export PATH="${PATH}:/opt/puppetlabs/bin"
+fi
+
+# ACME Shell script
+if [[ -f "${HOME}/.acme.sh/acme.sh.env" ]]; then
+  . "${HOME}/.acme.sh/acme.sh.env"
 fi
 
 # Serverless
@@ -241,13 +250,11 @@ if [[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions
   . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.bash
 fi
 
-# Ansible
-export ANSIBLE_NOCOWS=1
-export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
-
 # RVM
 # Make sure this is the last PATH variable change.
-export PATH="${PATH}:${HOME}/.rvm/bin" # Add RVM to PATH for scripting
+if [[ -d "${HOME}/.rvm/bin" ]]; then
+  export PATH="${PATH}:${HOME}/.rvm/bin" # Add RVM to PATH for scripting
+fi
 # shellcheck disable=1090
 if [[ -s "${HOME}/.rvm/scripts/rvm" ]]; then
   . "${HOME}/.rvm/scripts/rvm"
