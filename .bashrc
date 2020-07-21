@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
-#
 # ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
 
 # If not running interactively, don't do anything
 case $- in
@@ -75,31 +72,28 @@ unset color_prompt
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 if [[ -x /usr/bin/dircolors ]]; then
-  if test -r ~/.dircolors; then
+  if [[ -r ~/.dircolors ]]; then
     eval "$(dircolors -b ~/.dircolors)"
   else
     eval "$(dircolors -b)"
   fi
-  alias ls='ls --color=auto'
-  alias grep='grep --color=auto'
-  alias fgrep='fgrep --color=auto'
-  alias egrep='egrep --color=auto'
 fi
+alias ls='ls --color=auto'
+alias ll='ls -lahpF' # Ubuntu & Mac compatible
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 
 # Colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# Editor
-export VISUAL=vim
-export EDITOR=$VISUAL
-
-# Load environment variables
-# shellcheck disable=1090
-if [[ -s "${HOME}/.env" ]]; then
-  . "${HOME}/.env"
+# Set default editor
+if command -v vim >/dev/null 2>&1; then
+  export VISUAL=vim
+  export EDITOR=$VISUAL
 fi
 
-# set PATH so it include other standard locations
+# Set PATH to include other standard locations
 if [[ -d /usr/local/bin ]]; then
   PATH="/usr/local/bin:${PATH}"
 fi
@@ -107,7 +101,7 @@ if [[ -d /usr/local/sbin ]]; then
   PATH="/usr/local/sbin:${PATH}"
 fi
 
-# set PATH so it includes user's private bin if it exists
+# Set PATH to include user's private bin if it exists
 if [[ -d "${HOME}/.local/bin" ]] ; then
   PATH="${HOME}/.local/bin:${PATH}"
 fi
@@ -116,6 +110,23 @@ if [[ -d "${HOME}/.bin" ]] ; then
 fi
 if [[ -d "${HOME}/bin" ]] ; then
   PATH="${HOME}/bin:${PATH}"
+fi
+
+# Set PATH to include Ubuntu Snap packages
+if command -v snap >/dev/null 2>&1; then
+  export PATH="/snap/bin:${PATH}"
+fi
+
+# Load environment variables
+# shellcheck disable=1090
+if [[ -s "${HOME}/.env" ]]; then
+  . "${HOME}/.env"
+fi
+
+# Load personal configuration files
+# shellcheck disable=1090
+if [[ -s "${HOME}/.envrc" ]]; then
+  . "${HOME}/.envrc"
 fi
 
 # Load .functions
@@ -130,16 +141,7 @@ if [[ -s "${HOME}/.aliases" ]]; then
   . "${HOME}/.aliases"
 fi
 
-# Load personal configuration files
-# shellcheck disable=1090
-if [[ -s "${HOME}/.envrc" ]]; then
-  . "${HOME}/.envrc"
-fi
-
-# Ubuntu Snap packages
-if command -v snap >/dev/null 2>&1; then
-  export PATH="/snap/bin:${PATH}"
-fi
+# END .BASHRC_MINIMAL ##########################################################
 
 # MacOS
 if command -v brew >/dev/null 2>&1; then
@@ -206,8 +208,10 @@ if [[ -s /etc/bash_completion.d/git-prompt ]] || [ -s /usr/local/etc/bash_comple
 fi
 
 # Ansible
-export ANSIBLE_NOCOWS=1
-export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+if command -v ansible >/dev/null 2>&1; then
+  export ANSIBLE_NOCOWS=1
+  export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+fi
 
 # Github
 if command -v hub >/dev/null 2>&1; then

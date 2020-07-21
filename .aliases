@@ -5,8 +5,6 @@
 alias sudo='sudo ' # Allow aliases to work with sudo
 
 # Misc
-alias ls='ls --color=auto' # Needs newer ls
-alias ll='ls -lahpF' # Ubuntu & Mac compatible
 alias rmdbctrash="find . -name *\\ \\(*conflicted* -exec mv -v {} ~/.Trash/ \\;" # recursively move Dropbox conflicted files to Trash
 
 # Network

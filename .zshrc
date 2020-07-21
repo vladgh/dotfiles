@@ -60,13 +60,13 @@ setopt HIST_REDUCE_BLANKS
 # Fix slow paste from clipboard in ZSH (https://github.com/zsh-users/zsh-syntax-highlighting/issues/295)
 zstyle ':bracketed-paste-magic' active-widgets '.self-*'
 
-# Load environment variables
-# shellcheck disable=1090
-if [[ -s "${HOME}/.env" ]]; then
-  . "${HOME}/.env"
+# Set default editor
+if command -v vim >/dev/null 2>&1; then
+  export VISUAL=vim
+  export EDITOR=$VISUAL
 fi
 
-# set PATH so it include other standard locations
+# Set PATH to include  other standard locations
 if [[ -d /usr/local/bin ]]; then
   PATH="/usr/local/bin:${PATH}"
 fi
@@ -74,7 +74,7 @@ if [[ -d /usr/local/sbin ]]; then
   PATH="/usr/local/sbin:${PATH}"
 fi
 
-# set PATH so it includes user's private bin if it exists
+# Set PATH to include user's private bin if it exists
 if [[ -d "${HOME}/.local/bin" ]] ; then
   PATH="${HOME}/.local/bin:${PATH}"
 fi
@@ -83,6 +83,22 @@ if [[ -d "${HOME}/.bin" ]] ; then
 fi
 if [[ -d "${HOME}/bin" ]] ; then
   PATH="${HOME}/bin:${PATH}"
+fi
+
+# Set PATH to include Ubuntu Snap packages
+if command -v snap >/dev/null 2>&1; then
+  export PATH="/snap/bin:${PATH}"
+fi
+
+# Load environment variables
+# shellcheck disable=1090
+if [[ -s "${HOME}/.env" ]]; then
+  . "${HOME}/.env"
+fi
+
+# Load personal configuration files
+if [[ -s "${HOME}/.envrc" ]]; then
+  . "${HOME}/.envrc"
 fi
 
 # Load .functions
@@ -95,23 +111,6 @@ fi
 # shellcheck disable=1090
 if [[ -s "${HOME}/.aliases" ]]; then
   . "${HOME}/.aliases"
-fi
-
-# Load personal configuration files
-if [[ -s "${HOME}/.envrc" ]]; then
-  . "${HOME}/.envrc"
-fi
-
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='code'
-fi
-
-# Ubuntu Snap packages
-if command -v snap >/dev/null 2>&1; then
-  export PATH="/snap/bin:${PATH}"
 fi
 
 # MacOS
