@@ -1,27 +1,24 @@
 # Vlad's dotfiles
 
-## Installation
+## Overview
 
-### Dotfiles
+Vlad's Dotfiles
+
+## Installation
 
 ```SH
 git clone https://github.com/vladgh/dotfiles.git ~/dotfiles
 ~/dotfiles/install.sh
 ```
 
-### Secrets
-
-Stored in an AWS S3 bucket (requires [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/reference/))
-
-```SH
-AWS_ACCESS_KEY_ID=ABCD AWS_SECRET_ACCESS_KEY=1234 SECRETS_S3_PATH=s3://myBucket SECRETS_LOCAL_PATH=~/mySecrets dotfiles/install.sh
-```
-
 ## Contribute
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) file.
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-007ba7.svg)](https://www.contributor-covenant.org/version/2/0/code_of_conduct.html)
+
+Contributions are always welcome! Please read the [contribution guidelines](.github/CONTRIBUTING.md) and the [code of conduct](.github/CODE_OF_CONDUCT.md).
 
 ## License
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 Licensed under the Apache License, Version 2.0.
 See [LICENSE](LICENSE) file.
