@@ -18,6 +18,7 @@ git clone https://github.com/vladgh/dotfiles.git ~/dotfiles
 Contributions are always welcome! Please read the [contribution guidelines](.github/CONTRIBUTING.md) and the [code of conduct](.github/CODE_OF_CONDUCT.md).
 
 ## License
+
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 Licensed under the Apache License, Version 2.0.
