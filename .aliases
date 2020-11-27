@@ -4,6 +4,10 @@
 # Sudo
 alias sudo='sudo ' # Allow aliases to work with sudo
 
+# Ansible
+alias agx='ansible-galaxy install --force --role-file requirements.yml'
+alias apb='ansible-playbook site.yml'
+
 # Misc
 alias rmdbctrash="find . -name *\\ \\(*conflicted* -exec mv -v {} ~/.Trash/ \\;" # recursively move Dropbox conflicted files to Trash
 
