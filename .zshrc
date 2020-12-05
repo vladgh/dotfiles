@@ -139,9 +139,13 @@ if command -v brew >/dev/null 2>&1; then
   fi
 
   # Python
-  __pythonbin_dir="${HOMEBREW_PREFIX}/opt/python/libexec/bin"
-  if [[ -d "$__pythonbin_dir" ]]; then
-    PATH="${__pythonbin_dir}:${PATH}"
+  __python_bin_dir="${HOMEBREW_PREFIX}/opt/python/libexec/bin"
+  if [[ -d "$__python_bin_dir" ]]; then
+    PATH="${__python_bin_dir}:${PATH}"
+  fi
+  __python_site_pkg_bin_dir="$(python -m site --user-base)/bin"
+  if [[ -d "$__python_site_pkg_bin_dir" ]]; then
+    PATH="${__python_site_pkg_bin_dir}:${PATH}"
   fi
 
   # Other
