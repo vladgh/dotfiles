@@ -5,7 +5,7 @@
 
 [credential]
   username = vladgh
-  helper = cache --timeout=43200
+  helper = store
 
 [github]
   user = vladgh
