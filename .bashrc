@@ -125,8 +125,8 @@ fi
 
 # Load personal configuration files
 # shellcheck disable=1090
-if [[ -s "${HOME}/.envrc" ]]; then
-  . "${HOME}/.envrc"
+if [[ -s "${HOME}/.localrc" ]]; then
+  . "${HOME}/.localrc"
 fi
 
 # Load .functions
