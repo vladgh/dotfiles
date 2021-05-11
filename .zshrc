@@ -97,8 +97,8 @@ if [[ -s "${HOME}/.env" ]]; then
 fi
 
 # Load personal configuration files
-if [[ -s "${HOME}/.envrc" ]]; then
-  . "${HOME}/.envrc"
+if [[ -s "${HOME}/.localrc" ]]; then
+  . "${HOME}/.localrc"
 fi
 
 # Load .functions
