@@ -4,10 +4,18 @@
 # Sudo
 alias sudo='sudo ' # Allow aliases to work with sudo
 
+# Colorized commands
+alias ls='ls --color=auto'
+alias ll='ls -lahpF' # Ubuntu & Mac compatible
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
 # Ansible
-alias agx='ansible-galaxy install --force --role-file requirements.yml'
+alias agx='ansible-galaxy install -vfr requirements.yml'
 alias apb='ansible-playbook site.yml'
 alias ave='ansible-vault edit'
+alias cav='EDITOR="code --wait" ansible-vault'
 
 # Misc
 alias rmdbctrash="find . -name *\\ \\(*conflicted* -exec mv -v {} ~/.Trash/ \\;" # recursively move Dropbox conflicted files to Trash
@@ -33,7 +41,7 @@ alias be='bundle exec'
 alias bup='bundle update'
 alias ber='bundle exec rake'
 
-# DOCKER
+# Docker
 alias dl='docker ps -lq'
 alias dlc='docker ps'
 alias dla='docker ps -a'
@@ -41,6 +49,10 @@ alias dli='docker images'
 alias drm='docker system prune -f'
 alias dke='docker exec -it'
 alias dru='docker run -it --rm -v $(pwd):/docker ubuntu bash'
+
+# Terraform
+alias tpl='terraform plan'
+alias taa='terraform apply -auto-approve'
 
 # Pass options to free
 alias meminfo='free -m -l -t'

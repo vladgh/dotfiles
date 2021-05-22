@@ -1,22 +1,10 @@
+#!/usr/bin/env bash
 # Bash Auto Complete ##########################################################
 
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" \
   -W "$(grep "^Host" ~/.ssh/config | \
   grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
-
-# Docker for Mac
-if [[ -d /usr/local/etc/bash_completion.d ]]; then
-  (
-    cd /usr/local/etc/bash_completion.d || true
-    [[ ! -L docker.bash-completion ]] && \
-      ln -s /Applications/Docker.app/Contents/Resources/etc/docker.bash-completion
-    [[ ! -L docker-machine.bash-completion ]] && \
-      ln -s /Applications/Docker.app/Contents/Resources/etc/docker-machine.bash-completion
-    [[ ! -L docker-compose.bash-completion ]] && \
-      ln -s /Applications/Docker.app/Contents/Resources/etc/docker-compose.bash-completion
-  )
-fi
 
 # AWS
 if command -v aws >/dev/null 2>&1; then
@@ -31,4 +19,20 @@ fi
 # Vault
 if command -v vault >/dev/null 2>&1; then
   complete -C /usr/local/bin/vault vault
+fi
+
+# OSX Only
+if [[ $(uname) == Darwin ]]; then
+  # Docker for Mac
+  if [[ -d /usr/local/etc/bash_completion.d ]]; then
+    (
+      cd /usr/local/etc/bash_completion.d || true
+      [[ ! -L docker.bash-completion ]] && \
+        ln -s /Applications/Docker.app/Contents/Resources/etc/docker.bash-completion
+      [[ ! -L docker-machine.bash-completion ]] && \
+        ln -s /Applications/Docker.app/Contents/Resources/etc/docker-machine.bash-completion
+      [[ ! -L docker-compose.bash-completion ]] && \
+        ln -s /Applications/Docker.app/Contents/Resources/etc/docker-compose.bash-completion
+    )
+  fi
 fi
