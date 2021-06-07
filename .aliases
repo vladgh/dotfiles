@@ -13,9 +13,8 @@ alias egrep='egrep --color=auto'
 
 # Ansible
 alias agx='ansible-galaxy install -vfr requirements.yml'
-alias apb='ansible-playbook site.yml'
+alias apb='ansible-playbook'
 alias ave='ansible-vault edit'
-alias cav='EDITOR="code --wait" ansible-vault'
 
 # Misc
 alias rmdbctrash="find . -name *\\ \\(*conflicted* -exec mv -v {} ~/.Trash/ \\;" # recursively move Dropbox conflicted files to Trash
