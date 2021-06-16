@@ -122,6 +122,11 @@ if [[ -s "${HOME}/.travis/travis.sh" ]]; then
   . "${HOME}/.travis/travis.sh"
 fi
 
+# GO
+if [[ -d /usr/local/go/bin ]]; then
+  export PATH="/usr/local/go/bin:${PATH}"
+fi
+
 # Puppet
 if [[ -d /opt/puppetlabs/bin ]]; then
   export PATH="${PATH}:/opt/puppetlabs/bin"
