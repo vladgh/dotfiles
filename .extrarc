@@ -39,11 +39,6 @@ if [[ -s "${HOME}/.env" ]]; then
   . "${HOME}/.env"
 fi
 
-# Load personal configuration files
-if [[ -s "${HOME}/.localrc" ]]; then
-  . "${HOME}/.localrc"
-fi
-
 # Load .functions
 # shellcheck disable=1090
 if [[ -s "${HOME}/.functions" ]]; then
