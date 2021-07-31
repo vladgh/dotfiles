@@ -128,20 +128,25 @@ dotfiles_install_vim_plugins(){
   fi
 }
 
-# Extra Oh My Zsh plugins
-dotfiles_install_oh_my_zsh_plugins(){
+# Extra Oh My Zsh plugins and themes
+dotfiles_install_oh_my_zsh_plugins_themes(){
   if [[ -d "${HOME}/.oh-my-zsh/custom/plugins" ]]; then
     if [[ -d "${HOME}/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]]; then
       ( cd "${HOME}/.oh-my-zsh/custom/plugins/zsh-autosuggestions" && git fetch && git reset --hard origin/master )
     else
-      git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+      git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
     fi
     if [[ -d "${HOME}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]]; then
       ( cd "${HOME}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" && git fetch && git reset --hard origin/master )
     else
-      git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+      git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
     fi
-    e_ok 'Installed/Updated Oh My Zsh plugins'
+    if [[ -d "${HOME}/.oh-my-zsh/custom/themes/powerlevel10k" ]]; then
+      ( cd "${HOME}/.oh-my-zsh/custom/themes/powerlevel10k" && git fetch && git reset --hard origin/master )
+    else
+      git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
+    fi
+    e_ok 'Installed/Updated Oh My Zsh plugins and themes'
   fi
 }
 
@@ -151,7 +156,7 @@ main(){
   dotfiles_permissions
   dotfiles_delete_broken_symlinks
   dotfiles_install_vim_plugins
-  dotfiles_install_oh_my_zsh_plugins
+  dotfiles_install_oh_my_zsh_plugins_themes
 }
 
 main "$@"

@@ -24,12 +24,26 @@ if [[ -d "${HOME}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]]; then
   plugins+=( zsh-syntax-highlighting )
 fi
 
-# Set name of the theme to load
-export ZSH_THEME="agnoster"
-export DEFAULT_USER="$(whoami)" # Hide the "user@hostname" info prompt
-
 # Plugin settings
 export ZSH_DOTENV_PROMPT=false
+
+# Themes
+if [[ -d "${HOME}/.oh-my-zsh/custom/themes/powerlevel10k" ]]; then
+  # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+  # Initialization code that may require console input (password prompts, [y/n]
+  # confirmations, etc.) must go above this block; everything else may go below.
+  if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+  fi
+  export ZSH_THEME='powerlevel10k/powerlevel10k'
+  # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+else
+  export ZSH_THEME='robbyrussell'
+fi
+
+# Hide the "user@hostname" info prompt
+export DEFAULT_USER="$(whoami)"
 
 # Load oh-my-zsh
 # shellcheck disable=1090
