@@ -45,6 +45,9 @@ fi
 # Hide the "user@hostname" info prompt
 export DEFAULT_USER="$(whoami)"
 
+# Automatically upgrade oh-my-zsh without prompting
+DISABLE_UPDATE_PROMPT=true
+
 # Load oh-my-zsh
 # shellcheck disable=1090
 if [[ -s "$ZSH/oh-my-zsh.sh" ]]; then
