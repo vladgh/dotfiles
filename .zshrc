@@ -9,7 +9,7 @@ plugins=(
   dotenv
   git
   github
-  osx
+  macos
   python
   ruby
   rvm
