@@ -128,7 +128,6 @@ dotfiles_install_vim_plugins(){
   fi
 }
 
-
 # Script's logic
 main(){
   dotfiles_install
