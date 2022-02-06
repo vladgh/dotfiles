@@ -71,3 +71,7 @@
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process
   required = true
+
+# Optional includes (https://git-scm.com/docs/git-config#_conditional_includes)
+[includeIf "gitdir:~/work/"]
+  path = ~/.work.gitconfig
