@@ -31,6 +31,9 @@ alias ip='ip -c'
 alias myip='dig +short myip.opendns.com. A @208.67.222.222'
 alias myip6='dig +short myip.opendns.com. AAAA @2620:119:35::35'
 
+# List disk usage for a file or folder in human format [defaults to the current working directory unless file/folder path specified]
+alias dff='du -sh'
+
 # Temp Dir
 alias tmp='cd $(mktemp -d 2>/dev/null || mktemp -d -t "mytmpdir")'
 alias tmpf='vim $(mktemp 2>/dev/null || mktemp -t "mytmpfile")'
@@ -69,7 +72,7 @@ alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
 
 # UBUNTU ALIASES
 if [[ "$(lsb_release --id --short 2>/dev/null)" == Ubuntu ]]; then
-  alias vupdt='sudo apt-get update && sudo apt-get -qy dist-upgrade && sudo apt-get -y autoremove --purge && sudo apt-get -qy clean'
+  alias updt='sudo apt-get update && sudo apt-get -qy dist-upgrade && sudo apt-get -y autoremove --purge && sudo apt-get -qy clean'
 fi
 
 # OSX ALIASES
