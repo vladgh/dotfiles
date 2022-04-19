@@ -7,6 +7,8 @@ export ZSH="${HOME}/.oh-my-zsh"
 plugins=(
   colorize
   dotenv
+  docker
+  docker-compose
   git
   github
   macos
