@@ -15,7 +15,8 @@ alias egrep='egrep --color=auto'
 alias pnv='python3 -m venv venv && source venv/bin/activate'
 
 # Ansible
-alias agx='ansible-galaxy install --verbose --force --role-file requirements.yml && ansible-galaxy install --verbose --force --role-file ~/.ansible/collections/ansible_collections/vladgh/system/requirements.yml'
+alias agx='ansible-galaxy install --verbose --force --role-file requirements.yml'
+alias agxx='agx && ansible-galaxy install --verbose --force --role-file ~/.ansible/collections/ansible_collections/vladgh/system/requirements.yml'
 alias apb='ansible-playbook'
 alias ave='ansible-vault edit'
 
