@@ -1,0 +1,5 @@
+---
+use_default_rules: true
+verbosity: 1
+skip_list:
+  - skip_this_tag
