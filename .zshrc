@@ -19,11 +19,11 @@ setopt HIST_REDUCE_BLANKS
 setopt NO_CASE_GLOB
 
 # Plugins
-if [[ -s "${HOME}/zsh-autosuggestions.zsh" ]]; then
-  source "${HOME}/zsh-autosuggestions/zsh-autosuggestions.zsh"
+if [[ -s "${HOME}/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
+  source "${HOME}/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 fi
-if [[ -s "${HOME}/zsh-syntax-highlighting.zsh" ]]; then
-  source "${HOME}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+if [[ -s "${HOME}/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
+  source "${HOME}/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
 
 # Load extra configurarions
