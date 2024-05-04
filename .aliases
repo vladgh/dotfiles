@@ -18,18 +18,6 @@ alias pnv='python3 -m venv venv && source venv/bin/activate'
 alias apb='ansible-playbook'
 alias ave='ansible-vault edit'
 
-# Misc
-alias rmdbctrash="find . -name *\\ \\(*conflicted* -exec mv -v {} ~/.Trash/ \\;" # recursively move Dropbox conflicted files to Trash
-
-# RSync
-alias rsn='rsync -avh --progress'
-alias srsn='rsync -avh --progress --rsync-path="sudo rsync"'
-
-# Network
-alias ip='ip -c'
-alias myip='dig +short myip.opendns.com. A @208.67.222.222'
-alias myip6='dig +short myip.opendns.com. AAAA @2620:119:35::35'
-
 # List disk usage for a file or folder in human format [defaults to the current working directory unless file/folder path specified]
 alias dff='du -sh'
 
@@ -39,24 +27,6 @@ alias tmpf='vim $(mktemp 2>/dev/null || mktemp -t "mytmpfile")'
 
 # Generate Salt
 alias genSalt='openssl rand -base64 32'
-
-# RUBY Bundle
-alias be='bundle exec'
-alias bup='bundle update'
-alias ber='bundle exec rake'
-
-# Docker
-alias dl='docker ps -lq'
-alias dlc='docker ps'
-alias dla='docker ps -a'
-alias dli='docker images'
-alias drm='docker system prune -f'
-alias dke='docker exec -it'
-alias dru='docker run -it --rm -v $(pwd):/docker ubuntu bash'
-
-# Terraform
-alias tpl='terraform plan'
-alias taa='terraform apply -auto-approve'
 
 # Pass options to free
 alias meminfo='free -m -l -t'
@@ -69,10 +39,14 @@ alias psmem10='ps auxf | sort -nr -k 4 | head -10'
 alias pscpu='ps auxf | sort -nr -k 3'
 alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
 
-# UBUNTU ALIASES
-if [[ "$(lsb_release --id --short 2>/dev/null)" == Ubuntu ]]; then
-  alias updt='sudo apt-get update && sudo apt-get -qy dist-upgrade && sudo apt-get -y autoremove --purge && sudo apt-get -qy clean'
-fi
+# Docker
+alias dl='docker ps -lq'
+alias dlc='docker ps'
+alias dla='docker ps -a'
+alias dli='docker images'
+alias drm='docker system prune -f'
+alias dke='docker exec -it'
+alias dru='docker run -it --rm -v $(pwd):/docker ubuntu bash'
 
 # OSX ALIASES
 if [[ $(uname) == Darwin ]]; then
@@ -80,19 +54,6 @@ if [[ $(uname) == Darwin ]]; then
   alias dnsflush='dscacheutil -flushcache'
   alias dnsreset='sudo killall -HUP mDNSResponder && echo macOS DNS Cache Reset'
 
-  # Restart CUPS
-  alias restart_cups='sudo launchctl stop org.cups.cupsd; sudo launchctl start org.cups.cupsd'
-
-  # Suspend
-  alias away='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
-
-  # Show/hide hidden files in Finder
-  alias show='defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder'
-  alias hide='defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder'
-
   # Recursively delete `.DS_Store` files
   alias cleanup="find . -type f \( -name '._*' -o -name '*.DS_*' \) -ls -delete"
-
-  # Misc
-  alias pubkey="more ~/.ssh/id_ed25519.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
 fi

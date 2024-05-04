@@ -4,17 +4,13 @@
   name = Vlad
   email = vlad@ghn.me
   # signingkey = FCF51557
-  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE0yyqRUbBGOW9PcYyuaUMaRi/EFwL59E3wwMn5dJAKQ
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE0yyqRUbBGOW9PcYyuaUMaRi/EFwL59E3wwMn5dJAKQ
 
 [gpg]
   format = ssh
 
 [gpg "ssh"]
   program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
-
-# [credential]
-#   username = vladgh
-#   helper = store
 
 [github]
   user = vladgh
