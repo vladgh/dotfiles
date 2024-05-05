@@ -73,6 +73,14 @@ if [[ -s "${HOME}/.oh-my-zsh/oh-my-zsh.sh" ]]; then
   . "${HOME}/.oh-my-zsh/oh-my-zsh.sh"
 fi
 
+# Homebrew
+if command -v brew >/dev/null 2>&1; then
+  # Python
+  if [[ -d "$(brew --prefix python)/libexec/bin" ]]; then
+    export PATH="$(brew --prefix python)/libexec/bin:${PATH}"
+  fi
+fi
+
 # Set PATH to include  other standard locations
 if [[ -d /usr/local/bin ]]; then
   PATH="/usr/local/bin:${PATH}"
