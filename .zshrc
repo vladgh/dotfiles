@@ -52,20 +52,16 @@ setopt NO_CASE_GLOB
 
 # history
 HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
-# share history across multiple zsh sessions
-setopt SHARE_HISTORY
-# append to history
-setopt APPEND_HISTORY
-# adds commands as they are typed, not at shell exit
-setopt INC_APPEND_HISTORY
-# expire duplicates first
-setopt HIST_EXPIRE_DUPS_FIRST
-# do not store duplications
-setopt HIST_IGNORE_DUPS
-#ignore duplicates when searching
-setopt HIST_FIND_NO_DUPS
-# removes blank lines from history
-setopt HIST_REDUCE_BLANKS
+setopt EXTENDED_HISTORY         # record timestamp of command in HISTFILE
+setopt SHARE_HISTORY            # share history across multiple zsh sessions
+setopt APPEND_HISTORY           # append to history
+setopt INC_APPEND_HISTORY       # adds commands as they are typed, not at shell exit
+setopt HIST_EXPIRE_DUPS_FIRST   # expire duplicates first
+setopt HIST_IGNORE_DUPS         # do not store duplications
+setopt HIST_IGNORE_SPACE        # ignore commands that start with space
+setopt HIST_FIND_NO_DUPS        # ignore duplicates when searching
+setopt HIST_REDUCE_BLANKS       # removes blank lines from history
+setopt HIST_VERIFY              # show command with history expansion to user before running it
 
 # Load oh-my-zsh
 # shellcheck disable=1090
