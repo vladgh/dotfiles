@@ -14,6 +14,7 @@ plugins=(
   github
   macos
   python
+  systemd
 )
 if command -v tmux >/dev/null 2>&1; then
   plugins+=( tmux )

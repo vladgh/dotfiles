@@ -46,7 +46,6 @@
 [core]
   autocrlf = false
   excludesfile = ~/.gitignore.global
-  pager = diff-so-fancy | less --tabs=2 -RFX
 
 [color]
   ui = auto
@@ -55,9 +54,6 @@
   branch = auto
   interactive = auto
   grep = auto
-
-[interactive]
-  diffFilter = diff-so-fancy
 
 [pull]
   rebase = false
