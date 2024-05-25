@@ -12,7 +12,6 @@ DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 DOTFILES_LIST=(
   .zprofile
   .zshrc
-  .p10k.zsh
   .aliases
   .functions
   .tmux.conf

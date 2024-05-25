@@ -26,21 +26,6 @@ if [[ -d "${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting" ]]; then
   plugins+=( zsh-syntax-highlighting )
 fi
 
-# Themes
-if [[ -d "${ZSH_CUSTOM}/themes/powerlevel10k" ]]; then
-  export ZSH_THEME='powerlevel10k/powerlevel10k'
-  # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-  # Initialization code that may require console input (password prompts, [y/n]
-  # confirmations, etc.) must go above this block; everything else may go below.
-  if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-  fi
-  # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-else
-  export ZSH_THEME='robbyrussell'
-fi
-
 # Hide the "user@hostname" info prompt
 export DEFAULT_USER="$(whoami)"
 # Automatically upgrade oh-my-zsh without prompting
@@ -93,6 +78,20 @@ if [[ -d "${HOME}/.bin" ]] ; then
 fi
 if [[ -d "${HOME}/bin" ]] ; then
   PATH="${HOME}/bin:${PATH}"
+fi
+
+# Load starship prompt
+if command -v starship >/dev/null 2>&1; then
+  eval "$(starship init zsh)"
+fi
+
+# Set default editor
+if command -v code >/dev/null 2>&1; then
+  export VISUAL='code --wait'
+  export EDITOR=$VISUAL
+elif command -v vim >/dev/null 2>&1; then
+  export VISUAL='vim'
+  export EDITOR=$VISUAL
 fi
 
 # Load environment variables
