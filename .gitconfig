@@ -3,6 +3,9 @@
   email = vlad@ghn.me
 	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPwZUfOsgyoWSBnfwIh+8dEIeeHk21staKptIGqIWCeI
 
+[credential]
+  helper = osxkeychain
+
 [gpg]
   format = ssh
 
