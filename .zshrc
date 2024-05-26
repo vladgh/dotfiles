@@ -85,6 +85,11 @@ if command -v starship >/dev/null 2>&1; then
   eval "$(starship init zsh)"
 fi
 
+# Load iTerm2 shell integration
+if [[ -s "${HOME}/.iterm2_shell_integration.zsh" ]]; then
+  source "${HOME}/.iterm2_shell_integration.zsh"
+fi
+
 # Set default editor
 if command -v code >/dev/null 2>&1; then
   export VISUAL='code --wait'
@@ -111,3 +116,5 @@ fi
 if [[ -s "${HOME}/.aliases" ]]; then
   . "${HOME}/.aliases"
 fi
+
+
