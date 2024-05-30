@@ -116,5 +116,3 @@ fi
 if [[ -s "${HOME}/.aliases" ]]; then
   . "${HOME}/.aliases"
 fi
-
-
