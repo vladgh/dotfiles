@@ -11,9 +11,6 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-# Python
-alias pnv='python3 -m venv venv && source venv/bin/activate'
-
 # Ansible
 alias apb='ansible-playbook'
 alias ave='ansible-vault edit'

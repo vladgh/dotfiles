@@ -29,7 +29,7 @@ fi
 # Hide the "user@hostname" info prompt
 export DEFAULT_USER="$(whoami)"
 # Automatically upgrade oh-my-zsh without prompting
-DISABLE_UPDATE_PROMPT=true
+export DISABLE_UPDATE_PROMPT=true
 # Plugin settings
 export ZSH_DOTENV_PROMPT=false
 
