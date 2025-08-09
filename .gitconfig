@@ -1,7 +1,7 @@
 [user]
   name = Vlad
   email = vlad@ghn.me
-	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPwZUfOsgyoWSBnfwIh+8dEIeeHk21staKptIGqIWCeI
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC93Mlaj5sIvso7lWISev5lKEvpbOODdMBJrkMmfu0jm
 
 [credential]
   helper = osxkeychain
