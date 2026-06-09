@@ -33,6 +33,13 @@
 # # Plugin settings
 # export ZSH_DOTENV_PROMPT=false
 
+# Prompt
+PROMPT='%F{blue}%1~%f %F{green}❯%f '
+
+# Minimal ZSH configuration
+setopt autocd              # cd by typing directory name
+setopt interactive_comments # Allow comments in interactive shell
+
 # case-insensitive globbing
 setopt NO_CASE_GLOB
 
@@ -107,8 +114,13 @@ fi
 
 # Load DEV environment variables
 # shellcheck disable=1090
-if [[ -s /Users/vlad/Dev/.env ]]; then
-  . /Users/vlad/Dev/.env
+if [[ -s "${HOME}/Dev/.env" ]]; then
+  . "${HOME}/Dev/.env"
+fi
+
+# Activate Dev VENV
+if [[ -d "${HOME}/Dev/.venv" ]]; then
+  . "${HOME}/Dev/.venv/bin/activate"
 fi
 
 # Load .functions
@@ -122,3 +134,8 @@ fi
 if [[ -s "${HOME}/.aliases" ]]; then
   . "${HOME}/.aliases"
 fi
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/vlad/.cache/lm-studio/bin"
+# End of LM Studio CLI section
+
