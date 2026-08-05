@@ -1,41 +1,5 @@
 #!/usr/bin/env zsh
 
-# # Path to your oh-my-zsh installation.
-# export ZSH="${HOME}/.oh-my-zsh"
-
-# # Which plugins would you like to load?
-# plugins=(
-#   colorize
-#   ansible
-#   dotenv
-#   docker
-#   docker-compose
-#   git
-#   github
-#   macos
-#   python
-#   systemd
-# )
-# if command -v tmux >/dev/null 2>&1; then
-#   plugins+=( tmux )
-# fi
-# if [[ -d "${ZSH_CUSTOM}/plugins/zsh-autosuggestions" ]]; then
-#   plugins+=( zsh-autosuggestions )
-# fi
-# if [[ -d "${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting" ]]; then
-#   plugins+=( zsh-syntax-highlighting )
-# fi
-
-# # Hide the "user@hostname" info prompt
-# export DEFAULT_USER="$(whoami)"
-# # Automatically upgrade oh-my-zsh without prompting
-# export DISABLE_UPDATE_PROMPT=true
-# # Plugin settings
-# export ZSH_DOTENV_PROMPT=false
-
-# Prompt
-PROMPT='%F{blue}%1~%f %F{green}❯%f '
-
 # Minimal ZSH configuration
 setopt autocd              # cd by typing directory name
 setopt interactive_comments # Allow comments in interactive shell
@@ -55,12 +19,6 @@ setopt HIST_IGNORE_SPACE        # ignore commands that start with space
 setopt HIST_FIND_NO_DUPS        # ignore duplicates when searching
 setopt HIST_REDUCE_BLANKS       # removes blank lines from history
 setopt HIST_VERIFY              # show command with history expansion to user before running it
-
-# # Load oh-my-zsh
-# # shellcheck disable=1090
-# if [[ -s "${HOME}/.oh-my-zsh/oh-my-zsh.sh" ]]; then
-#   . "${HOME}/.oh-my-zsh/oh-my-zsh.sh"
-# fi
 
 # Homebrew
 if command -v brew >/dev/null 2>&1; then
@@ -87,15 +45,10 @@ if [[ -d "${HOME}/bin" ]] ; then
   PATH="${HOME}/bin:${PATH}"
 fi
 
-# # Load starship prompt
-# if command -v starship >/dev/null 2>&1; then
-#   eval "$(starship init zsh)"
-# fi
-
-# # Load iTerm2 shell integration
-# if [[ -s "${HOME}/.iterm2_shell_integration.zsh" ]]; then
-#   source "${HOME}/.iterm2_shell_integration.zsh"
-# fi
+# Load Starship prompt
+if command -v starship >/dev/null 2>&1; then
+  eval "$(starship init zsh)"
+fi
 
 # Set default editor
 if command -v code >/dev/null 2>&1; then
@@ -118,7 +71,7 @@ if [[ -s "${HOME}/Dev/.env" ]]; then
   . "${HOME}/Dev/.env"
 fi
 
-# Activate Dev VENV
+# Activate Dev Python VENV
 if [[ -d "${HOME}/Dev/.venv" ]]; then
   . "${HOME}/Dev/.venv/bin/activate"
 fi
@@ -138,4 +91,3 @@ fi
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/vlad/.cache/lm-studio/bin"
 # End of LM Studio CLI section
-
